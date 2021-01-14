@@ -6,7 +6,7 @@ Before you submit your project, modify the following table to include everyone's
 | :------------------------- |:------------------:|
 | Anthony Huang | [Nycarus](https://github.com/Nycarus) |
 | Aron-Seth Cohen | [SethCohen](https://github.com/SethCohen) |
-| <first_name3> <last_name3> | <github_username3> |
+| Cole Mollica  | [coleman2247](https://github.com/coleman2246)|
 | <first_name4> <last_name4> | <github_username4> |
 | <first_name5> <last_name5> | <github_username5> |
 
