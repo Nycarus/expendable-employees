@@ -7,7 +7,7 @@ Before you submit your project, modify the following table to include everyone's
 | Anthony Huang | [Nycarus](https://github.com/Nycarus) |
 | Aron-Seth Cohen | [SethCohen](https://github.com/SethCohen) |
 | Cole Mollica  | [coleman2246](https://github.com/coleman2246)|
-| <first_name4> <last_name4> | <github_username4> |
+| John Nemec | [ZanCal](https://github.com/ZanCal) |
 | <first_name5> <last_name5> | <github_username5> |
 
 _**Note:** You can delete the unused rows from the table._
