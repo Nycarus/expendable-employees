@@ -8,7 +8,7 @@ Before you submit your project, modify the following table to include everyone's
 | Aron-Seth Cohen | [SethCohen](https://github.com/SethCohen) |
 | Cole Mollica  | [coleman2246](https://github.com/coleman2246)|
 | John Nemec | [ZanCal](https://github.com/ZanCal) |
-| <first_name5> <last_name5> | <github_username5> |
+| Kevin Chandra | [Sclatch](https://github.com/Sclatch) |
 
 _**Note:** You can delete the unused rows from the table._
 
