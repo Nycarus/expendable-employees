@@ -25,8 +25,14 @@ List of tasks specific to our project.
 
 Tasks will get added here as each of the general tasks are worked on 
 
-| Name | Relevant General Task | Description | Status | Person | 
-|:---- |:---------------------:|:-----------:|:------:|:------:|
-|Landing Page| SVG and HTML & CSS and CSS frameworks| First page person sees before they log in| Protyping | Everyone |
-|Home Page| SVG and HTML & CSS and CSS frameworks | The first page a person sees after they log in | In Progress | John |
-|Login Page| ??? | Get user credentials, verify, send to employee or manager | Not Started | Not Set| 
+| Name |  Description | Status | Person | 
+|:---- |:-----------:|:------:|:------:|
+|Landing Page| First page person sees before they log in| Protyping | Everyone |
+|Login Page| Get user credentials, verify, send to employee or manager | Not Started | Not Set | 
+|Employee Home Page |The first page an employee sees after they log in | In Progress | John |
+|Employee Payment Info | Money Stuff | Not Started | Not Set |
+|Employee Personal Info | Privacy Stuff | Not Started | Not Set |
+|Employee Employment agreement details | Contract Stuff | Not Started | Not Set |
+|Employee Calendar | Schedule Stuff | Not Started | Not Set |
+|Employee DMs | Communication Stuff | Not Started | Not Set |
+|Manager Home Page | The first page a manager sees after they log in | Not Started | Not Set |
