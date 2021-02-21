@@ -28,3 +28,4 @@ Tasks will get added here as each of the general tasks are worked on
 | Name | Relevant General Task | Description | Status | Person | 
 |:---- |:---------------------:|:-----------:|:------:|:------:|
 |Home Page| SVG and HTML & CSS and CSS frameworks | The first page a person sees after they log in | In Progress | John |
+|Login Page| ??? | Get user credentials, verify, send to employee or manager | Not Started | Not Set| 
