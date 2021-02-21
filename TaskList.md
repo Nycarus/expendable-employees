@@ -31,7 +31,7 @@ Tasks will get added here as each of the general tasks are worked on
 |Login Page| Get user credentials, verify, send to employee or manager | Prototyping | Everyone | 
 |Register Page| Copy of login page | Prototyping | Everyone | 
 |Reset Password | If they can't remember their password, reset it | Protoyping | Cole? | 
-|Employee Home Page |The first page an employee sees after they log in | In Progress | John |
+|Dashboard | The things people see after they log in | In Progress | John and Aron |
 |Employee Payment Info | Money Stuff | Not Started | Not Set |
 |Employee Personal Info | Privacy Stuff | Not Started | Not Set |
 |Employee Employment agreement details | Contract Stuff | Not Started | Not Set |
