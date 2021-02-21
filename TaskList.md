@@ -27,8 +27,10 @@ Tasks will get added here as each of the general tasks are worked on
 
 | Name |  Description | Status | Person | 
 |:---- |:-----------:|:------:|:------:|
-|Landing Page| First page person sees before they log in| Protyping | Everyone |
-|Login Page| Get user credentials, verify, send to employee or manager | Not Started | Not Set | 
+|Landing Page| First page person sees before they log in| Prototyping | Everyone |
+|Login Page| Get user credentials, verify, send to employee or manager | Prototyping | Everyone | 
+|Register Page| Copy of login page | Prototyping | Everyone | 
+|Reset Password | If they can't remember their password, reset it | Protoyping | Cole | 
 |Employee Home Page |The first page an employee sees after they log in | In Progress | John |
 |Employee Payment Info | Money Stuff | Not Started | Not Set |
 |Employee Personal Info | Privacy Stuff | Not Started | Not Set |
@@ -36,3 +38,4 @@ Tasks will get added here as each of the general tasks are worked on
 |Employee Calendar | Schedule Stuff | Not Started | Not Set |
 |Employee DMs | Communication Stuff | Not Started | Not Set |
 |Manager Home Page | The first page a manager sees after they log in | Not Started | Not Set |
+
