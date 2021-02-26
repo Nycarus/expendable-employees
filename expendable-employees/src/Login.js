@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
         height: '100vh',
     },
     image: {
-        backgroundImage: 'url(https://source.unsplash.com/featured/?business)',
+        backgroundImage: 'url(https://source.unsplash.com/Nyvq2juw4_o/1920x1080)',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
     },
@@ -38,17 +38,16 @@ export default function Login() {
             <Grid item xs={12} sm={8} md={3} component={Paper} elevation={6} square>
                 <div className={classes.paper}>
                     <Typography component="h1" variant="h5">Sign in</Typography>
-                    <form className={classes.form} noValidate>
+                    <form>
                         <TextField
                             variant="outlined"
                             margin="normal"
                             required
                             fullWidth
-                            id="email"
-                            label="Email Address"
-                            name="email"
-                            autoComplete="email"
-                            autoFocus
+                            id="username"
+                            label="Username"
+                            name="username"
+                            color="secondary"
                         />
                         <TextField
                             variant="outlined"
@@ -59,11 +58,10 @@ export default function Login() {
                             label="Password"
                             type="password"
                             id="password"
-                            autoComplete="current-password"
+                            color="secondary"
                         />
                         <Button
                             type="submit"
-                            fullWidth
                             variant="contained"
                             color="primary"
                             className={classes.submit}
@@ -72,12 +70,12 @@ export default function Login() {
                         </Button>
                         <Grid container>
                             <Grid item xs>
-                                <Link href="#" variant="body2">
+                                <Link href="#" variant="body2" color="textPrimary">
                                     Forgot password?
                                 </Link>
                             </Grid>
                             <Grid item>
-                                <Link href="#" variant="body2">
+                                <Link href="#" variant="body2" color="textPrimary">
                                     {"Don't have an account? Sign Up"}
                                 </Link>
                             </Grid>
