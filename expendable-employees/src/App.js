@@ -10,18 +10,16 @@ import Employees from "./Employees";
 import EmployeeRegister from "./EmployeeRegister";
 import Calendar from "./Calendar";
 import Account from "./Account";
-import NavBar from "./components/NavBar";
 
 function App() {
     return (
         <div className="App">
-            <NavBar/>
             <Route exact path="/" component={Landing}/>
             <Route exact path="/login" component={Login}/>
             <Route exact path="/inbox" component={Inbox}/>
             <Route exact path="/finances" component={Finances}/>
             <Route exact path="/dashboard" component={Dashboard}/>
-            <Route exact path="/employerregister" component={EmployerRegister}/>
+            <Route exact path="/register" component={EmployerRegister}/>
             <Route exact path="/employees" component={Employees}/>
             <Route exact path="/employeeregister" component={EmployeeRegister}/>
             <Route exact path="/calendar" component={Calendar}/>
