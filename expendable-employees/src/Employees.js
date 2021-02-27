@@ -1,11 +1,17 @@
-function Employees(){
-    return(
+import React from 'react';
+import {makeStyles} from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+}));
+
+export default function Employees() {
+    const classes = useStyles();
+
+    return (
         <div>
             <h1>
-                Employees page
+                Employees page.
             </h1>
         </div>
-    )
+    );
 }
-
-export default Employees;

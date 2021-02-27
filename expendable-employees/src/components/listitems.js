@@ -4,7 +4,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import BarChartIcon from '@material-ui/icons/BarChart';
-import {AccountCircle, CalendarToday, Inbox, PersonAdd, Storage, Today} from "@material-ui/icons";
+import {AccountCircle, Inbox, PersonAdd, Storage, Today} from "@material-ui/icons";
 import {Link} from "react-router-dom";
 
 export const mainListItems = (

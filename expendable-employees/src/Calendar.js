@@ -1,11 +1,17 @@
-function Calendar(){
-    return(
+import React from 'react';
+import {makeStyles} from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+}));
+
+export default function Calendar() {
+    const classes = useStyles();
+
+    return (
         <div>
             <h1>
-                Calendar page
+                Calendar page.
             </h1>
         </div>
-    )
+    );
 }
-
-export default Calendar;

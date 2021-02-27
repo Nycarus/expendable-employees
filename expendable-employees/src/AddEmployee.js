@@ -1,11 +1,17 @@
-function AddEmployee(){
-    return(
+import React from 'react';
+import {makeStyles} from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+}));
+
+export default function AddEmployee() {
+    const classes = useStyles();
+
+    return (
         <div>
             <h1>
-                Employee Register page
+                AddEmployee page.
             </h1>
         </div>
-    )
+    );
 }
-
-export default AddEmployee;
