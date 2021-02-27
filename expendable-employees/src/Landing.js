@@ -49,32 +49,30 @@ export default function Landing() {
     const classes = useStyles();
 
     return (
-        <BrowserRouter forceRefresh={true}>
-            <div className={classes.root}>
-                <AppBar position="static">
-                    <Toolbar>
-                        <Typography variant="h4" className={classes.title}>
-                            Expendable Employees
-                        </Typography>
-                        <Button color="inherit" component={Link} to="/login">Login</Button>
-                        <Button color="inherit" component={Link} to="/register">Register</Button>
-                    </Toolbar>
-                </AppBar>
+        <div className={classes.root}>
+            <AppBar position="static">
+                <Toolbar>
+                    <Typography variant="h4" className={classes.title}>
+                        Expendable Employees
+                    </Typography>
+                    <Button color="inherit" component={Link} to="/login">Login</Button>
+                    <Button color="inherit" component={Link} to="/register">Register</Button>
+                </Toolbar>
+            </AppBar>
 
-                <Paper className={classes.image}>
-                    <div className={classes.overlay}/>
-                    <Grid container xs={12} sm={6} md={6} lg={2}>
-                        <Grid item>
-                            <div className={classes.headerContent}>
-                                <Typography component="h1" variant="h3" color="inherit">
-                                    Welcome to the perfect managerial tool.
-                                    Our goal is to make your employees expandable.
-                                </Typography>
-                            </div>
-                        </Grid>
+            <Paper className={classes.image}>
+                <div className={classes.overlay}/>
+                <Grid container xs={12} sm={6} md={6} lg={2}>
+                    <Grid item>
+                        <div className={classes.headerContent}>
+                            <Typography component="h1" variant="h3" color="inherit">
+                                Welcome to the perfect managerial tool.
+                                Our goal is to make your employees expandable.
+                            </Typography>
+                        </div>
                     </Grid>
-                </Paper>
-            </div>
-        </BrowserRouter>
+                </Grid>
+            </Paper>
+        </div>
     );
 }
