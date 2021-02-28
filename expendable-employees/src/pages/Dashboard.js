@@ -10,7 +10,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import clsx from "clsx";
 import {Divider, List} from "@material-ui/core";
-import {mainListItems, secondaryListItems} from "./components/listitems";
+import {mainListItems, secondaryListItems} from "../components/listitems";
 
 
 const drawerWidth = 240;

@@ -1,3 +1,10 @@
+/*
+TODO fix app bar in Landing.js; set buttons to far-right, set logo & header to far-left.
+TODO fix banner image text to be centered on screen instead of aligned far-left
+TODO add random product gibberish below banner to make landing page more pleasing;
+     things like analytics, about us info, company goals, fake reviews, etc
+ */
+
 import React from 'react';
 import {makeStyles} from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -9,9 +16,6 @@ import Grid from "@material-ui/core/Grid";
 import { Paper} from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-        flexGrow: 1,
-    },
     title: {
         flexGrow: 1,
     },
@@ -35,10 +39,8 @@ const useStyles = makeStyles((theme) => ({
     },
     headerContent: {
         position: 'relative',
-        padding: theme.spacing(3),
         [theme.breakpoints.up('md')]: {
             padding: theme.spacing(6),
-            paddingRight: 0,
         },
     },
 }));
@@ -47,7 +49,7 @@ export default function Landing() {
     const classes = useStyles();
 
     return (
-        <div className={classes.root}>
+        <div>
             <AppBar position="static">
                 <Toolbar>
                     <Typography variant="h4" className={classes.title}>

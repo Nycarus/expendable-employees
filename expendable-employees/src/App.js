@@ -1,18 +1,19 @@
 import './App.css';
-import Landing from './Landing';
+import Landing from './pages/Landing';
 import {BrowserRouter, Route} from "react-router-dom";
-import Login from "./Login";
-import Inbox from "./Inbox";
-import Finances from "./Finances";
-import Dashboard from "./Dashboard";
-import Register from "./Register";
-import Employees from "./Employees";
-import AddEmployee from "./AddEmployee";
-import Calendar from "./Calendar";
-import Account from "./Account";
+import Login from "./pages/Login";
+import Inbox from "./pages/Inbox";
+import Finances from "./pages/Finances";
+import Dashboard from "./pages/Dashboard";
+import Register from "./pages/Register";
+import Employees from "./pages/Employees";
+import AddEmployee from "./pages/AddEmployee";
+import Calendar from "./pages/Calendar";
+import Account from "./pages/Account";
 import {ThemeProvider, createMuiTheme} from '@material-ui/core/styles'
 import CssBaseline from "@material-ui/core/CssBaseline";
 
+// Custom Theme
 const theme = createMuiTheme({
     palette: {
         type: 'dark',
@@ -25,7 +26,10 @@ const theme = createMuiTheme({
     }
 })
 
-function App() {
+export default function App() {
+    /*
+    Applies theme and sets up routing to all pages across app.
+     */
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline/>
@@ -47,4 +51,3 @@ function App() {
     );
 }
 
-export default App;

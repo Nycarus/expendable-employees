@@ -1,12 +1,19 @@
+/*
+TODO put SIGN IN button to be aligned far-right instead of centered
+TODO put "Forgot Password?" to be aligned far-left
+TODO put "Sign up" to be aligned far-right, but also anchored to bottom of screen
+ */
+
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import Link from '@material-ui/core/Link';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import {makeStyles} from '@material-ui/core/styles';
+import {Link} from "react-router-dom";
+import {Link as MuiLink} from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -42,7 +49,7 @@ export default function Login() {
                         <TextField
                             variant="outlined"
                             margin="normal"
-                            required
+                            //required
                             fullWidth
                             id="username"
                             label="Username"
@@ -52,7 +59,7 @@ export default function Login() {
                         <TextField
                             variant="outlined"
                             margin="normal"
-                            required
+                            //required
                             fullWidth
                             name="password"
                             label="Password"
@@ -65,19 +72,20 @@ export default function Login() {
                             variant="contained"
                             color="primary"
                             className={classes.submit}
+                            component={Link} to="/dashboard"
                         >
                             Sign In
                         </Button>
                         <Grid container>
                             <Grid item xs>
-                                <Link href="#" variant="body2" color="textPrimary">
+                                <MuiLink href="#" variant="body2" color="textPrimary">
                                     Forgot password?
-                                </Link>
+                                </MuiLink>
                             </Grid>
                             <Grid item>
-                                <Link href="#" variant="body2" color="textPrimary">
+                                <MuiLink href="#" variant="body2" color="textPrimary">
                                     {"Don't have an account? Sign Up"}
-                                </Link>
+                                </MuiLink>
                             </Grid>
                         </Grid>
                     </form>
