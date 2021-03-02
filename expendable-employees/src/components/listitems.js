@@ -6,7 +6,7 @@ import DashboardIcon from '@material-ui/icons/Dashboard';
 import BarChartIcon from '@material-ui/icons/BarChart';
 import {AccountCircle, Inbox, PersonAdd, Storage, Today} from "@material-ui/icons";
 import {Link} from "react-router-dom";
-
+//how's this supposed to work?
 export const mainListItems = (
     <div>
         <ListItem button component={Link} to="/account">
