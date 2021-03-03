@@ -1,16 +1,16 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Drawer from '@material-ui/core/Drawer';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
+import { Drawer, Container, Grid, Paper, AppBar, Toolbar,  IconButton } from '@material-ui/core';
+import {Table, TableHead, TableBody, TableCell, TableRow, Typography} from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import clsx from "clsx";
 import {Divider, List} from "@material-ui/core";
 import {mainListItems, secondaryListItems} from "../components/listitems";
+import Title from "../components/Title";
+import { SpaceBar } from '@material-ui/icons';
 
 
 const drawerWidth = 240;
@@ -94,6 +94,8 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
+
+
 export default function Dashboard() {
     const classes = useStyles();
     const [open, setOpen] = React.useState(true);
@@ -104,6 +106,7 @@ export default function Dashboard() {
         setOpen(false);
     };
 
+    const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
     return (
         <div className={classes.root}>
             <CssBaseline />
@@ -142,6 +145,71 @@ export default function Dashboard() {
             </Drawer>
             <main className={classes.content}>
                 <div className={classes.appBarSpacer} />
+                {/*aite let's fuck some shit up */}
+                <Container className={classes.container}>
+                    {/* Overview of Hours */}
+                    <Grid item xs={12} md={8} lg={9}>
+                        <Paper className={fixedHeightPaper}>
+                        {/* all the stuff here could probably be moved to another file eventually */}
+                            <Title>Overview of Hours</Title>
+                            <Table size="small">
+                                <TableHead>
+                                    <TableRow>
+                                        <TableCell>leftArrow</TableCell>
+                                        <TableCell>CurrDay - 2</TableCell>
+                                        <TableCell>CurrDay - 1</TableCell>
+                                        <TableCell>CurrDay</TableCell>
+                                        <TableCell>CurrDay + 1</TableCell>
+                                        <TableCell>CurrDay + 2</TableCell>
+                                        <TableCell>rightArrow</TableCell>
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    <TableRow>
+                                        <TableCell>----</TableCell>
+                                        <TableCell>StartTime</TableCell>
+                                        <TableCell>StartTime</TableCell>
+                                        <TableCell>StartTime</TableCell>
+                                        <TableCell>StartTime</TableCell>
+                                        <TableCell>StartTime</TableCell>
+                                        <TableCell>----</TableCell>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableCell>----</TableCell>
+                                        <TableCell>EndTime</TableCell>
+                                        <TableCell>EndTime</TableCell>
+                                        <TableCell>EndTime</TableCell>
+                                        <TableCell>EndTime</TableCell>
+                                        <TableCell>EndTime</TableCell>
+                                        <TableCell>----</TableCell>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableCell>----</TableCell>
+                                        <TableCell>HowManyHours</TableCell>
+                                        <TableCell>HowManyHours</TableCell>
+                                        <TableCell>HowManyHours</TableCell>
+                                        <TableCell>HowManyHours</TableCell>
+                                        <TableCell>HowManyHours</TableCell>
+                                        <TableCell>----</TableCell>
+                                    </TableRow>
+                                </TableBody>
+                            </Table>
+                        </Paper>
+                    </Grid>
+                    {/* Annoucements */}
+                    <Grid item xs={12} md={4} lg={3}>
+                        <Paper className={fixedHeightPaper}>
+                            
+                        </Paper>
+                    </Grid>
+                    
+                    {/* Tasks (todo?) */}
+                    <Grid item xs={12}>
+                        <Paper className={classes.paper}>
+                        </Paper>
+                    </Grid>
+
+                </Container>
             </main>
         </div>
     );
