@@ -2,8 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import { Drawer, Container, Grid, Paper, AppBar, Toolbar,  IconButton } from '@material-ui/core';
+import { Drawer, Container, Grid, Paper, AppBar, Toolbar,  IconButton, Tab } from '@material-ui/core';
 import {Table, TableHead, TableBody, TableCell, TableRow, Typography} from '@material-ui/core';
+import {Link} from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import clsx from "clsx";
@@ -94,7 +95,9 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-
+function preventDefault(event) {
+    event.preventDefault();
+  }
 
 export default function Dashboard() {
     const classes = useStyles();
@@ -148,7 +151,7 @@ export default function Dashboard() {
                 {/*aite let's fuck some shit up */}
                 <Container className={classes.container}>
                     {/* Overview of Hours */}
-                    <Grid item xs={12} md={8} lg={9}>
+                    <Grid item xs={14} md={10} lg={12}>
                         <Paper className={fixedHeightPaper}>
                         {/* all the stuff here could probably be moved to another file eventually */}
                             <Title>Overview of Hours</Title>
@@ -197,15 +200,96 @@ export default function Dashboard() {
                         </Paper>
                     </Grid>
                     {/* Annoucements */}
-                    <Grid item xs={12} md={4} lg={3}>
+                    <Grid item xs={12} md={8} lg={6}>
                         <Paper className={fixedHeightPaper}>
-                            
+                        <Title>Annoucements</Title>
+                        <Table>
+                            <TableBody>
+                                <TableRow>
+                                    <Grid>
+                                        <TableRow>
+                                            <TableCell>
+                                                <Typography>Annoucement 1 Title</Typography>
+                                            </TableCell>
+                                            <TableCell>
+                                                {/* These should be buttons, not Typography */}
+                                                <Typography>X</Typography>
+                                            </TableCell>
+                                            <TableCell>
+                                                {/* These should be buttons, not Typography */}
+                                                <Typography>?</Typography>
+                                            </TableCell>
+                                        </TableRow>
+                                        <Typography>Annoucer Name</Typography>
+                                        <Typography>Annoucement content......</Typography>
+                                        
+                                    </Grid>
+                                </TableRow>
+                                <TableRow>
+                                    <Grid>
+                                    <TableRow>
+                                            <TableCell>
+                                                <Typography>Annoucement 2 Title</Typography>
+                                            </TableCell>
+                                            <TableCell>
+                                                {/* These should be buttons, not Typography */}
+                                                <Typography>X</Typography>
+                                            </TableCell>
+                                            <TableCell>
+                                                {/* These should be buttons, not Typography */}
+                                                <Typography>?</Typography>
+                                            </TableCell>
+                                        </TableRow>
+                                        <Typography>Annoucer Name</Typography>
+                                        <Typography>Annoucement content......</Typography>
+                                    </Grid>
+                                </TableRow>
+                                <TableRow>
+                                    <Grid>
+                                    <TableRow>
+                                            <TableCell>
+                                                <Typography>Annoucement 3 Title</Typography>
+                                            </TableCell>
+                                            <TableCell>
+                                                {/* These should be buttons, not Typography */}
+                                                <Typography>X</Typography>
+                                            </TableCell>
+                                            <TableCell>
+                                                {/* These should be buttons, not Typography */}
+                                                <Typography>?</Typography>
+                                            </TableCell>
+                                        </TableRow>
+                                        <Typography>Annoucer Name</Typography>
+                                        <Typography>Annoucement content......</Typography> 
+                                    </Grid>
+                                </TableRow>
+                            </TableBody>
+                        </Table>
                         </Paper>
                     </Grid>
                     
                     {/* Tasks (todo?) */}
-                    <Grid item xs={12}>
+                    <Grid item xs={12} md={4} lg={3}>
                         <Paper className={classes.paper}>
+                            <Title> Current Tasks</Title>
+                            <Typography component="p" variant="h4">Task 1 Name </Typography>
+                            <Typography color="textSecondary" className={classes.depositContext}>
+                                Task 1 Status 
+                            </Typography>
+                            <div>
+                                <Link color="secondary" href="#" onClick={preventDefault}>
+                                    View Task 1 Details
+                                </Link>
+                            </div>
+                            <Typography component="p" variant="h4">Task 2 Name</Typography>
+                            <Typography color="textSecondary" className={classes.depositContext}>
+                                Task 2 Status
+                            </Typography>
+                            <div>
+                                <Link color="secondary" href="#" onClick={preventDefault}>
+                                    View Task 2 Details
+                                </Link>
+                            </div>
                         </Paper>
                     </Grid>
 

@@ -67,7 +67,7 @@ export default function Landing() {
                         <div className={classes.headerContent}>
                             <Typography component="h1" variant="h3" color="inherit">
                                 Welcome to the perfect managerial tool.
-                                Our goal is to make your employees expandable.
+                                Our goal is to make your employees expendable.
                             </Typography>
                         </div>
                     </Grid>
