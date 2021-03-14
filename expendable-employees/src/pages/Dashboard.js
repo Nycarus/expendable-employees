@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import { Drawer, Container, Grid, Paper, AppBar, Toolbar,  IconButton, Tab } from '@material-ui/core';
+import {makeStyles, Button } from '@material-ui/core/';
+import {Drawer, Container, Grid, Paper, AppBar, Toolbar,  IconButton, Tab } from '@material-ui/core';
 import {Table, TableHead, TableBody, TableCell, TableRow, Typography} from '@material-ui/core';
 import {Link} from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -158,13 +158,13 @@ export default function Dashboard() {
                             <Table size="small">
                                 <TableHead>
                                     <TableRow>
-                                        <TableCell>leftArrow</TableCell>
+                                        <TableCell><Button>leftArrow</Button></TableCell>
                                         <TableCell>CurrDay - 2</TableCell>
                                         <TableCell>CurrDay - 1</TableCell>
                                         <TableCell>CurrDay</TableCell>
                                         <TableCell>CurrDay + 1</TableCell>
                                         <TableCell>CurrDay + 2</TableCell>
-                                        <TableCell>rightArrow</TableCell>
+                                        <TableCell><Button>rightArrow</Button></TableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
@@ -212,12 +212,10 @@ export default function Dashboard() {
                                                 <Typography>Annoucement 1 Title</Typography>
                                             </TableCell>
                                             <TableCell>
-                                                {/* These should be buttons, not Typography */}
-                                                <Typography>X</Typography>
+                                                <Button>X</Button>
                                             </TableCell>
                                             <TableCell>
-                                                {/* These should be buttons, not Typography */}
-                                                <Typography>?</Typography>
+                                                <Button>?</Button>
                                             </TableCell>
                                         </TableRow>
                                         <Typography>Annoucer Name</Typography>
@@ -232,12 +230,10 @@ export default function Dashboard() {
                                                 <Typography>Annoucement 2 Title</Typography>
                                             </TableCell>
                                             <TableCell>
-                                                {/* These should be buttons, not Typography */}
-                                                <Typography>X</Typography>
+                                                <Button>X</Button>
                                             </TableCell>
                                             <TableCell>
-                                                {/* These should be buttons, not Typography */}
-                                                <Typography>?</Typography>
+                                                <Button>?</Button>
                                             </TableCell>
                                         </TableRow>
                                         <Typography>Annoucer Name</Typography>
@@ -251,12 +247,10 @@ export default function Dashboard() {
                                                 <Typography>Annoucement 3 Title</Typography>
                                             </TableCell>
                                             <TableCell>
-                                                {/* These should be buttons, not Typography */}
-                                                <Typography>X</Typography>
+                                                <Button>X</Button>
                                             </TableCell>
                                             <TableCell>
-                                                {/* These should be buttons, not Typography */}
-                                                <Typography>?</Typography>
+                                                <Button>?</Button>
                                             </TableCell>
                                         </TableRow>
                                         <Typography>Annoucer Name</Typography>
