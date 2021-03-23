@@ -200,7 +200,7 @@ export default function Dashboard() {
                         </Paper>
                     </Grid>
                     {/* Annoucements */}
-                    <Grid item xs={12} md={8} lg={6}>
+                    <Grid item xs={12} md={12} lg={6}>
                         <Paper className={fixedHeightPaper}>
                         <Title>Annoucements</Title>
                         <Table>
