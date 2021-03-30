@@ -14,9 +14,9 @@ List of tasks from the objective evaluation section of our assignment
 | JavaScript, jQuery, D3             | Code Stuff   | Not Started | TBD    |
 | DHTML                              | Visual Stuff | Not Started | TBD    |
 | AJAX, web services                 | Code Stuff   | Not Started | TBD    |
-| Node.js                            | Code Stuff   | Not Started | TBD    | 
+| Node.js                            | Code Stuff   | Not Started | Cole   | 
 | Views and/or client-side framework | Visual Stuff | Not Started | TBD    | 
-| Database                           | Data Stuff   | Not Started | TBD    | 
+| Database                           | Data Stuff   | Not Started | Cole   | 
 | Sockets, multi-threading           | Multi Stuff  | Not Started | TBD    |
 
 ## Specific Task List 
@@ -38,4 +38,5 @@ Tasks will get added here as each of the general tasks are worked on
 |Employee Calendar | Schedule Stuff | Not Started | Not Set |
 |Employee DMs | Communication Stuff | Not Started | Not Set |
 |Manager Home Page | The first page a manager sees after they log in | Not Started | Not Set |
+|Database Schema | Create a schema to accomidate data requirements | In Progress | Cole/? |
 
