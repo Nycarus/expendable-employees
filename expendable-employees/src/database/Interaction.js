@@ -60,7 +60,7 @@ class DatabaseManagment {
         } 
     }
 }
-
+module.exports = DatabaseManagment;
 /*
 //example drop
 t = new DatabaseManagment();
