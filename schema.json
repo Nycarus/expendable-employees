@@ -14,7 +14,8 @@
 
     "Company" : {
         "_id" : "ObjectId(...)",
-        "name" : "string"
+        "name" : "string",
+        "owner" : "User._id"
     },
 
     "Branch" : {
@@ -23,11 +24,18 @@
         "company_id" : "Company._id"
     },
 
+    "Adminstrators" : {
+        "_id" : "ObjectId(...)",
+        "user" : "User._id",
+        "company" : "Company._id"
+    },
+
+
     "Employee" : {
         "_id" : "ObjectId(...)",
         "user_id" : "User._id",
         "Position" : "string",
-        "branch_id" : "Branch._id",
+        "company_id" : "Company._id",
         "pay_rate" : "float"
     },
 

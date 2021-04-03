@@ -1,0 +1,72 @@
+{
+    "User" : {
+        "type" : "object",
+        "properties" : {
+            "firstname" : {
+                "type": "string",
+                "required": true
+    
+            },
+            "lastname" : {
+                "type": "string",
+                "required": true
+    
+            },
+            "email" : {
+                "type": "string",
+                "required": true
+    
+            },
+            "phone" : {
+                "type": "string",
+                "required": true
+    
+            },
+            "address" : {
+                "type": "string",
+                "required": true
+    
+            },
+            "postal_code" : {
+                "type": "string",
+                "required": true
+    
+            },
+            "date_of_birth" : {
+                "type": "string",
+                "format": "date"
+    
+            },
+            "password" : {
+                "type": "string",
+                "required": true
+            }
+        }
+    },
+    "Company" : {
+        "type" : "object",
+        "properties" : {
+            "name" :{ 
+                "type" : "string",
+                "required" : true
+            },
+            "owner": {
+                "type" : "string",
+                "required" : true
+            }
+        }
+    },
+    "Branch" : {
+        "type" : "object",
+        "properties" : {
+            "name" : {
+                "type" : "string",
+                "required" : true
+            },
+            "company_id" : {
+                "type" : "string",
+                "required" : true
+            } 
+        }
+    }
+}

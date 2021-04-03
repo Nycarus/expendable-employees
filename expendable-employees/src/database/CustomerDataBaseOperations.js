@@ -1,5 +1,7 @@
 let DatabaseManagment = require('./Interaction.js');
 let evalidator = require("email-validator");
+let jsonValidator = require('./SchemaEnforcment');
+
 
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
@@ -36,55 +38,72 @@ class CustomerDataBaseOperations {
         return await bcrypt.compare(password, hash);
     }
 
-    async registerCompany(data) {
-        let user = {
-            email: data.email,
-            password: data.password,
-            firstname: data.email,
-            lastname: data.lastname,
-            email: data.email,
-            address: data.address,
-            postal_code: data.postal_code,
-            data_of_birth: data.date_of_birth,
-        };
+    // expects
+    /*
+        {
+            email : email@email.com
+        }
+    */
+    async getHashedPassword(email){
+        let user = await this.db_instance.queryCollection(email, "User");
+        if(user.length < 0){
+            return {"success": false,
+                    "reason": "account not found",
+                    "code" : 404}
+        }
+        return {success : true, "password" : user[0].password}; 
+    }
 
-        let success = await this.registerUser(user);
+    async registerCompany(data) {
+        if(data.user == undefined){
+            return {"success" : false,
+                    "reason" : "user entry is left blank"}
+        }
+        if(data.company == undefined) {
+            return {"success" : false,
+            "reason" : "company entry left blank"}
+        }
+
+        if(data.company == undefined) {
+            return {"success" : false,
+            "reason" : "company entry left blank"}
+        }
+
+
+        let success = await this.registerUser(data.user);
         if (!success.success) {
             return success;
         }
 
         let query = {
-            email: user.email
+            email: data.user.email
         };
 
-        user = await this.db_instance.queryCollection(query, "User");
+        let user = await this.db_instance.queryCollection(query, "User");
 
-        let company = {
-            name: data.company_name,
-            owner: user[0]._id
-        };
+        data.company["owner"] = user[0]._id.toString() 
 
-        success = await this.insertCompany(company);
+        
+
+        success = await this.insertCompany(data.company);
         if (!success.success) {
 
-            await this.db_instance.dropDocument(user, "User");
+            await this.db_instance.dropDocument(data.user, "User");
             // delete created user entry
             return success;
         }
 
 
-        company = await this.db_instance.queryCollection(company, "Company");
+        let company = await this.db_instance.queryCollection(data.company, "Company");
 
-        let branch = {
-            name: data.branch_name,
-            company_id: company[0]._id
-        }
-        success = await this.registerBranch(branch);
+        data.branch["company_id"] = company[0]._id.toString()
+        
+        success = await this.registerBranch(data.branch);
 
         if (!success.success) {
             // delete created user and company entry 
-            await this.db_instance.dropDocument(user, "User");
-            await this.db_instance.dropDocument(company, "Company");
+            await this.db_instance.dropDocument(data.user, "User");
+            await this.db_instance.dropDocument(data.company, "Company");
             return success;
         }
 
@@ -96,6 +115,13 @@ class CustomerDataBaseOperations {
 
     // expects data to be what is defined in the company schema - id
     async insertCompany(data) {
+        var validation = jsonValidator(data,"Company");
+        if(!validation.valid){
+            return{
+                "success": false,
+                "reason" : validation.errors
+            }
+        }
         let company_query = await this.db_instance.queryCollection(data, "Company");
 
         // making sure the owner company exists
@@ -130,7 +156,13 @@ class CustomerDataBaseOperations {
     // expects data to be what is defined in the Branch schema - id
     // this function is onyl to be used in registration.
     async registerBranch(data) {
-
+        var validation = jsonValidator(data,"Branch");
+        if(!validation.valid){
+            return{
+                "success": false,
+                "reason" : validation.errors
+            }
+        }
 
         let branch_query = await this.db_instance.queryCollection(data, "Branch");
 
@@ -167,8 +199,8 @@ class CustomerDataBaseOperations {
 
     // checkes the database to see if the specified email is taken
     async isEmailTaken(query) {
-
-        return this.db_instance.queryCollection(query, "User").then(function(data) {
+        return this.db_instance.queryCollection({"email" : query}, "User").then(function(data) {
+            console.log(data.length);
             if (data.length > 0) {
                 return true;
             } else {
@@ -179,8 +211,16 @@ class CustomerDataBaseOperations {
 
     // expects data to be what is defined in the User schema -id
     async registerUser(data) {
+        var validation = jsonValidator(data,"User");
+        if(!validation.valid){
+            return{
+                "success": false,
+                "reason" : validation.errors
+            }
+        }
 
         let isTaken = await this.isEmailTaken(data.email);
+        
         if (!isTaken & validateUser(data)) {
             data.password = await this.hashPassword(data.password);
             return this.db_instance.insertToCollection(data, "User").then(function(result) {
