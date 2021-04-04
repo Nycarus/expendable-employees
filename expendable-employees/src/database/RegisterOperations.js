@@ -20,7 +20,7 @@ function validateUser(data) {
 };
 
 
-class CustomerDataBaseOperations {
+class RegisterOperations {
 
     constructor() {
         this.db_instance = new DatabaseManagment();
@@ -356,24 +356,7 @@ class CustomerDataBaseOperations {
         }
     }
 
-
-    async sendEmail(message){
-        console.log(message);
-
-        var validation = jsonValidator(message,"Email");
-        console.log(validation)
-        if(!validation.valid){
-            return {
-                "success": false,
-                "reason" : validation.errors
-            }
-        }
-    
-        return {
-            "success": true,
-        }
-    }
 }
 
 
-module.exports = CustomerDataBaseOperations;
+module.exports = RegisterOperations;

@@ -11,7 +11,13 @@ let cdo = new CustomerDataBaseOperations();
 
 
 
-
+/*
+    expects json in form of 
+    payload = {
+        "email" : "email@email.com",
+        "password" : "anystring"
+    }
+*/
 app.post('/api/login', function(request, response) {
     if(request.body.email === undefined || request.body.password === undefined){
         return response.sendStatus(400)
@@ -22,14 +28,15 @@ app.post('/api/login', function(request, response) {
             return response.send(hashed_password.code);
         }
 
-        cdo.compareHashedPassword(request.body.password,hashed_password.password).then( function(result){
+        cdo.compareHashedPassword(request.body.password,hashed_password["user"].password).then( function(result){
             if(!result){
                 return response.sendStatus(401);
             }
             let user = {
-                email: request.body.email
+                user_id: hashed_password.user._id.toString()
             };
 
+            console.log(user);
             let token = {
                 token : jwt.sign(user,process.env.ACCESS_TOKEN_SECRET)
             };
@@ -40,8 +47,35 @@ app.post('/api/login', function(request, response) {
      });
 });
 
-app.get("/api/user",authToken, function(request,response){
 
+
+/*
+    expects the the json 
+    
+    payload =  {
+        "user_id" : "User._id",
+        "Position" : "string",
+        "company_id" : "Company._id",
+        "pay_rate" : "float"
+    } 
+
+*/
+app.post("/api/register/employee",authToken, function(request,response){
+        let admin_query = {
+            "user" : request.user_id.user_id,
+            "company" : request.body.company_id
+        };
+
+        cdo.isAdminForCompany(admin_query).then(function(result){
+            if(result){
+                cdo.registerEmployee(request.body).then(function(insert_result){
+                    response.send(insert_result);
+                });
+            }else{
+                response.sendStatus(401);
+
+            } 
+        });        
         // check if user email is same as email from token
         // check if email for token is an admin for any company 
         // requested user is apart of 
@@ -49,8 +83,56 @@ app.get("/api/user",authToken, function(request,response){
 
         // make can admin function 
         // will return if the said admin is an admin over user 
+})
+;
+/*
+payload =  {
+    "user" : "User._id",
+    "company" : "Company._id",
+  
+} 
+*/
+
+app.post("/api/register/admin",authToken, function(request,response){
+    let admin_query = {
+        "user" : request.user_id.user_id,
+        "company" : request.body.company
+    };
+    cdo.isAdminForCompany(admin_query).then(function(result){
+        if(result){
+            cdo.registerAdmin(request.body).then(function(insert_result){
+                response.send(insert_result);
+            });
+        }else{
+            response.sendStatus(401);
+
+        } 
+    });  
+
+
 });
 
+/* 
+    payload = {
+        "receivers" : [
+            "User._id",
+            "User._id2",
+            "User._id...",
+        ],
+        "message" : "email message"
+    }
+
+*/
+
+app.post("/api/email/send",authToken, function(request,response){
+
+    request.body.sender = request.user_id.user_id;
+    cdo.sendEmail(request.body).then(function(result){
+        response.send(result);
+    });
+
+    
+});
 
 
 function authToken(request,response,next){
@@ -64,11 +146,11 @@ function authToken(request,response,next){
         return response.sendStatus(401);
     }
 
-    jwt.verify(token,process.env.ACCESS_TOKEN_SECRET, function(error,email){
+    jwt.verify(token,process.env.ACCESS_TOKEN_SECRET, function(error,id){
         if(error){
             return response.sendStatus(403);
         }
-        request.email = email;
+        request.user_id = id;
         next()
     });
     

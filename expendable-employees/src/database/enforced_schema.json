@@ -68,5 +68,72 @@
                 "required" : true
             } 
         }
+    },
+    "Adminstrators" : {
+        "type" : "object",
+        "properties" : {
+            "user" : {
+                "type" : "string",
+                "required" : true
+            },
+            "company" : {
+                "type" : "string",
+                "required" : true
+            }
+        }
+    },
+
+    "Employee" : {
+        "properties" : {
+            "type" : "object",
+            "user_id" : {
+                "type" : "string",
+                "required" : true
+            },
+            "Position" : {
+                "type" : "string",
+                "required" : true
+            },
+            "company_id" : {
+                "type" : "string",
+                "required" : true
+            },
+            "pay_rate" : {
+                "type" : "number",
+                "required" : true
+            } 
+        }
+    },
+    "Email" : {
+        "type": "object",
+       
+        "properties": {
+            "message" : {
+                "type" : "string",
+                "required" : true
+            },
+            "time_sent": {
+                "type" : "string",
+                "format": "date",
+                "required": true
+            },
+
+            "receivers" :     {
+                "type": "array",
+                "uniqueItems": true,
+                "required" : true ,
+                "minItems": 1,
+                "items": { 
+                    "type": "string",                
+                    "required" : true 
+                }
+                    
+            },
+            "sender" : {
+                "type" : "string",
+                "required" : true
+            }
+        
+        }
     }
 }
