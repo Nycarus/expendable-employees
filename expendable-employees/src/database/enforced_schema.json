@@ -84,8 +84,8 @@
     },
 
     "Employee" : {
+        "type" : "object",
         "properties" : {
-            "type" : "object",
             "user_id" : {
                 "type" : "string",
                 "required" : true

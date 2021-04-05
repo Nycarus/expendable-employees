@@ -156,6 +156,38 @@ function authToken(request,response,next){
     
 }
 
+// only an admin to that employee can reset the password
+/* 
+    payload = {
+        "user_id" : "Employee._id",
+        "password" : "newpassword"
+    }
+
+*/
+
+
+app.post("/api/reset/employee/password",authToken, function(request,response){
+        
+        let admin_verify_query = {
+            "admin_id" : request.user_id.user_id,
+            "user_id": request.body.user_id
+        }
+        if(request.body.password == undefined || request.body.user_id == undefined ){
+            response.send(400);
+        }
+
+        cdo.isAdminOverUser(admin_verify_query).then(function(result){
+            if(result || request.user_id.user_id == request.body.user_id){
+                cdo.resetPassword(request.body).then(function(password_change){
+                    return response.send(password_change);
+                });
+                
+            }else{
+                response.sendStatus(401);
+            }
+        });
+
+});
 
 
 // expects email in form of http://localhost:3001/api/isEmailTaken?email=userEmail

@@ -14,7 +14,7 @@ class DatabaseManagment {
     async insertToCollection(data,collection,databaseName = "expendableEmployees" ) {
         
         try {
-            let db = await MongoClient.connect(this.url, this.options);
+            var db = await MongoClient.connect(this.url, this.options);
     
             if(db == undefined){
                 return false;
@@ -37,13 +37,13 @@ class DatabaseManagment {
             if(db !== undefined){
                 db.close();
             }
-            
+            return false;
         } 
     }
     
     async queryCollection(query,collection,databaseName = "expendableEmployees") {
         try {
-            let db = await MongoClient.connect(this.url, this.options);
+            var db = await MongoClient.connect(this.url, this.options);
             var dbo = db.db(databaseName);
             
 
@@ -53,24 +53,51 @@ class DatabaseManagment {
             return retults;    
         } catch(err) {
             console.log(err);
-            db.close();
+            
+            if(db !== undefined){
+                db.close();
+            }
+            return false;
         }      
     }
 
     async dropDocument(query,collection,databaseName = "expendableEmployees") {
         try {
-            let db = await MongoClient.connect(this.url, this.options);
+            var db = await MongoClient.connect(this.url, this.options);
             var dbo = db.db(databaseName);
             
 
             await dbo.collection(collection).deleteOne(query);
             db.close();
-
+            return true;
         } catch(err) {
             console.log(err);
-            db.close();
-
+            
+            if(db !== undefined){
+                db.close();
+            }
+            return false;
         } 
+    }
+
+    async updateDocument(query,replacment_document,collection, databaseName = "expendableEmployees"){
+        try {
+            var db = await MongoClient.connect(this.url, this.options);
+            var dbo = db.db(databaseName);
+            console.log(replacment_document)
+            await dbo.collection(collection).updateMany(query,{$set : replacment_document});
+            db.close();
+            return true;
+        } catch(err) {
+            console.log(err);
+            
+            if(db !== undefined){
+                db.close();
+            }
+            return false;
+        }
+
+
     }
 }
 module.exports = DatabaseManagment;

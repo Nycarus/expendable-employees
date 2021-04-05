@@ -130,6 +130,29 @@ class CustomerDataBaseOperations {
 
     }
 
+    /*
+        expects query = {
+            "admin_id" : "User._id'
+            "user_id" : "User_id"
+        }
+    */
+    async isAdminOverUser(query) {
+        
+        let employee_query = await this.db_instance.queryCollection({"user_id" : query.user_id}, "Employee");
+
+        if(employee_query.length < 1){
+            return false;
+        }
+
+        let admin_query = await this.db_instance.queryCollection({"user" : query.admin_id, "company" : employee_query[0].company_id}, "Adminstrators");
+        if(admin_query.length < 1){
+            return false;
+        }
+
+        return true;
+
+
+    }
     async isAdminForCompany(query) {
         
         var validation = jsonValidator(query,"Adminstrators");
@@ -137,7 +160,6 @@ class CustomerDataBaseOperations {
             return false;
         }
 
-        console.log(query);
         let admin_query = await this.db_instance.queryCollection(query, "Adminstrators");
         
         if(admin_query.length > 0){
@@ -366,12 +388,59 @@ class CustomerDataBaseOperations {
             return {
                 "success": false,
                 "reason" : validation.errors
-            }
+            };
         }
     
         return {
             "success": true,
+        };
+    }
+
+    /*
+        expects 
+        data = {
+                "user_id" : "Employee._id",
+                "password" : "newpassword"
         }
+    */
+    async resetPassword(data){
+        if(data.password == undefined | data.user_id == null){
+            return false;
+        }
+
+        try{
+            var user_query = await this.db_instance.queryCollection({"_id": new ObjectID(data.user_id)}, "User");
+
+        }catch(err){
+            return {   
+                "success": false,
+                "reason": "id provided is invalid format"
+            };
+        }
+        
+        if(user_query < 1){
+            return {   
+                "success": false,
+                "reason": "user being updated does not exist"
+            };
+        }
+
+
+        let hashed_password = await this.hashPassword(data.password);
+        let query = {
+            "_id" : new ObjectID(data.user_id),
+        }
+
+        let success = this.db_instance.updateDocument(query,{"password" : hashed_password},"User");
+        if(success){
+            return {
+                "success": true
+            };
+        }
+        return {
+            "success": success,
+            "reason": "was unable to update the document"
+        };
     }
 }
 
