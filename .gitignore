@@ -116,3 +116,10 @@ dist
 .pnp.*
 
 expendable-employees/package-lock.json
+expendable-employees/client/.idea/vcs.xml
+expendable-employees/client/package-lock.json
+expendable-employees/server/.idea/discord.xml
+expendable-employees/server/.idea/modules.xml
+expendable-employees/server/.idea/server.iml
+expendable-employees/server/.idea/vcs.xml
+expendable-employees/server/package-lock.json
