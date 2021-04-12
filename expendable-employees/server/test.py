@@ -64,8 +64,11 @@ message = {
 }
 
 
-
-response = requests.post(password_reset_url,json=password_reset, headers=headers)
+test_q = {
+    "email" : "cole@gmails.com",
+    }
+test_url = "http://localhost:3001/api/isEmailTaken"
+response = requests.get(test_url,json=test_q, headers=headers)
 if(response.status_code == 200):
     print(json.dumps(response.json(), indent=4, sort_keys=True))
 else:

@@ -1,6 +1,6 @@
 {   "database_name" : "expendableEmployees",
     "User" : {
-        "id": "ObjectId(...)",
+        "_id": "ObjectId(...)",
         "firstname" : "string",
         "lastname" : "string",
         "email" : "string",

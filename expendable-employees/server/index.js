@@ -257,7 +257,6 @@ app.post('/api/register/company', function(request, response) {
 });
 
 
-
 app.set('port', process.env.PORT || 3001);
 app.listen(app.get('port'), function() {
     console.log(`Listening for requests on port ${app.get('port')}.`);

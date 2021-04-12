@@ -302,14 +302,14 @@ class CustomerDataBaseOperations {
 
     // checkes the database to see if the specified email is taken
     async isEmailTaken(query) {
-        return this.db_instance.queryCollection({"email" : query}, "User").then(function(data) {
-            console.log(data.length);
-            if (data.length > 0) {
-                return true;
-            } else {
-                return false
-            }
-        });
+        let data = await this.db_instance.queryCollection(query, "User");
+
+        if (data.length > 0) {
+            return true;
+        } else {
+            return false
+        }
+    
     }
 
     // expects data to be what is defined in the User schema -id
