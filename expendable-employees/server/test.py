@@ -64,11 +64,15 @@ message = {
 }
 
 
-test_q = {
-    "email" : "cole@gmails.com",
-    }
-test_url = "http://localhost:3001/api/isEmailTaken"
-response = requests.get(test_url,json=test_q, headers=headers)
+
+self_usr_url = "http://localhost:3001/api/self/user"
+admin_url = "http://localhost:3001/api/admin/user"
+
+user_info = {
+        "user_id" : "60696b7fa9433d382e1b6c85",
+
+}
+response = requests.get(admin_url,json=user_info, headers=headers)
 if(response.status_code == 200):
     print(json.dumps(response.json(), indent=4, sort_keys=True))
 else:

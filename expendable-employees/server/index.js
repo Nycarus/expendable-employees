@@ -7,6 +7,7 @@ require("dotenv").config();
 app.use(bodyParser.json());
 
 let CustomerDataBaseOperations = require('./src/database/CustomerDataBaseOperations');
+const { query } = require('express');
 let cdo = new CustomerDataBaseOperations();
 
 
@@ -89,7 +90,6 @@ app.post("/api/register/employee",authToken, function(request,response){
 payload =  {
     "user" : "User._id",
     "company" : "Company._id",
-  
 } 
 */
 
@@ -109,6 +109,45 @@ app.post("/api/register/admin",authToken, function(request,response){
         } 
     });  
 
+
+});
+
+// gets the senders user infomration from database
+app.get("/api/self/user",authToken, function(request,response){
+    let query = {
+        "user_id" : request.user_id.user_id
+    };
+    cdo.getUser(query).then(function(result){
+        response.send(result);
+    });
+});
+
+/*
+// an admin call for getting a user, will return personal information
+
+expects payload to be 
+payload = {
+    "user_id" : User._id
+}
+*/
+app.get("/api/admin/user",authToken, function(request,response){
+    if(request.body.user_id == undefined){
+        return response.send(400);
+    }
+
+    let query = {
+        "admin_id" : request.user_id.user_id,
+        "user_id" : request.body.user_id
+    }
+    cdo.isAdminOverUser(query).then(function(result){
+        if(result){
+            cdo.getUser(query).then(function(result){
+                response.send(result);
+            });
+        }else{
+            response.send(403);
+        }
+    });
 
 });
 
@@ -145,7 +184,7 @@ function authToken(request,response,next){
     if(!token){
         return response.sendStatus(401);
     }
-
+    console.log(token);
     jwt.verify(token,process.env.ACCESS_TOKEN_SECRET, function(error,id){
         if(error){
             return response.sendStatus(403);
@@ -254,6 +293,11 @@ app.post('/api/register/company', function(request, response) {
     cdo.registerCompany(request.body).then(function(result){
         response.send(result);
     });    
+});
+
+// will return a json of all the users from the senders company
+app.post('/api/company/users',authToken, function(request, response) {
+        
 });
 
 

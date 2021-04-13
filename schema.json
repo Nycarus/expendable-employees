@@ -50,7 +50,7 @@
         "message" : "string",
         "time_sent": "Date"
     },
-
+    // move this into user schmea
     "Emails" : {
         "user_id" : {
             "email_id" : {

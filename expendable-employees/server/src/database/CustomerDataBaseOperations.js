@@ -44,7 +44,7 @@ class CustomerDataBaseOperations {
             "email" : email
         }
         let user = await this.db_instance.queryCollection(query, "User");
-        if(user.length < 0){
+        if(user.length < 1){
             return {"success": false,
                     "reason": "account not found",
                     "code" : 404}
@@ -63,9 +63,9 @@ class CustomerDataBaseOperations {
             "reason" : "company entry left blank"}
         }
 
-        if(data.company == undefined) {
+        if(data.branch == undefined) {
             return {"success" : false,
-            "reason" : "company entry left blank"}
+            "reason" : "branch entry left blank"}
         }
 
 
@@ -394,6 +394,32 @@ class CustomerDataBaseOperations {
         return {
             "success": true,
         };
+    }
+
+    /*
+        expects query to have 
+        query = {
+            user_id = User._id
+        }
+    */
+
+    async getUser(query){
+        if(query.user_id == null){
+            return 401;
+        }
+    
+        try{
+            var user_query = await this.db_instance.queryCollection({"_id": new ObjectID(query.user_id)}, "User");
+        }catch(err){
+            return 500;
+        }
+        
+        if(user_query < 1){
+            return 400;
+        }
+
+        return user_query
+
     }
 
     /*
