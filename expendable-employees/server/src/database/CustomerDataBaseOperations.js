@@ -397,6 +397,55 @@ class CustomerDataBaseOperations {
     }
 
     /*
+        expects query = {
+            "user_id" : User._id
+        }
+    */
+    async getUsersCompany(query){
+        let user_query = await this.db_instance.queryCollection(query, "Employee");
+        if(user_query.length < 1){
+            return false;
+        }
+
+        
+        
+        return user_query[0].company_id;
+    }
+
+    /*
+    // expects query = {
+        company_id = Company._id
+    } 
+    */
+    async getCompanyUsers(query){
+        let employee_query = await this.db_instance.queryCollection(query, "Employee");
+        if(employee_query.length < 1){
+            return false;
+        }
+
+        let user_ids = []
+        for(var i = 0; i < employee_query.length; i++){
+            user_ids.push( new ObjectID(employee_query[i].user_id));
+        }
+
+        let user_query = {
+            "_id" : {
+                "$in" : user_ids
+            }
+        }
+
+        let users = await this.db_instance.queryCollection(user_query,"User");
+        let redacted_usrs = [];
+
+        for(var i = 0; i < users.length; i++){
+            redacted_usrs.push({"user_id":users[i]._id.toString(), "email":users[i].email});
+        }
+
+
+        return redacted_usrs;
+    }
+
+    /*
         expects query to have 
         query = {
             user_id = User._id

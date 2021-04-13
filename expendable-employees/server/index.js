@@ -184,7 +184,6 @@ function authToken(request,response,next){
     if(!token){
         return response.sendStatus(401);
     }
-    console.log(token);
     jwt.verify(token,process.env.ACCESS_TOKEN_SECRET, function(error,id){
         if(error){
             return response.sendStatus(403);
@@ -242,6 +241,27 @@ app.get('/api/isEmailTaken', function(request, response) {
     });
     
 });
+
+app.get("/api/company/users",authToken, function(request,response){
+    let query = {
+        "user_id" : request.user_id.user_id
+    };
+
+    cdo.getUsersCompany(query).then(function(company_id){
+        if(!company_id){
+            return response.sendStatus(400);
+        }
+        cdo.getCompanyUsers({"company_id" : company_id}).then(function(users){
+            console.log(users)
+            if(!users){
+                return response.sendStatus(500);
+            }
+
+            return response.send(users);
+        });
+    });
+});
+
 /*
 example payload 
 
