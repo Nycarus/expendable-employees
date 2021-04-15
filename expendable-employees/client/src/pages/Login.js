@@ -72,7 +72,7 @@ export default function Login() {
                             variant="contained"
                             color="primary"
                             className={classes.submit}
-                            component={Link} to="/dashboard"
+                            component={Link} to="/user"
                         >
                             Sign In
                         </Button>

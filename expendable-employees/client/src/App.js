@@ -1,17 +1,11 @@
 import './App.css';
-import Landing from './pages/Landing';
-import {BrowserRouter, Route} from "react-router-dom";
+import Homepage from './pages/Homepage';
+import { Route, Switch} from "react-router-dom";
 import Login from "./pages/Login";
-import Inbox from "./pages/Inbox";
-import Finances from "./pages/Finances";
-import Dashboard from "./pages/Dashboard";
 import Register from "./pages/Register";
-import Employees from "./pages/Employees";
-import AddEmployee from "./pages/AddEmployee";
-import Calendar from "./pages/Calendar";
-import Account from "./pages/Account";
 import {ThemeProvider, createMuiTheme} from '@material-ui/core/styles'
 import CssBaseline from "@material-ui/core/CssBaseline";
+import UserLanding from "./pages/UserLanding";
 
 // Custom Theme
 const theme = createMuiTheme({
@@ -28,24 +22,26 @@ const theme = createMuiTheme({
 
 export default function App() {
     /*
-    Applies theme and sets up routing to all pages across app.
+        2nd level of the app hierarchy; child of 'index.js'
+            Also shouldn't need to be touched.
+
+        ThemeProvider applies a custom theme specified from 'const theme' above
+        CssBaseLine applies Material UI's standard baseline for default styling
+
+        Switch & Route sets up routing,
+            Essentially a switch case to each route
+
      */
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline/>
             <div className="App">
-                <BrowserRouter forceRefresh={true}>
-                    <Route exact path="/" component={Landing}/>
-                    <Route exact path="/login" component={Login}/>
-                    <Route exact path="/register" component={Register}/>
-                    <Route exact path="/inbox" component={Inbox}/>
-                    <Route exact path="/finances" component={Finances}/>
-                    <Route exact path="/dashboard" component={Dashboard}/>
-                    <Route exact path="/employees" component={Employees}/>
-                    <Route exact path="/addemployee" component={AddEmployee}/>
-                    <Route exact path="/calendar" component={Calendar}/>
-                    <Route exact path="/account" component={Account}/>
-                </BrowserRouter>
+                <Switch>
+                    <Route exact from="/" component={Homepage}/>
+                    <Route path="/login" component={Login}/>
+                    <Route path="/register" component={Register}/>
+                    <Route path="/user" component={UserLanding}/>
+                </Switch>
             </div>
         </ThemeProvider>
     );

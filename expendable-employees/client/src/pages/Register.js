@@ -14,6 +14,7 @@ import Button from "@material-ui/core/Button";
 const useStyles = makeStyles((theme) => ({}));
 
 export default function Register() {
+    // eslint-disable-next-line
     const classes = useStyles();
 
     return (

@@ -6,40 +6,59 @@ import DashboardIcon from '@material-ui/icons/Dashboard';
 import BarChartIcon from '@material-ui/icons/BarChart';
 import {AccountCircle, Inbox, PersonAdd, Storage, Today} from "@material-ui/icons";
 import {Link} from "react-router-dom";
-//how's this supposed to work?
+
+/*
+Returns a list of buttons linked respectively to a specific path.
+
+mainListItems:
+    Returns a list of links for pages viewable to all users (employers & employees)
+
+secondaryListItems:
+    Returns a list of links for pages viewable to employers only
+ */
+
 export const mainListItems = (
     <div>
-        <ListItem button component={Link} to="/account">
+
+        { /* Item */ }
+        <ListItem button component={Link} to="/user/account">
+            { /* Icon */ }
             <ListItemIcon>
                 <AccountCircle />
             </ListItemIcon>
+            { /* Label */ }
             <ListItemText primary="Account" />
         </ListItem>
-        <ListItem button component={Link} to="/dashboard">
+
+        <ListItem button component={Link} to="/user/dashboard">
             <ListItemIcon>
                 <DashboardIcon />
             </ListItemIcon>
             <ListItemText primary="Dashboard" />
         </ListItem>
-        <ListItem button component={Link} to="/calendar">
+
+        <ListItem button component={Link} to="/user/calendar">
             <ListItemIcon>
                 <Today />
             </ListItemIcon>
             <ListItemText primary="Calendar" />
         </ListItem>
-        <ListItem button component={Link} to="/inbox">
+
+        <ListItem button component={Link} to="/user/inbox">
             <ListItemIcon>
                 <Inbox />
             </ListItemIcon>
             <ListItemText primary="Inbox" />
         </ListItem>
-        <ListItem button component={Link} to="/finances">
+
+        <ListItem button component={Link} to="/user/finances">
             <ListItemIcon>
                 <BarChartIcon />
             </ListItemIcon>
             <ListItemText primary="Finances" />
         </ListItem>
-        <ListItem button component={Link} to="/employees">
+
+        <ListItem button component={Link} to="/user/employees">
             <ListItemIcon>
                 <Storage />
             </ListItemIcon>
@@ -50,7 +69,7 @@ export const mainListItems = (
 
 export const secondaryListItems = (
     <div>
-        <ListItem button component={Link} to="/addemployee">
+        <ListItem button component={Link} to="/user/addemployee">
             <ListItemIcon>
                 <PersonAdd />
             </ListItemIcon>

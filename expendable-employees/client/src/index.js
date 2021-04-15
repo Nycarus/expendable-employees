@@ -3,13 +3,21 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import {BrowserRouter} from "react-router-dom";
 
 ReactDOM.render(
-    <App/>,
+    /*
+        Top-level of webpage.
+        DO NOT TOUCH UNLESS YOU KNOW WHAT YOU'RE DOING!!!
+
+        Overall app wrapped with a BrowserRouter to enable routing
+            BrowserRouter keeps UI in sync with URL
+     */
+
+    <BrowserRouter>
+        <App/>
+    </BrowserRouter>,
     document.getElementById('root')
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
