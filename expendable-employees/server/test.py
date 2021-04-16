@@ -9,6 +9,7 @@ admin_url = "http://localhost:3001/api/register/admin"
 send_msg_url = "http://localhost:3001/api/email/send"
 new_user = "http://localhost:3001/api/register/user"
 password_reset_url = "http://localhost:3001/api/reset/employee/password"
+read_email = "http://localhost:3001/api/email/receive"
 
 admin_user = { 
             'firstname': 'Cole',
@@ -59,8 +60,8 @@ message = {
         "60696b7fa9433d382e1b6c85",
         "60696b3fa9433d382e1b6c81",
     ],
-    "message" : "hello",
-    "time_sent" : "2020-10-13"
+    "message" : "nice",
+    
 }
 
 
@@ -74,7 +75,7 @@ user_info = {
 }
 
 comp_usrs_url = "http://localhost:3001/api/company/users"
-response = requests.get(comp_usrs_url ,json=user_info, headers=headers)
+response = requests.get(read_email,json=message, headers=headers)
 if(response.status_code == 200):
     print(json.dumps(response.json(), indent=4, sort_keys=True))
 else:

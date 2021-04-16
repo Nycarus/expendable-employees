@@ -380,20 +380,47 @@ class CustomerDataBaseOperations {
 
 
     async sendEmail(message){
-        console.log(message);
-
+    
         var validation = jsonValidator(message,"Email");
-        console.log(validation)
+        console.log(message)
         if(!validation.valid){
             return {
-                "success": false,
-                "reason" : validation.errors
+                "success" : false,
+                "code" : 400
             };
         }
-    
+        
+        message["time_sent"] = new Date(Date.now()).toISOString();
+                
+        let re_format = []; 
+        for(var i = 0; i < message.receivers.length; i++){
+            let status_dict = { "user_id" : message.receivers[i],
+                                "is-read" : false};
+
+            re_format.push(status_dict);
+        }
+        
+        message.receivers = re_format;
+        console.log(JSON.stringify(message, null, 4));
+        
+        let result = await this.db_instance.insertToCollection(message, "Email");
+        
+        if(!result){
+            return {
+                "success" : false,
+                "code" : 500
+            };
+        }
+
         return {
-            "success": true,
+            "success" : true,
         };
+    }
+
+    async receiveEmails(query){
+        let company_query = await this.db_instance.queryCollection({"user_id" : query.user_id}, "Email");
+        console.log(company_query);
+        return company_query;
     }
 
     /*

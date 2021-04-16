@@ -112,12 +112,6 @@
                 "type" : "string",
                 "required" : true
             },
-            "time_sent": {
-                "type" : "string",
-                "format": "date",
-                "required": true
-            },
-
             "receivers" :     {
                 "type": "array",
                 "uniqueItems": true,

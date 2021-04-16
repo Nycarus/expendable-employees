@@ -164,13 +164,24 @@ app.get("/api/admin/user",authToken, function(request,response){
 */
 
 app.post("/api/email/send",authToken, function(request,response){
-
     request.body.sender = request.user_id.user_id;
     cdo.sendEmail(request.body).then(function(result){
-        response.send(result);
-    });
+        if(result.success){
+            response.send(result);
+        }else{
+            
+            response.sendStatus(result.code);
+        }
+    });    
+});
 
+// doesnt expect any payload  will use auth user id
+app.get("/api/email/receive",authToken, function(request,response){
+    request.body.user_id = request.user_id.user_id;
     
+    cdo.receiveEmails(request.body.user_id).then(function(results){
+        response.send(results);
+    });
 });
 
 
@@ -314,12 +325,6 @@ app.post('/api/register/company', function(request, response) {
         response.send(result);
     });    
 });
-
-// will return a json of all the users from the senders company
-app.post('/api/company/users',authToken, function(request, response) {
-        
-});
-
 
 app.set('port', process.env.PORT || 3001);
 app.listen(app.get('port'), function() {
