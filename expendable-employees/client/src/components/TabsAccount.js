@@ -16,7 +16,11 @@ import {Table, TableHead, TableBody, TableCell, TableRow, Typography} from '@mat
 import {Link} from '@material-ui/core';
 import clsx from "clsx";
 
-import Title from "../components/Title";
+import Title from "./Title";
+import QuitJob from "./QuitJob";
+import EditInfo from "./EditInfo";
+import PayInfo from "./PayInfo";
+import ChangePass from "./ChangePass";
 
 
 function preventDefault(event) {
@@ -96,14 +100,24 @@ const buttonOptions = [
 function loadComponent(myComponent){
     return function(){
 
+        let myView = document.getElementById('currAccInfo');
+
+        console.log(myView.childElementCount)
+        console.log(myView.firstChild)
+
+
         if(myComponent === 'QuitJobComponent'){
             console.log('job successfuly quit, happy to see you go!')
+            myView.innerHTML = <div>f1</div>
         } else if(myComponent === 'EditInfoComponent'){
             console.log("if you messed up the first time, it's your own fault")
+            myView.innerHTML = <div>f2</div>
         } else if(myComponent === 'PayInfoComponent'){
             console.log("you don't get paid, you're an intern")
+            myView.innerHTML = <div>f3</div>
         } else if(myComponent === 'ChangePassComponent'){
             console.log('fuck you no new password')
+            myView.innerHTML = <div>f4</div>
         } 
 
     }
@@ -125,7 +139,9 @@ export default function TabsAccount() {
             </Button>
         ))}</Toolbar>
             
-        <div id='currAccInfo'></div>
+        <div id='currAccInfo'>
+            <QuitJob></QuitJob>
+        </div>
 
         </React.Fragment>
     )

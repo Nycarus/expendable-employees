@@ -81,7 +81,7 @@ export default function EditInfo() {
 
     return(
         <React.Fragment>
-            
+            <Typography>lol you don't get to change your info</Typography>
         </React.Fragment>
     )
 

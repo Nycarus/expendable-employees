@@ -81,7 +81,7 @@ export default function QuitJob() {
 
     return(
         <React.Fragment>
-            
+            <Typography>Lol yer job gone</Typography>
         </React.Fragment>
     )
 

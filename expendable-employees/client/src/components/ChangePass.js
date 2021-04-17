@@ -81,7 +81,7 @@ export default function ChangePass() {
 
     return(
         <React.Fragment>
-            
+            <Typography>Your new password is *********************</Typography>
         </React.Fragment>
     )
 

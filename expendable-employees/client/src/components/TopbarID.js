@@ -11,10 +11,13 @@ import React from "react";
 import {makeStyles, Button } from '@material-ui/core/';
 import {Container, Grid, Paper } from '@material-ui/core';
 import {Table, TableHead, TableBody, TableCell, TableRow, Typography} from '@material-ui/core';
+import {Card, CardActionArea, CardContent, CardMedia} from '@material-ui/core';
 import {Link} from '@material-ui/core';
 import clsx from "clsx";
 
 import Title from "../components/Title";
+
+import pfp from './pfp.png'
 
 
 function preventDefault(event) {
@@ -24,6 +27,9 @@ function preventDefault(event) {
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
+    },
+    image:{
+
     },
     toolbar: {
         paddingRight: 24, // keep right padding when drawer closed
@@ -106,8 +112,9 @@ const buttonOptions = [
 */
 
 const placeholderUser = {
-    firstname: "FirstName",
-    lastname: "LastName",
+    firstname: "lol",
+    lastname: "idk",
+    position: "placeholderBitch",
     email: "lolidk@man.com",
     phone: "123-456-7890",
     address: "3 idk street",
@@ -126,27 +133,28 @@ export default function TopbarID() {
         <React.Fragment>
             <Container>
                 <Grid container spacing={3}>
-                    <Grid item xs={3}>
+                    <Grid item xs={3} >
                         {/* this is where the pfp will be, i don't know how to do images right now  */}
+                        <Typography>Placeholder for pfp</Typography>
                     </Grid>
                     <Grid item xs={4}>
                         {/* user info will be here, maybe a table */}
                         <Table>
                             <TableBody>
                                 <TableRow>
-                                    <Typography>placeholder</Typography>
+                                    <Typography>{placeholderUser.firstname} {placeholderUser.lastname} </Typography>
                                 </TableRow>
                                 <TableRow>
-                                    <Typography>placeholder</Typography>
+                                    <Typography>{placeholderUser.position}</Typography>
                                 </TableRow>
                                 <TableRow>
                                     <Typography>  {/* how the hell do i make an empty line? */} </Typography>
                                 </TableRow>
                                 <TableRow>
-                                    <Typography>placeholder</Typography>
+                                    <Typography>{placeholderUser.email}</Typography>
                                 </TableRow>
                                 <TableRow>
-                                    <Typography>placeholder</Typography>
+                                    <Typography>{placeholderUser.phone}</Typography>
                                 </TableRow>
                             </TableBody>
                         </Table>

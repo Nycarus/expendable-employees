@@ -81,7 +81,7 @@ export default function PayInfo() {
 
     return(
         <React.Fragment>
-            
+            <Typography>Lol you don't get paid </Typography>
         </React.Fragment>
     )
 
