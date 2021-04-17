@@ -13,7 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import {Link} from 'react-router-dom';
 import Grid from "@material-ui/core/Grid";
-import { Paper, Divider } from "@material-ui/core";
+import {Paper, Divider, Container} from "@material-ui/core";
 import PersonIcon from '@material-ui/icons/Person';
 
 const useStyles = makeStyles((theme) => ({
@@ -33,12 +33,12 @@ const useStyles = makeStyles((theme) => ({
         bottom: 0,
         right: 0,
         left: 0,
-        backgroundColor: 'rgba(0,0,0,.3)',
+        backgroundColor: 'rgba(0,0,0,0.40)',
     },
     headerContent: {
         position: 'relative',
         [theme.breakpoints.up('md')]: {
-            padding: theme.spacing(25),
+            padding: theme.spacing(20),
         },
     },
     showcaseCards: {
@@ -51,21 +51,28 @@ const useStyles = makeStyles((theme) => ({
     //At the moment image css has to be repeated for each posts. I'll try to find another way
     firstImage: {
         position: 'relative',
-        backgroundImage: 'url(https://i.kym-cdn.com/entries/icons/facebook/000/035/071/awooga_awooga.jpg)',
+        backgroundImage: 'url(https://i.imgur.com/71wZ2FF.png)',
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center'
     },
     secondImage: {
         position: 'relative',
-        backgroundImage: 'url(https://i.redd.it/b50mcic9lb861.jpg)',
+        backgroundImage: 'url(https://i.imgur.com/UjxkIpc.png)',
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat',
+        backgroundPosition: 'center'
+    },
+    thirdImage: {
+        position: 'relative',
+        backgroundImage: 'url(https://i.imgur.com/K3q3psW.png)',
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center'
     },
     bottomInfo: {
         paddingTop: theme.spacing(2),
-        paddingBottom: theme.spacing(8),
+        paddingBottom: theme.spacing(2),
         paddingLeft: theme.spacing(3),
         paddingRight: theme.spacing(3),
         backgroundColor: '#0f1112',
@@ -94,9 +101,11 @@ export default function Homepage() {
                         </Grid>
                         <Grid item>
                             <Grid container direction="row" justify="flex-end">
-                                <Button startIcon={<PersonIcon/>} color="inherit" variant="outlined" component={Link} to="/login">Login</Button>
+                                <Button startIcon={<PersonIcon/>} color="inherit" variant="outlined" component={Link}
+                                        to="/login">Login</Button>
                                 <Divider className={classes.dividerStyle} orientation="vertical"/>
-                                <Button color="inherit" variant="outlined" component={Link} to="/register">Register</Button>
+                                <Button color="inherit" variant="outlined" component={Link}
+                                        to="/register">Register</Button>
                             </Grid>
                         </Grid>
                     </Grid>
@@ -106,22 +115,18 @@ export default function Homepage() {
             {/* Supposedly to be Carousel, but will do this later (Will need an API and such) */}
             <Paper className={classes.image} elevation={5}>
                 <div className={classes.overlay}/>
-                <Grid container>
-                    <Grid item>
-                        <div className={classes.headerContent}>
-                            <Typography component="h1" variant="h3" color="inherit">
-                                Welcome to the perfect managerial tool.
-                            </Typography>
-                            <Typography component="h1" variant="h3" color="inherit">
-                                Our goal is to make your employees expendable.
-                            </Typography>
-                        </div>
-                    </Grid>
-                </Grid>
+                <Container className={classes.headerContent}>
+                    <Typography component="h1" variant="h3" color="inherit">
+                        Welcome to the perfect managerial tool.
+                    </Typography>
+                    <Typography component="h1" variant="h3" color="inherit">
+                        Our goal is to make your employees expendable.
+                    </Typography>
+                </Container>
             </Paper>
 
             <Typography variant="h2" color="inherit">
-                Our proud products
+                Our Proud Products
             </Typography>
 
             {/* Content */}
@@ -130,16 +135,16 @@ export default function Homepage() {
                 <Grid container spacing={10} direction="row">
                     <Grid item xs={7}>
                         <Typography variant="h4" color="inherit" gutterBottom={true}>
-                            Our product just works
+                            Curabitur Imperdiet Imperdiet Tincidunt
                         </Typography>
                         <Typography variant="body1" color="inherit" align="left">
-                            *jaw drops to floor, eyes pop out of sockets accompanied by trumpets, 
-                            heart beats out of chest, awooga awooga sound effect, 
-                            pulls chain on train whistle that has appeared next to head as steam blows out, 
-                            slams fists on table, rattling any plates, bowls or silverware, whistles loudly, 
-                            fireworks shoot from top of head, pants loudly as tongue hangs out of mouth, wipes 
-                            comically large bead of sweat from forehead, clears throat, straightens tie, combs hair* 
-                            Ahem, you look very lovely.
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer molestie erat at magna
+                            accumsan, feugiat pellentesque nibh consequat. Suspendisse bibendum a odio nec tincidunt.
+                            Donec fermentum, tellus eget consectetur rhoncus, est risus imperdiet mi, in mollis diam
+                            purus a dolor. Sed libero arcu, egestas quis lobortis vel, porttitor id odio. Maecenas sed
+                            urna sit amet ligula iaculis interdum vitae id elit. Fusce malesuada metus pharetra mauris
+                            semper, facilisis ornare leo pellentesque. Aenean vel imperdiet felis, sed dignissim sem.
+                            Donec nec lacus at purus mollis lobortis. Sed in ligula non massa consequat tristique.
                         </Typography>
                     </Grid>
                     <Grid item className={classes.firstImage} item xs={5}/>
@@ -149,20 +154,41 @@ export default function Homepage() {
             {/* Second content */}
             <Paper className={classes.showcaseCards} elevation={3}>
                 <Grid container spacing={10} direction="row">
+                    <Grid item className={classes.secondImage} item xs={5}/>
                     <Grid item xs={7}>
                         <Typography variant="h4" color="inherit" gutterBottom={true}>
-                            Jerma Minecraft Ep. 1
+                            Integer Fermentum Ipsum Lorem
                         </Typography>
                         <Typography variant="body1" color="inherit" align="left">
-                            Hello Ladies and Gentlemen! welcome to episode one of Jermacraft! 
-                            the series where I play Minecraft, this is going to be a single player let's play, 
-                            and when I say "let's play" I use that term pretty loosely because I am an idiot at this game. 
-                            You're gonna see lots of fails, you're gonna see lots of triumphs, at least I'm hoping, 
-                            so go grab yourself a nice hot cup of coffee, hot cup of cocoa. I got apple cider 
-                            right here freshly brewed. Let me take a sip, ah that's some good cider!
+                            Mauris sagittis interdum vestibulum. Sed blandit erat justo, ac feugiat lacus ornare eu.
+                            Cras elementum, tortor eu interdum pellentesque, turpis justo luctus nisi, sit amet
+                            elementum neque tortor sit amet neque. Suspendisse pretium massa a orci interdum, a lacinia
+                            augue viverra. Quisque convallis molestie dolor, a auctor lacus ultricies vitae. Nam
+                            tincidunt nunc id nulla ultricies lacinia. Aliquam eu nisl ac mi interdum lacinia vel ut
+                            justo. Suspendisse efficitur nec nisl at tincidunt. Nulla facilisi.
                         </Typography>
                     </Grid>
-                    <Grid item className={classes.secondImage} item xs={5}/>
+                </Grid>
+            </Paper>
+
+            {/* Third content */}
+            <Paper className={classes.showcaseCards} elevation={3}>
+                <Grid container spacing={10} direction="row">
+                    <Grid item xs={7}>
+                        <Typography variant="h4" color="inherit" gutterBottom={true}>
+                            Lorem Ipsum Dolor Sit Amet
+                        </Typography>
+                        <Typography variant="body1" color="inherit" align="left">
+                            Curabitur imperdiet imperdiet tincidunt. Praesent id congue sapien. Vivamus ultrices ante
+                            quis ante ultricies faucibus. Proin eget condimentum nunc, vitae dapibus massa. Ut accumsan
+                            ex vitae tortor ullamcorper, rhoncus feugiat turpis laoreet. Suspendisse sed aliquet lorem,
+                            non egestas lacus. Quisque interdum odio nec pharetra ultricies. Etiam eget tortor auctor,
+                            ultrices dui sit amet, maximus neque. In posuere nibh ut lacus ullamcorper, id scelerisque
+                            tellus condimentum. Donec in sapien odio. Etiam non arcu fermentum neque commodo
+                            scelerisque. Curabitur condimentum eros aliquet, elementum ante in, pulvinar velit.
+                        </Typography>
+                    </Grid>
+                    <Grid item className={classes.thirdImage} item xs={5}/>
                 </Grid>
             </Paper>
 
@@ -181,11 +207,16 @@ export default function Homepage() {
                         <Typography variant="h4" color="inherit" align="right">
                             Contact Us
                         </Typography>
-                        <Typography variant="overline" color="inherit" align="right" display="block">Anthony Huang</Typography>
-                        <Typography variant="overline" color="inherit" align="right" display="block">Aron-Seth Cohen</Typography>
-                        <Typography variant="overline" color="inherit" align="right" display="block">Cole Mollica</Typography>
-                        <Typography variant="overline" color="inherit" align="right" display="block">John Nemec</Typography>
-                        <Typography variant="overline" color="inherit" align="right" display="block">Kevin Chandra</Typography>
+                        <Typography variant="overline" color="inherit" align="right" display="block">Anthony
+                            Huang</Typography>
+                        <Typography variant="overline" color="inherit" align="right" display="block">Aron-Seth
+                            Cohen</Typography>
+                        <Typography variant="overline" color="inherit" align="right" display="block">Cole
+                            Mollica</Typography>
+                        <Typography variant="overline" color="inherit" align="right" display="block">John
+                            Nemec</Typography>
+                        <Typography variant="overline" color="inherit" align="right" display="block">Kevin
+                            Chandra</Typography>
                     </Grid>
                 </Grid>
             </Paper>
