@@ -423,10 +423,6 @@ class CustomerDataBaseOperations {
         return company_query;
     }
 
-    async tempInsertSchedule(){
-        let result = await this.db_instance.insertToCollection({"user_id":"1", "title":"Shift", "startDate":"2021-04-16T07:45", "endDate":"2021-04-16T18:00"}, "Schedule");
-    }
-
     async getUserSchedule(query){
         let schedule_query = await this.db_instance.queryCollection({"user_id": query.user_id}, "Schedule");
         console.log(schedule_query);
@@ -556,6 +552,5 @@ class CustomerDataBaseOperations {
         };
     }
 }
-
 
 module.exports = CustomerDataBaseOperations;
