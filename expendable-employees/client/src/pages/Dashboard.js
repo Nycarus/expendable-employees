@@ -6,6 +6,7 @@ import {Link} from '@material-ui/core';
 import clsx from "clsx";
 import hoursOverview from "../components/hoursOverview";
 import Title from "../components/Title";
+import Annoucements from "../components/Annoucements";
 
 //Hardcoded test data
 const schedulerData = [
@@ -209,63 +210,7 @@ export default function Dashboard() {
                     {/* Annoucements */}
                     <Grid item xs={12} md={12} lg={6}>
                         <Paper className={fixedHeightPaper}>
-                        <Title>Annoucements</Title>
-                        <Table>
-                            <TableBody>
-                                <TableRow>
-                                    <Grid>
-                                        <TableRow>
-                                            <TableCell>
-                                                <Typography>Annoucement 1 Title</Typography>
-                                            </TableCell>
-                                            <TableCell>
-                                                <Button>X</Button>
-                                            </TableCell>
-                                            <TableCell>
-                                                <Button>?</Button>
-                                            </TableCell>
-                                        </TableRow>
-                                        <Typography>Annoucer Name</Typography>
-                                        <Typography>Annoucement content......</Typography>
-                                        
-                                    </Grid>
-                                </TableRow>
-                                <TableRow>
-                                    <Grid>
-                                    <TableRow>
-                                            <TableCell>
-                                                <Typography>Annoucement 2 Title</Typography>
-                                            </TableCell>
-                                            <TableCell>
-                                                <Button>X</Button>
-                                            </TableCell>
-                                            <TableCell>
-                                                <Button>?</Button>
-                                            </TableCell>
-                                        </TableRow>
-                                        <Typography>Annoucer Name</Typography>
-                                        <Typography>Annoucement content......</Typography>
-                                    </Grid>
-                                </TableRow>
-                                <TableRow>
-                                    <Grid>
-                                    <TableRow>
-                                            <TableCell>
-                                                <Typography>Annoucement 3 Title</Typography>
-                                            </TableCell>
-                                            <TableCell>
-                                                <Button>X</Button>
-                                            </TableCell>
-                                            <TableCell>
-                                                <Button>?</Button>
-                                            </TableCell>
-                                        </TableRow>
-                                        <Typography>Annoucer Name</Typography>
-                                        <Typography>Annoucement content......</Typography> 
-                                    </Grid>
-                                </TableRow>
-                            </TableBody>
-                        </Table>
+                        <Annoucements></Annoucements>
                         </Paper>
                     </Grid>
                     
