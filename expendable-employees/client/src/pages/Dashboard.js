@@ -9,20 +9,6 @@ import Title from "../components/Title";
 import Annoucements from "../components/Annoucements";
 import EmailDashboard from "../components/EmailDashboard";
 
-//Hardcoded test data
-const schedulerData = [
-    {startDate: '2021-04-12T08:00', endDate: '2021-04-12T12:00', title: 'Shift'}, // 0
-    {startDate: '2021-04-13T10:00', endDate: '2021-04-13T14:00', title: 'Shift'}, // 1
-    {startDate: '2021-04-15T09:45', endDate: '2021-04-15T12:00', title: 'Shift'}, // 2 
-    {startDate: '2021-04-17T08:00', endDate: '2021-04-17T20:00', title: 'Shift'}, // 3
-    {startDate: '2021-04-18T08:00', endDate: '2021-04-18T12:00', title: 'Shift'}, // 4
-    {startDate: '2021-04-19T10:00', endDate: '2021-04-19T14:00', title: 'Shift'}, // 5
-    {startDate: '2021-04-21T09:45', endDate: '2021-04-21T12:00', title: 'Shift'}, // 6
-    {startDate: '2021-04-22T08:00', endDate: '2021-04-22T20:00', title: 'Shift'}, // 7
-];
-
-var currDay = 4;
-
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -99,27 +85,29 @@ export default function Dashboard() {
         <div>
             <main className={classes.content}>
                 <div className={classes.appBarSpacer} />
-                <Container className={classes.container}>
-                    {/* Overview of Hours */}
-                    <Grid item xs={14} md={10} lg={12}>
-                        <Paper className={fixedHeightPaper}>
-                        {/* all the stuff here could probably be moved to another file eventually */}
-                        <HoursOverview></HoursOverview>
-                            
-                        </Paper>
+                <Container className={classes.container} height="100%">
+                    <Grid container spacing={3}>
+                        <Grid item xs>
+                        {/* Overview of Hours */}
+                            <Paper className={classes.paper}>
+                                <HoursOverview></HoursOverview>
+                            </Paper>
+                        </Grid>
                     </Grid>
-                    {/* Annoucements */}
-                    <Grid item xs={12} md={12} lg={6}>
-                        <Paper className={fixedHeightPaper}>
-                        <Annoucements></Annoucements>
-                        </Paper>
-                    </Grid>
-                    
-                    {/* Emails */}
-                    <Grid item xs={12} md={12} lg={6}>
-                        <Paper className={classes.paper}>
-                            <EmailDashboard></EmailDashboard>
-                        </Paper>
+                    <Grid container spacing = {3}>
+                        {/* Annoucements */}
+                        <Grid item xs>
+                            <Paper className={classes.paper}>
+                                <Annoucements></Annoucements>
+                            </Paper>
+                        </Grid>
+
+                        {/* Emails */}
+                        <Grid item xs>
+                            <Paper className={classes.paper}>
+                                <EmailDashboard></EmailDashboard>
+                            </Paper>
+                        </Grid>
                     </Grid>
 
                 </Container>
