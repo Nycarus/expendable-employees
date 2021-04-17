@@ -4,8 +4,22 @@ import {Container, Grid, Paper } from '@material-ui/core';
 import {Table, TableHead, TableBody, TableCell, TableRow, Typography} from '@material-ui/core';
 import {Link} from '@material-ui/core';
 import clsx from "clsx";
+import hoursOverview from "../components/hoursOverview";
 import Title from "../components/Title";
 
+//Hardcoded test data
+const schedulerData = [
+    {startDate: '2021-04-12T08:00', endDate: '2021-04-12T12:00', title: 'Shift'}, // 0
+    {startDate: '2021-04-13T10:00', endDate: '2021-04-13T14:00', title: 'Shift'}, // 1
+    {startDate: '2021-04-15T09:45', endDate: '2021-04-15T12:00', title: 'Shift'}, // 2 
+    {startDate: '2021-04-17T08:00', endDate: '2021-04-17T20:00', title: 'Shift'}, // 3
+    {startDate: '2021-04-18T08:00', endDate: '2021-04-18T12:00', title: 'Shift'}, // 4
+    {startDate: '2021-04-19T10:00', endDate: '2021-04-19T14:00', title: 'Shift'}, // 5
+    {startDate: '2021-04-21T09:45', endDate: '2021-04-21T12:00', title: 'Shift'}, // 6
+    {startDate: '2021-04-22T08:00', endDate: '2021-04-22T20:00', title: 'Shift'}, // 7
+];
+
+var currDay = 4;
 
 
 const useStyles = makeStyles((theme) => ({
@@ -70,6 +84,18 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
+const arrowClickLeft = () => {
+    currDay -= 1;
+    console.log('left')
+    console.log(currDay)
+}
+
+const arrowClickRight = () => {
+    currDay += 1;
+    console.log('right')
+    console.log(currDay)
+}
+
 function preventDefault(event) {
     event.preventDefault();
   }
@@ -82,7 +108,6 @@ export default function Dashboard() {
         <div>
             <main className={classes.content}>
                 <div className={classes.appBarSpacer} />
-                {/*aite let's fuck some shit up */}
                 <Container className={classes.container}>
                     {/* Overview of Hours */}
                     <Grid item xs={14} md={10} lg={12}>
@@ -92,32 +117,32 @@ export default function Dashboard() {
                             <Table size="small">
                                 <TableHead>
                                     <TableRow>
-                                        <TableCell><Button>leftArrow</Button></TableCell>
-                                        <TableCell>CurrDay - 2</TableCell>
-                                        <TableCell>CurrDay - 1</TableCell>
-                                        <TableCell>CurrDay</TableCell>
-                                        <TableCell>CurrDay + 1</TableCell>
-                                        <TableCell>CurrDay + 2</TableCell>
-                                        <TableCell><Button>rightArrow</Button></TableCell>
+                                        <TableCell><Button onClick = {arrowClickLeft}>leftArrow</Button></TableCell>
+                                        <TableCell>schedulerData[currDay - 2].title</TableCell>
+                                        <TableCell>schedulerData[currDay - 1].title</TableCell>
+                                        <TableCell>schedulerData[currDay - 0].title</TableCell>
+                                        <TableCell>schedulerData[currDay + 1].title</TableCell>
+                                        <TableCell>schedulerData[currDay + 2].title</TableCell>
+                                        <TableCell><Button onClick = {arrowClickRight}>rightArrow</Button></TableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
                                     <TableRow>
                                         <TableCell>----</TableCell>
-                                        <TableCell>StartTime</TableCell>
-                                        <TableCell>StartTime</TableCell>
-                                        <TableCell>StartTime</TableCell>
-                                        <TableCell>StartTime</TableCell>
-                                        <TableCell>StartTime</TableCell>
+                                        <TableCell>schedulerData[currDay - 2].startDate</TableCell>
+                                        <TableCell>schedulerData[currDay - 1].startDate</TableCell>
+                                        <TableCell>schedulerData[currDay - 0].startDate</TableCell>
+                                        <TableCell>schedulerData[currDay + 1].startDate</TableCell>
+                                        <TableCell>schedulerData[currDay + 2].startDate</TableCell>
                                         <TableCell>----</TableCell>
                                     </TableRow>
                                     <TableRow>
                                         <TableCell>----</TableCell>
-                                        <TableCell>EndTime</TableCell>
-                                        <TableCell>EndTime</TableCell>
-                                        <TableCell>EndTime</TableCell>
-                                        <TableCell>EndTime</TableCell>
-                                        <TableCell>EndTime</TableCell>
+                                        <TableCell>schedulerData[currDay - 2].endDate</TableCell>
+                                        <TableCell>schedulerData[currDay - 1].endDate</TableCell>
+                                        <TableCell>schedulerData[currDay - 0].endDate</TableCell>
+                                        <TableCell>schedulerData[currDay + 1].endDate</TableCell>
+                                        <TableCell>schedulerData[currDay + 2].endDate</TableCell>
                                         <TableCell>----</TableCell>
                                     </TableRow>
                                     <TableRow>
