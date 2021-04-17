@@ -11,10 +11,13 @@ import {
     TodayButton,
     AppointmentTooltip
 } from '@devexpress/dx-react-scheduler-material-ui';
-import {Box, Container} from "@material-ui/core";
+import {Box} from "@material-ui/core";
 
 const schedulerData = [
-    {startDate: '2021-04-16T07:45', endDate: '2021-04-16T18:00', title: 'Shift'},
+    {startDate: '2021-04-18T08:00', endDate: '2021-04-18T12:00', title: 'Shift'},
+    {startDate: '2021-04-19T10:00', endDate: '2021-04-19T14:00', title: 'Shift'},
+    {startDate: '2021-04-21T09:45', endDate: '2021-04-21T12:00', title: 'Shift'},
+    {startDate: '2021-04-22T08:00', endDate: '2021-04-22T20:00', title: 'Shift'},
 ];
 
 const useStyles = makeStyles((theme) => ({
@@ -50,7 +53,7 @@ const TimeTableCell = (props) => {
 // Highlights current day header
 const DayScaleCell = (props) => {
     const classes = useStyles();
-    const {startDate, today} = props;
+    const today = props;
 
     if (today) {
         return <WeekView.DayScaleCell {...props} className={classes.today}/>;
