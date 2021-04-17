@@ -76,62 +76,82 @@ export default function Annoucements() {
   return (
     <React.Fragment>
         <Title>Annoucements</Title>
-        <Table>
-            <TableBody>
-                <TableRow>
-                    <Grid>
-                        <TableRow>
-                            <TableCell>
-                                <Typography>Annoucement 1 Title</Typography>
-                            </TableCell>
-                            <TableCell>
-                                <Button>X</Button>
-                            </TableCell>
-                            <TableCell>
-                                <Button>?</Button>
-                            </TableCell>
-                        </TableRow>
-                        <Typography>Annoucer Name</Typography>
-                        <Typography>Annoucement content......</Typography>
-                                    
-                    </Grid>
-                </TableRow>
-                <TableRow>
-                    <Grid>
-                        <TableRow>
-                            <TableCell>
-                                <Typography>Annoucement 2 Title</Typography>
-                            </TableCell>
-                            <TableCell>
-                                <Button>X</Button>
-                            </TableCell>
-                            <TableCell>
-                                <Button>?</Button>
-                            </TableCell>
-                        </TableRow>
-                        <Typography>Annoucer Name</Typography>
-                        <Typography>Annoucement content......</Typography>
-                    </Grid>
-                </TableRow>
-                <TableRow>
-                    <Grid>
-                        <TableRow>
-                            <TableCell>
-                                <Typography>Annoucement 3 Title</Typography>
-                            </TableCell>
-                            <TableCell>
-                                <Button>X</Button>
-                            </TableCell>
-                            <TableCell>
-                                <Button>?</Button>
-                            </TableCell>
-                        </TableRow>
-                        <Typography>Annoucer Name</Typography>
-                        <Typography>Annoucement content......</Typography>
-                    </Grid>
-                </TableRow>
-            </TableBody>
-        </Table>
+
+
+
+
+        <Grid container spacing = {1}>
+            <Grid item xs={8}>
+                <Typography>Annoucement 1 Title</Typography>
+            </Grid>
+            <Grid item xs={2}>
+                <Button>X</Button>
+            </Grid>
+            <Grid item xs={2}>
+                <Button>?</Button>
+            </Grid>
+            <Grid item xs = {6}>
+                <Typography>Company Branch</Typography>
+            </Grid>
+            <Grid item xs = {6}>
+                <Typography>Annoucement Sender</Typography>
+            </Grid>
+            <Grid item xs = {12}>
+                <Typography>Annoucement message</Typography>
+            </Grid>
+
+            <Grid item xs = {12}></Grid>
+            <Grid item xs = {12}></Grid>
+        </Grid>
+
+        <Grid container spacing = {1}>
+            <Grid item xs={8}>
+                <Typography>Annoucement 2 Title</Typography>
+            </Grid>
+            <Grid item xs={2}>
+                <Button>X</Button>
+            </Grid>
+            <Grid item xs={2}>
+                <Button>?</Button>
+            </Grid>
+            <Grid item xs = {6}>
+                <Typography>Company Branch</Typography>
+            </Grid>
+            <Grid item xs = {6}>
+                <Typography>Annoucement Sender</Typography>
+            </Grid>
+            <Grid item xs = {12}>
+                <Typography>Annoucement message</Typography>
+            </Grid>
+            
+            <Grid item xs = {12}></Grid>
+            <Grid item xs = {12}></Grid>
+        </Grid>
+        
+        <Grid container spacing = {1}>
+            <Grid item xs={8}>
+                <Typography>Annoucement 3 Title</Typography>
+            </Grid>
+            <Grid item xs={2}>
+                <Button>X</Button>
+            </Grid>
+            <Grid item xs={2}>
+                <Button>?</Button>
+            </Grid>
+            <Grid item xs = {6}>
+                <Typography>Company Branch</Typography>
+            </Grid>
+            <Grid item xs = {6}>
+                <Typography>Annoucement Sender</Typography>
+            </Grid>
+            <Grid item xs = {12}>
+                <Typography>Annoucement message</Typography>
+            </Grid>
+ 
+            <Grid item xs = {12}></Grid>           
+            <Grid item xs = {12}></Grid>
+        </Grid>
+        
     </React.Fragment>
   );
 }

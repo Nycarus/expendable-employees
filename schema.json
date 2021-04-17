@@ -65,7 +65,7 @@
         }
     },
 
-    "Announcment" : {
+    "Announcement" : {
         "_id" : "ObjectId(...)",
         "branch" : "Branch._id",
         "sender" : "User._id",
