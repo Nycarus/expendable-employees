@@ -2,7 +2,7 @@
 
 This is the user landing page and acts as the top-level view for all user-specific pages.
 This allows the title Appbar and Drawer sidebar to always be at the highest level and present on all other user pages
-such as Account, Dashboard, Calendar, etc, without needing the Appbar and Drawer to be duplicated code on each page.
+such as Account, Dashboard, Schedule, etc, without needing the Appbar and Drawer to be duplicated code on each page.
 
 Also handles relative routing.
 
@@ -16,7 +16,7 @@ import Inbox from "./Inbox";
 import Finances from "./Finances";
 import Employees from "./Employees";
 import AddEmployee from "./AddEmployee";
-import Calendar from "./Calendar";
+import Schedule from "./Schedule";
 import Account from "./Account";
 import Drawer from "../components/Drawer";
 import AppBar from "@material-ui/core/AppBar";
@@ -175,33 +175,39 @@ export default function UserLanding() {
                 handleDrawerClose={handleDrawerClose}
             />
 
-            { /* Routing */ }
-            <Switch>
-                <Route exact path={path}>
-                    <Dashboard/>
-                </Route>
-                <Route path={`${path}/account`}>
-                    <Account/>
-                </Route>
-                <Route path={`${path}/dashboard`}>
-                    <Dashboard/>
-                </Route>
-                <Route path={`${path}/calendar`}>
-                    <Calendar/>
-                </Route>
-                <Route path={`${path}/inbox`}>
-                    <Inbox/>
-                </Route>
-                <Route path={`${path}/finances`}>
-                    <Finances/>
-                </Route>
-                <Route path={`${path}/employees`}>
-                    <Employees/>
-                </Route>
-                <Route path={`${path}/addemployee`}>
-                    <AddEmployee/>
-                </Route>
-            </Switch>
+
+            <main className={classes.content}>
+                <div className={classes.appBarSpacer}/>
+
+                { /* Routing */ }
+                <Switch>
+                    <Route exact path={path}>
+                        <Dashboard/>
+                    </Route>
+                    <Route path={`${path}/account`}>
+                        <Account/>
+                    </Route>
+                    <Route path={`${path}/dashboard`}>
+                        <Dashboard/>
+                    </Route>
+                    <Route path={`${path}/schedule`}>
+                        <Schedule/>
+                    </Route>
+                    <Route path={`${path}/inbox`}>
+                        <Inbox/>
+                    </Route>
+                    <Route path={`${path}/finances`}>
+                        <Finances/>
+                    </Route>
+                    <Route path={`${path}/employees`}>
+                        <Employees/>
+                    </Route>
+                    <Route path={`${path}/addemployee`}>
+                        <AddEmployee/>
+                    </Route>
+                </Switch>
+
+            </main>
 
         </div>
     );

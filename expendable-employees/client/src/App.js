@@ -11,8 +11,17 @@ import UserLanding from "./pages/UserLanding";
 const theme = createMuiTheme({
     palette: {
         type: 'dark',
+        text: {
+            primary: '#fff'
+        },
+        background: {
+            default: '#191c1e',
+            paper: '#202426'
+        },
         primary: {
-            main: '#404040',
+            main: '#131516',
+            light: '#fff',
+
         },
         secondary: {
             main: '#c7c7c7',

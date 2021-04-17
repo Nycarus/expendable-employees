@@ -37,11 +37,11 @@ export const mainListItems = (
             <ListItemText primary="Dashboard" />
         </ListItem>
 
-        <ListItem button component={Link} to="/user/calendar">
+        <ListItem button component={Link} to="/user/schedule">
             <ListItemIcon>
                 <Today />
             </ListItemIcon>
-            <ListItemText primary="Calendar" />
+            <ListItemText primary="Schedule" />
         </ListItem>
 
         <ListItem button component={Link} to="/user/inbox">
@@ -51,6 +51,11 @@ export const mainListItems = (
             <ListItemText primary="Inbox" />
         </ListItem>
 
+    </div>
+);
+
+export const secondaryListItems = (
+    <div>
         <ListItem button component={Link} to="/user/finances">
             <ListItemIcon>
                 <BarChartIcon />
@@ -64,11 +69,7 @@ export const mainListItems = (
             </ListItemIcon>
             <ListItemText primary="Employees" />
         </ListItem>
-    </div>
-);
 
-export const secondaryListItems = (
-    <div>
         <ListItem button component={Link} to="/user/addemployee">
             <ListItemIcon>
                 <PersonAdd />
