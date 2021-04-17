@@ -4,6 +4,7 @@ import { makeStyles, Button, Tab } from '@material-ui/core/';
 import { Container, Grid, Paper } from '@material-ui/core';
 import { Table, TableHead, TableBody, TableCell, TableRow, Typography } from '@material-ui/core';
 import Title from './Title';
+//import {Link} from "react-router-dom";
 
 
 function preventDefault(event) {
@@ -72,6 +73,18 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
+function viewEmail(anEmail){
+    //there's an issue with the function being called twice, it seems
+    //console.log(anEmail)
+}
+/*<ListItem button component={Link} to="/user/inbox">
+            <ListItemIcon>
+                <Inbox />
+            </ListItemIcon>
+            <ListItemText primary="Inbox" />
+        </ListItem>
+        */
+//how the hell am i going to make this actually read emails? that's going to be a bit of a pain
 export default function EmailDashboard() {
     const classes = useStyles();
     return (
@@ -80,19 +93,20 @@ export default function EmailDashboard() {
             <Table>
                 <TableBody>
                     <TableRow>
-                        <TableCell>
+                        <TableCell width = "60%">
                             <Typography component="p" variant="h4">
-                                <Link color="secondary" href="#" onClick={preventDefault}>
+                                <Link color="secondary" href="#" onClick={viewEmail('placeholderArgument1')}>
                                     It's Layoff season!
                                 </Link>
                             </Typography>
                         </TableCell>
-                        <TableCell>
+                        <TableCell  width = "30%">
                             <Typography color="textSecondary" className={classes.depositContext}>
                                 Boss man dude
                             </Typography>
+                            
                             <Typography color="textSecondary" className={classes.depositContext}>
-                                Email sent at timestamp
+                                timestamp
                             </Typography>                    
                         </TableCell>
                     </TableRow>
@@ -101,19 +115,19 @@ export default function EmailDashboard() {
             <Table>
                 <TableBody>
                     <TableRow>
-                        <TableCell>
+                        <TableCell width = "60%">
                             <Typography component="p" variant="h4">
-                                <Link color="secondary" href="#" onClick={preventDefault}>
+                                <Link color="secondary" href="#" onClick={viewEmail('placeholderArgument2')}>
                                     Generic Email Topic
                                 </Link>
                             </Typography>
                         </TableCell>
-                        <TableCell>
+                        <TableCell width = "30%">
                             <Typography color="textSecondary" className={classes.depositContext}>
                                 Generic Email Sender
                             </Typography>
                             <Typography color="textSecondary" className={classes.depositContext}>
-                                    Email sent at timestamp
+                                timestamp
                             </Typography>
                         </TableCell>
                     </TableRow>
