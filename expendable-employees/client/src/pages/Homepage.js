@@ -14,11 +14,9 @@ import Button from '@material-ui/core/Button';
 import {Link} from 'react-router-dom';
 import Grid from "@material-ui/core/Grid";
 import { Paper, Divider } from "@material-ui/core";
+import PersonIcon from '@material-ui/icons/Person';
 
 const useStyles = makeStyles((theme) => ({
-    title: {
-        flexGrow: 1,
-    },
     image: {
         position: 'relative',
         backgroundColor: theme.palette.grey[800],
@@ -27,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
         backgroundImage: 'url(https://source.unsplash.com/faEfWCdOKIg/1920x1080)',
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
-        backgroundPosition: 'center',
+        backgroundPosition: 'center'
     },
     overlay: {
         position: 'absolute',
@@ -70,12 +68,15 @@ const useStyles = makeStyles((theme) => ({
         paddingBottom: theme.spacing(8),
         paddingLeft: theme.spacing(3),
         paddingRight: theme.spacing(3),
-        backgroundColor: '#000000',
+        backgroundColor: '#0f1112',
     },
     bottomInfoGrid: {
         direction: "column",
         justify: "flex-start",
         alignItems: "flex-start"
+    },
+    dividerStyle: {
+        margin: theme.spacing(0.5)
     }
 }));
 
@@ -87,11 +88,18 @@ export default function Homepage() {
             {/* Header = Still problem to center the title */}
             <AppBar position="static">
                 <Toolbar>
-                    <Typography variant="h4" className={classes.title}>
-                        Expendable Employees
-                    </Typography>
-                    <Button color="inherit" component={Link} to="/login">Login</Button>
-                    <Button color="inherit" component={Link} to="/register">Register</Button>
+                    <Grid container direction="row" justify="space-between" alignItems="center">
+                        <Grid item>
+                            <img src="assets/logo_full.png" height="50px"/>
+                        </Grid>
+                        <Grid item>
+                            <Grid container direction="row" justify="flex-end">
+                                <Button startIcon={<PersonIcon/>} color="inherit" variant="outlined" component={Link} to="/login">Login</Button>
+                                <Divider className={classes.dividerStyle} orientation="vertical"/>
+                                <Button color="inherit" variant="outlined" component={Link} to="/register">Register</Button>
+                            </Grid>
+                        </Grid>
+                    </Grid>
                 </Toolbar>
             </AppBar>
 
@@ -162,20 +170,22 @@ export default function Homepage() {
             <Paper className={classes.bottomInfo}>
                 <Grid container direction="row" justify="space-between" alignItems="flex-start">
                     <Grid item>
-                        <Typography variant="h5" color="inherit">
-                            Contact Us
-                        </Typography>
-                        <Divider/>
-                        <Typography variant="body2" color="inherit" align="left">Name</Typography>
-                        <Typography variant="body2" color="inherit" align="left">Name</Typography>
-                        <Typography variant="body2" color="inherit" align="left">Name</Typography>
-                        <Typography variant="body2" color="inherit" align="left">Name</Typography>
-                        <Typography variant="body2" color="inherit" align="left">Name</Typography>
+                        <Grid container direction="column" justify="flex-start" alignItems="flex-start">
+                            <img src="assets/logo_full.png" height="50px"/>
+                            <Typography variant="overline" color="inherit" align="left">
+                                Made by (2021) We Just Want to Pass Studio Ltd.
+                            </Typography>
+                        </Grid>
                     </Grid>
                     <Grid item>
-                        <Typography variant="body2" color="inherit">
-                            Made by (2021) We Just Want to Pass Studio
+                        <Typography variant="h4" color="inherit" align="right">
+                            Contact Us
                         </Typography>
+                        <Typography variant="overline" color="inherit" align="right" display="block">Anthony Huang</Typography>
+                        <Typography variant="overline" color="inherit" align="right" display="block">Aron-Seth Cohen</Typography>
+                        <Typography variant="overline" color="inherit" align="right" display="block">Cole Mollica</Typography>
+                        <Typography variant="overline" color="inherit" align="right" display="block">John Nemec</Typography>
+                        <Typography variant="overline" color="inherit" align="right" display="block">Kevin Chandra</Typography>
                     </Grid>
                 </Grid>
             </Paper>
