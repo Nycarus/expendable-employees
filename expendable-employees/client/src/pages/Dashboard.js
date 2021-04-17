@@ -7,6 +7,7 @@ import clsx from "clsx";
 import hoursOverview from "../components/hoursOverview";
 import Title from "../components/Title";
 import Annoucements from "../components/Annoucements";
+import EmailDashboard from "../components/EmailDashboard";
 
 //Hardcoded test data
 const schedulerData = [
@@ -214,28 +215,10 @@ export default function Dashboard() {
                         </Paper>
                     </Grid>
                     
-                    {/* Tasks (todo?) */}
-                    <Grid item xs={12} md={4} lg={3}>
+                    {/* Emails */}
+                    <Grid item xs={12} md={12} lg={6}>
                         <Paper className={classes.paper}>
-                            <Title> Current Tasks</Title>
-                            <Typography component="p" variant="h4">Task 1 Name </Typography>
-                            <Typography color="textSecondary" className={classes.depositContext}>
-                                Task 1 Status 
-                            </Typography>
-                            <div>
-                                <Link color="secondary" href="#" onClick={preventDefault}>
-                                    View Task 1 Details
-                                </Link>
-                            </div>
-                            <Typography component="p" variant="h4">Task 2 Name</Typography>
-                            <Typography color="textSecondary" className={classes.depositContext}>
-                                Task 2 Status
-                            </Typography>
-                            <div>
-                                <Link color="secondary" href="#" onClick={preventDefault}>
-                                    View Task 2 Details
-                                </Link>
-                            </div>
+                            <EmailDashboard></EmailDashboard>
                         </Paper>
                     </Grid>
 
