@@ -171,9 +171,8 @@ export default function Homepage() {
                 <Grid container direction="row" justify="space-between" alignItems="flex-start">
                     <Grid item>
                         <Grid container direction="column" justify="flex-start" alignItems="flex-start">
-                            <img src="assets/logo_full.png" height="40px"/>
-                            <Divider className={classes.dividerStyle}/>
-                            <Typography variant="body2" color="inherit" align="left">
+                            <img src="assets/logo_full.png" height="50px"/>
+                            <Typography variant="overline" color="inherit" align="left">
                                 Made by (2021) We Just Want to Pass Studio Ltd.
                             </Typography>
                         </Grid>
@@ -182,12 +181,11 @@ export default function Homepage() {
                         <Typography variant="h4" color="inherit" align="right">
                             Contact Us
                         </Typography>
-                        <Divider className={classes.dividerStyle}/>
-                        <Typography variant="body2" color="inherit" align="right">Anthony Huang</Typography>
-                        <Typography variant="body2" color="inherit" align="right">Aron-Seth Cohen</Typography>
-                        <Typography variant="body2" color="inherit" align="right">Cole Mollica</Typography>
-                        <Typography variant="body2" color="inherit" align="right">John Nemec</Typography>
-                        <Typography variant="body2" color="inherit" align="right">Kevin Chandra</Typography>
+                        <Typography variant="overline" color="inherit" align="right" display="block">Anthony Huang</Typography>
+                        <Typography variant="overline" color="inherit" align="right" display="block">Aron-Seth Cohen</Typography>
+                        <Typography variant="overline" color="inherit" align="right" display="block">Cole Mollica</Typography>
+                        <Typography variant="overline" color="inherit" align="right" display="block">John Nemec</Typography>
+                        <Typography variant="overline" color="inherit" align="right" display="block">Kevin Chandra</Typography>
                     </Grid>
                 </Grid>
             </Paper>
