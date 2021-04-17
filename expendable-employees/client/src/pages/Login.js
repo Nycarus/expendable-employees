@@ -13,7 +13,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import {makeStyles} from '@material-ui/core/styles';
 import {Link} from "react-router-dom";
-import {Link as MuiLink} from '@material-ui/core';
+import {Divider, Link as MuiLink} from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -33,6 +33,12 @@ const useStyles = makeStyles((theme) => ({
     submit: {
         margin: theme.spacing(3, 0, 3),
     },
+    linkText: {
+        textDecoration: 'underline'
+    },
+    dividerStyle: {
+        margin: theme.spacing(2)
+    }
 }));
 
 export default function Login() {
@@ -44,6 +50,8 @@ export default function Login() {
             <Grid item xs={false} sm={4} md={9} className={classes.image}/>
             <Grid item xs={12} sm={8} md={3} component={Paper} elevation={6} square>
                 <div className={classes.paper}>
+                    <img src="assets/logo_full.png" height="70px"/>
+                    <Divider className={classes.dividerStyle}/>
                     <Typography component="h1" variant="h5">Sign in</Typography>
                     <form>
                         <TextField
@@ -74,21 +82,24 @@ export default function Login() {
                             className={classes.submit}
                             component={Link} to="/user"
                         >
-                            Sign In
+                            Login
                         </Button>
-                        <Grid container>
-                            <Grid item xs>
-                                <MuiLink href="#" variant="body2" color="textPrimary">
-                                    Forgot password?
-                                </MuiLink>
-                            </Grid>
-                            <Grid item>
-                                <MuiLink href="#" variant="body2" color="textPrimary">
-                                    {"Don't have an account? Sign Up"}
-                                </MuiLink>
-                            </Grid>
-                        </Grid>
                     </form>
+                    <Grid container direction="column" justify="center">
+                        <Grid item>
+                            <MuiLink className={classes.linkText} href="#" variant="body2" color="textPrimary">
+                                Forgot password?
+                            </MuiLink>
+                        </Grid>
+                        <Grid item>
+                            <Typography variant="body2" display="block">
+                                Don't have an account?‏‏‎ ‎
+                                <MuiLink className={classes.linkText} href="#" variant="body2" color="textPrimary">
+                                    {"Sign Up"}
+                                </MuiLink>
+                            </Typography>
+                        </Grid>
+                    </Grid>
                 </div>
             </Grid>
         </Grid>
