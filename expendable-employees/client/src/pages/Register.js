@@ -129,7 +129,7 @@ export default function Register() {
                 type="submit"
                 variant="contained"
                 color="primary"
-                component={Link} to="/dashboard">
+                component={Link} to="/user">
                 Register
             </Button>
         </form>

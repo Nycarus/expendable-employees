@@ -4,8 +4,10 @@ import {Container, Grid, Paper } from '@material-ui/core';
 import {Table, TableHead, TableBody, TableCell, TableRow, Typography} from '@material-ui/core';
 import {Link} from '@material-ui/core';
 import clsx from "clsx";
+import HoursOverview from "../components/hoursOverview";
 import Title from "../components/Title";
-
+import Annoucements from "../components/Annoucements";
+import EmailDashboard from "../components/EmailDashboard";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -70,6 +72,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
+
 function preventDefault(event) {
     event.preventDefault();
   }
@@ -82,143 +85,29 @@ export default function Dashboard() {
         <div>
             <main className={classes.content}>
                 <div className={classes.appBarSpacer} />
-                {/*aite let's fuck some shit up */}
-                <Container className={classes.container}>
-                    {/* Overview of Hours */}
-                    <Grid item xs={14} md={10} lg={12}>
-                        <Paper className={fixedHeightPaper}>
-                        {/* all the stuff here could probably be moved to another file eventually */}
-                            <Title>Overview of Hours</Title>
-                            <Table size="small">
-                                <TableHead>
-                                    <TableRow>
-                                        <TableCell><Button>leftArrow</Button></TableCell>
-                                        <TableCell>CurrDay - 2</TableCell>
-                                        <TableCell>CurrDay - 1</TableCell>
-                                        <TableCell>CurrDay</TableCell>
-                                        <TableCell>CurrDay + 1</TableCell>
-                                        <TableCell>CurrDay + 2</TableCell>
-                                        <TableCell><Button>rightArrow</Button></TableCell>
-                                    </TableRow>
-                                </TableHead>
-                                <TableBody>
-                                    <TableRow>
-                                        <TableCell>----</TableCell>
-                                        <TableCell>StartTime</TableCell>
-                                        <TableCell>StartTime</TableCell>
-                                        <TableCell>StartTime</TableCell>
-                                        <TableCell>StartTime</TableCell>
-                                        <TableCell>StartTime</TableCell>
-                                        <TableCell>----</TableCell>
-                                    </TableRow>
-                                    <TableRow>
-                                        <TableCell>----</TableCell>
-                                        <TableCell>EndTime</TableCell>
-                                        <TableCell>EndTime</TableCell>
-                                        <TableCell>EndTime</TableCell>
-                                        <TableCell>EndTime</TableCell>
-                                        <TableCell>EndTime</TableCell>
-                                        <TableCell>----</TableCell>
-                                    </TableRow>
-                                    <TableRow>
-                                        <TableCell>----</TableCell>
-                                        <TableCell>HowManyHours</TableCell>
-                                        <TableCell>HowManyHours</TableCell>
-                                        <TableCell>HowManyHours</TableCell>
-                                        <TableCell>HowManyHours</TableCell>
-                                        <TableCell>HowManyHours</TableCell>
-                                        <TableCell>----</TableCell>
-                                    </TableRow>
-                                </TableBody>
-                            </Table>
-                        </Paper>
+                <Container className={classes.container} height="100%">
+                    <Grid container spacing={3}>
+                        <Grid item xs>
+                        {/* Overview of Hours */}
+                            <Paper className={classes.paper}>
+                                <HoursOverview></HoursOverview>
+                            </Paper>
+                        </Grid>
                     </Grid>
-                    {/* Annoucements */}
-                    <Grid item xs={12} md={12} lg={6}>
-                        <Paper className={fixedHeightPaper}>
-                        <Title>Annoucements</Title>
-                        <Table>
-                            <TableBody>
-                                <TableRow>
-                                    <Grid>
-                                        <TableRow>
-                                            <TableCell>
-                                                <Typography>Annoucement 1 Title</Typography>
-                                            </TableCell>
-                                            <TableCell>
-                                                <Button>X</Button>
-                                            </TableCell>
-                                            <TableCell>
-                                                <Button>?</Button>
-                                            </TableCell>
-                                        </TableRow>
-                                        <Typography>Annoucer Name</Typography>
-                                        <Typography>Annoucement content......</Typography>
-                                        
-                                    </Grid>
-                                </TableRow>
-                                <TableRow>
-                                    <Grid>
-                                    <TableRow>
-                                            <TableCell>
-                                                <Typography>Annoucement 2 Title</Typography>
-                                            </TableCell>
-                                            <TableCell>
-                                                <Button>X</Button>
-                                            </TableCell>
-                                            <TableCell>
-                                                <Button>?</Button>
-                                            </TableCell>
-                                        </TableRow>
-                                        <Typography>Annoucer Name</Typography>
-                                        <Typography>Annoucement content......</Typography>
-                                    </Grid>
-                                </TableRow>
-                                <TableRow>
-                                    <Grid>
-                                    <TableRow>
-                                            <TableCell>
-                                                <Typography>Annoucement 3 Title</Typography>
-                                            </TableCell>
-                                            <TableCell>
-                                                <Button>X</Button>
-                                            </TableCell>
-                                            <TableCell>
-                                                <Button>?</Button>
-                                            </TableCell>
-                                        </TableRow>
-                                        <Typography>Annoucer Name</Typography>
-                                        <Typography>Annoucement content......</Typography> 
-                                    </Grid>
-                                </TableRow>
-                            </TableBody>
-                        </Table>
-                        </Paper>
-                    </Grid>
-                    
-                    {/* Tasks (todo?) */}
-                    <Grid item xs={12} md={4} lg={3}>
-                        <Paper className={classes.paper}>
-                            <Title> Current Tasks</Title>
-                            <Typography component="p" variant="h4">Task 1 Name </Typography>
-                            <Typography color="textSecondary" className={classes.depositContext}>
-                                Task 1 Status 
-                            </Typography>
-                            <div>
-                                <Link color="secondary" href="#" onClick={preventDefault}>
-                                    View Task 1 Details
-                                </Link>
-                            </div>
-                            <Typography component="p" variant="h4">Task 2 Name</Typography>
-                            <Typography color="textSecondary" className={classes.depositContext}>
-                                Task 2 Status
-                            </Typography>
-                            <div>
-                                <Link color="secondary" href="#" onClick={preventDefault}>
-                                    View Task 2 Details
-                                </Link>
-                            </div>
-                        </Paper>
+                    <Grid container spacing = {3}>
+                        {/* Annoucements */}
+                        <Grid item xs>
+                            <Paper className={classes.paper}>
+                                <Annoucements></Annoucements>
+                            </Paper>
+                        </Grid>
+
+                        {/* Emails */}
+                        <Grid item xs>
+                            <Paper className={classes.paper}>
+                                <EmailDashboard></EmailDashboard>
+                            </Paper>
+                        </Grid>
                     </Grid>
 
                 </Container>
