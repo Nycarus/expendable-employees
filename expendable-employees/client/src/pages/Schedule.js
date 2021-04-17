@@ -13,7 +13,12 @@ import {
 } from '@devexpress/dx-react-scheduler-material-ui';
 import {Box} from "@material-ui/core";
 
+//Hardcoded test data
 const schedulerData = [
+    {startDate: '2021-04-12T08:00', endDate: '2021-04-12T12:00', title: 'Shift'},
+    {startDate: '2021-04-13T10:00', endDate: '2021-04-13T14:00', title: 'Shift'},
+    {startDate: '2021-04-15T09:45', endDate: '2021-04-15T12:00', title: 'Shift'},
+    {startDate: '2021-04-17T08:00', endDate: '2021-04-17T20:00', title: 'Shift'},
     {startDate: '2021-04-18T08:00', endDate: '2021-04-18T12:00', title: 'Shift'},
     {startDate: '2021-04-19T10:00', endDate: '2021-04-19T14:00', title: 'Shift'},
     {startDate: '2021-04-21T09:45', endDate: '2021-04-21T12:00', title: 'Shift'},
@@ -24,6 +29,7 @@ const useStyles = makeStyles((theme) => ({
     boxContainer: {
         padding: theme.spacing(4),
     },
+    //Current day colour styling:
     todayCell: {
         backgroundColor: fade(theme.palette.primary.light, 0.05),
         '&:hover': {
@@ -72,7 +78,6 @@ export default function Schedule() {
                     data={schedulerData}
                     height={700}
                 >
-
                     <ViewState
                         defaultCurrentDate={currentDate}
                     />
