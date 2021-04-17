@@ -129,5 +129,29 @@
             }
         
         }
+    },
+    "Schedule" : {
+        "type" : "object",
+
+        "properties" : {
+            "user_id" : {
+                "type" : "string",
+                "required" : true
+            },
+            "title" : {
+                "type": "string",
+                "required" : true
+            },
+            "startDate" : {
+                "type": "string",
+                "format": "date",
+                "required" : true
+            },
+            "endDate" : {
+                "type": "string",
+                "format": "date",
+                "required" : true
+            }
+        }
     }
 }

@@ -423,11 +423,22 @@ class CustomerDataBaseOperations {
         return company_query;
     }
 
+    async tempInsertSchedule(){
+        let result = await this.db_instance.insertToCollection({"user_id":"1", "title":"Shift", "startDate":"2021-04-16T07:45", "endDate":"2021-04-16T18:00"}, "Schedule");
+    }
+
+    async getUserSchedule(query){
+        let schedule_query = await this.db_instance.queryCollection({"user_id": query.user_id}, "Schedule");
+        console.log(schedule_query);
+        return schedule_query;
+    }
+
     /*
         expects query = {
             "user_id" : User._id
         }
     */
+
     async getUsersCompany(query){
         let user_query = await this.db_instance.queryCollection(query, "Employee");
         if(user_query.length < 1){
