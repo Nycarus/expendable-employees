@@ -77,9 +77,6 @@ export default function Annoucements() {
     <React.Fragment>
         <Title>Annoucements</Title>
 
-
-
-
         <Grid container spacing = {1}>
             <Grid item xs={8}>
                 <Typography>Annoucement 1 Title</Typography>

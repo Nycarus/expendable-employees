@@ -1,9 +1,11 @@
 import React from 'react';
-import {makeStyles} from '@material-ui/core/styles';
+import {makeStyles, Button } from '@material-ui/core/';
+import {Container, Grid, Paper } from '@material-ui/core';
+import {Table, TableHead, TableBody, TableCell, TableRow, Typography} from '@material-ui/core';
+import Title from "../components/Title";
+import TopbarID from '../components/TopbarID';
+import TabsAccount from '../components/TabsAccount';
 
-//alright all that i'm going to try and do is have the drawer
-//also show up on this page, and do moving from this page to the 
-//dashboard page. (I could really use a hug right now)
 
 const useStyles = makeStyles((theme) => ({
     appBarSpacer: theme.mixins.toolbar,
@@ -19,6 +21,8 @@ export default function Account() {
     return (
         <div>
             <main className={classes.content}>
+                <TopbarID></TopbarID>
+                <TabsAccount></TabsAccount>
                 <div className={classes.appBarSpacer} />
             </main>
         </div>
