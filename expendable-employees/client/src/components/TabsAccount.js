@@ -140,7 +140,7 @@ function calcPay(duration, rate){
         //console.log(myPay)
 
         if(myPay > maxDailyMoney){
-            maxDailyMoney = parseInt(myPay)
+            maxDailyMoney = parseInt(myPay) + 5
         }
 
         return myPay
@@ -205,7 +205,7 @@ function generateGraph(){
     const height = 500;
     const chartWidth = width - 2 * margin;
     const chartHeight = height - 2 * margin;
-    const colourScale = d3.scaleLinear().domain([0, maxDailyMoney]).range(['red', 'blue']);
+    const colourScale = d3.scaleLinear().domain([0, maxDailyMoney]).range(['grey', 'white']);
 
     const xScale = d3.scaleBand() // discrete, bucket
                         .domain(myData.map((data) => data.day))

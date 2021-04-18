@@ -87,7 +87,7 @@ export default function EditInfo() {
                 <Grid item xs={8}>
                     
                     <Typography className={classes.categoryText} variant="h5">
-                        Personal Information
+                        Current Personal Information
                     </Typography>
                     <Grid container justify="space-between">
                         <Grid item xs>
@@ -181,7 +181,7 @@ export default function EditInfo() {
                         variant="contained"
                         color="primary"
                         component={Link} to="/user">
-                        Register
+                        Submit Changes 
                     </Button>
                 </Grid>
                 <Grid item xs/>

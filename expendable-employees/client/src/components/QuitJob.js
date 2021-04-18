@@ -77,33 +77,17 @@ const useStyles = makeStyles((theme) => ({
 
 export default function QuitJob() {
     const classes = useStyles();
-
-/*
-
-Thank you for your participation at Expendable Employees Inc.
-
-We appreciate the somewhat modest work you did here in your three days.
-
-Unfortunately we are going to have to let you go. You've single handedly violated over 23 company rules, which I must say is the new record. I'm surprised it took us this long to get you fired to be quite honest.
-
-Some offences include:
-    1. Trying to get the secretary's number.
-    2. Turning our server cluster into a torrenting service.
-    3. Saying "Sorry, long day." after drinking an entire 3 litre jug of water from the water cooler like a keg stand.
-    4. Selling company laptops at a pawnshop.
-    5. Photocopying pictures of your butt on the fax machine.
-    6. Assaulting a co-worker over fantasy football.
-
-Thank you for your time to read this.
-
-Don't call us.
-
-Expendable Employees Inc.*/
     return(
+
+
+
         <React.Fragment>
+
             <Typography>Thank you for your participation at Expendable Employees Inc.</Typography><br/>
             <Typography>We appreciate the somewhat modest work you did here in your three days.</Typography>
-            <Typography>Unfortunately we are going to have to let you go. You've single handedly violated over 23 company rules, which I must say is the new record. I'm surprised it took us this long to get you fired to be quite honest.</Typography><br/>
+            <Typography>Unfortunately we are going to have to let you go.</Typography> 
+            <Typography>You've single handedly violated over 23 company rules, which I must say is the new record.</Typography>
+            <Typography>I'm surprised it took us this long to get you fired to be quite honest.</Typography><br/>
             <Typography>Some offences include:</Typography>
             <Typography>1. Trying to get the secretary's number.</Typography>
             <Typography>2. Turning our server cluster into a torrenting service.</Typography>

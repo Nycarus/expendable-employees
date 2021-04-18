@@ -137,14 +137,14 @@ export default function TopbarID() {
                         {/* this is where the pfp will be, i don't know how to do images right now  */}
                         <Typography>Placeholder for pfp</Typography>
                     </Grid>
-                    <Grid item xs={4}>
+                    <Grid item xs={6}>
                         {/* user info will be here, maybe a table */}
                         <Typography>{placeholderUser.firstname} {placeholderUser.lastname} </Typography>
                         <Typography>{placeholderUser.position}</Typography><br/><br/>
                         <Typography>{placeholderUser.email}</Typography>
                         <Typography>{placeholderUser.phone}</Typography>
                         </Grid>
-                    <Grid item xs={5}>
+                    <Grid item xs={3}>
                         {/* intentionally empty */}
                     </Grid>
                 </Grid>

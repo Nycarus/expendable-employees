@@ -138,7 +138,6 @@ export default function PayInfo() {
                 </Grid>
             </Container>
 
-            <Typography>Lol you don't get paid </Typography>
         </React.Fragment>
     )
 
