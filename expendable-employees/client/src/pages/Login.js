@@ -15,9 +15,8 @@ import {makeStyles} from '@material-ui/core/styles';
 import {Link} from "react-router-dom";
 import {Divider, Link as MuiLink} from '@material-ui/core';
 import axios from "axios";
-import {setUserSession} from "../utils/userSession";
+import {setUserSession,getUserToken} from "../utils/userSession";
 import {useHistory} from 'react-router-dom';
-
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -46,6 +45,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Login() {
+    const history = useHistory();
+
     const classes = useStyles();
 
     const [state, setState] = useState({
@@ -62,20 +63,23 @@ export default function Login() {
 
     const handleLogin = (value) => {
         value.preventDefault();
-        console.log(state.email);
-        console.log(state.password);
+     
         axios.post('http://localhost:3001/api/login', 
         {
             "email" : state.email, 
             "password" : state.password
         }
         ).then(response => {
-            console.log(response.status)
-            if (response.status == "logged_in"){
+            if (response.status == 200){
+
                 setUserSession(response.data);
+
+                history.push('/user');
             }
         }).catch(error => {
             console.log("Error:", error);
+            console.log("bad password");
+            
         })
     }
 
