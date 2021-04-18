@@ -4,7 +4,7 @@ TODO put "Forgot Password?" to be aligned far-left
 TODO put "Sign up" to be aligned far-right, but also anchored to bottom of screen
  */
 
-import React from 'react';
+import React, { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -14,6 +14,9 @@ import Typography from '@material-ui/core/Typography';
 import {makeStyles} from '@material-ui/core/styles';
 import {Link} from "react-router-dom";
 import {Divider, Link as MuiLink} from '@material-ui/core';
+import axios from "axios";
+import {setUserSession,getUserToken} from "../utils/userSession";
+import {useHistory} from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -42,7 +45,43 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Login() {
+    const history = useHistory();
+
     const classes = useStyles();
+
+    const [state, setState] = useState({
+        email: "",
+        password: ""
+    })
+
+    const handleInputChange = (event) => {
+        setState((prevProps) => ({
+            ...prevProps,
+            [event.target.name]: event.target.value
+        }));
+    }
+
+    const handleLogin = (value) => {
+        value.preventDefault();
+     
+        axios.post('http://localhost:3001/api/login', 
+        {
+            "email" : state.email, 
+            "password" : state.password
+        }
+        ).then(response => {
+            if (response.status == 200){
+
+                setUserSession(response.data);
+
+                history.push('/user');
+            }
+        }).catch(error => {
+            console.log("Error:", error);
+            console.log("bad password");
+            
+        })
+    }
 
     return (
         <Grid container component="main" className={classes.root}>
@@ -53,16 +92,18 @@ export default function Login() {
                     <img src="assets/logo_full.png" height="70px"/>
                     <Divider className={classes.dividerStyle}/>
                     <Typography component="h1" variant="h5">Sign in</Typography>
-                    <form>
+                    <form onSubmit = {handleLogin}>
                         <TextField
                             variant="outlined"
                             margin="normal"
                             //required
                             fullWidth
-                            id="username"
-                            label="Username"
-                            name="username"
+                            id="email"
+                            label="Email"
+                            name="email"
                             color="secondary"
+                            value={state.email}
+                            onChange={handleInputChange}
                         />
                         <TextField
                             variant="outlined"
@@ -74,13 +115,15 @@ export default function Login() {
                             type="password"
                             id="password"
                             color="secondary"
+                            value={state.password}
+                            onChange={handleInputChange}
                         />
                         <Button
                             type="submit"
                             variant="contained"
                             color="primary"
                             className={classes.submit}
-                            component={Link} to="/user"
+                            //component={Link} to="/user"
                         >
                             Login
                         </Button>

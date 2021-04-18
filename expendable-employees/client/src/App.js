@@ -6,7 +6,7 @@ import Register from "./pages/Register";
 import {ThemeProvider, createMuiTheme} from '@material-ui/core/styles'
 import CssBaseline from "@material-ui/core/CssBaseline";
 import UserLanding from "./pages/UserLanding";
-
+import Dashboard from "./pages/Dashboard";
 // Custom Theme
 const theme = createMuiTheme({
     palette: {
