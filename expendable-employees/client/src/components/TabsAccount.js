@@ -143,7 +143,7 @@ export default function TabsAccount() {
             
 
         <Toolbar>{buttonOptions.map((option) => (
-            <Button style={{ marginRight: "15%" }, {marginLeft: "15%"}} onClick= {loadComponent(option.component)}>
+            <Button style={{ marginRight: "15%" }, {marginLeft: "10%"}} onClick= {loadComponent(option.component)}>
                 {option.buttonLabel}
             </Button>
         ))}</Toolbar>

@@ -1,13 +1,15 @@
 import React from 'react';
 import Link from '@material-ui/core/Link';
 import {makeStyles, Button } from '@material-ui/core/';
-import {Container, Grid, Paper } from '@material-ui/core';
+import {Container, Grid, Paper, Divider } from '@material-ui/core';
 import {Table, TableHead, TableBody, TableCell, TableRow, Typography} from '@material-ui/core';
 import Title from './Title';
 
 function preventDefault(event) {
   event.preventDefault();
 }
+
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -71,21 +73,42 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
+function removeAnnoucement(annouce){
+    return function(){
+        let annoucement = document.getElementById(annouce)
+
+        annoucement.style.display = 'none'
+
+    }
+}
+
+function toggleVisibility(annouce){
+    return function(){
+        let annoucement = document.getElementById(annouce);
+
+        if(annoucement.style.display === 'none'){
+            annoucement.style.display = 'block'
+        } else if (annoucement.style.display === 'block') {
+            annoucement.style.display = 'none'
+        }
+
+    }
+}
 export default function Annoucements() {
-  const classes = useStyles();
-  return (
-    <React.Fragment>
+    const classes = useStyles();
+    return (
+        <React.Fragment>
         <Title>Annoucements</Title>
 
-        <Grid container spacing = {1}>
+        <Grid container id='ann1' spacing = {1}>
             <Grid item xs={8}>
                 <Typography>Annoucement 1 Title</Typography>
             </Grid>
             <Grid item xs={2}>
-                <Button>X</Button>
+                <Button onClick={removeAnnoucement('ann1')}>X</Button>
             </Grid>
             <Grid item xs={2}>
-                <Button>?</Button>
+                <Button onClick={toggleVisibility('ann1msg')}>?</Button>
             </Grid>
             <Grid item xs = {6}>
                 <Typography>Company Branch</Typography>
@@ -94,22 +117,22 @@ export default function Annoucements() {
                 <Typography>Annoucement Sender</Typography>
             </Grid>
             <Grid item xs = {12}>
-                <Typography>Annoucement message</Typography>
+                <Typography id='ann1msg' style={{display:'none'}}>Annoucement message</Typography>
             </Grid>
 
             <Grid item xs = {12}></Grid>
             <Grid item xs = {12}></Grid>
         </Grid>
-
-        <Grid container spacing = {1}>
+        <Divider className={classes.dividerStyle}/>
+        <Grid container id='ann2' spacing = {1}>
             <Grid item xs={8}>
                 <Typography>Annoucement 2 Title</Typography>
             </Grid>
             <Grid item xs={2}>
-                <Button>X</Button>
+                <Button onClick={removeAnnoucement('ann2')}>X</Button>
             </Grid>
             <Grid item xs={2}>
-                <Button>?</Button>
+                <Button onClick={toggleVisibility('ann2msg')}>?</Button>
             </Grid>
             <Grid item xs = {6}>
                 <Typography>Company Branch</Typography>
@@ -118,22 +141,22 @@ export default function Annoucements() {
                 <Typography>Annoucement Sender</Typography>
             </Grid>
             <Grid item xs = {12}>
-                <Typography>Annoucement message</Typography>
+                <Typography id='ann2msg' style={{display:'none'}}>Annoucement message</Typography>
             </Grid>
             
             <Grid item xs = {12}></Grid>
             <Grid item xs = {12}></Grid>
         </Grid>
-        
-        <Grid container spacing = {1}>
+        <Divider className={classes.dividerStyle}/>
+        <Grid container id='ann3' spacing = {1}>
             <Grid item xs={8}>
                 <Typography>Annoucement 3 Title</Typography>
             </Grid>
             <Grid item xs={2}>
-                <Button>X</Button>
+                <Button onClick={removeAnnoucement('ann3')}>X</Button>
             </Grid>
             <Grid item xs={2}>
-                <Button>?</Button>
+                <Button onClick={toggleVisibility('ann3msg')} >?</Button>
             </Grid>
             <Grid item xs = {6}>
                 <Typography>Company Branch</Typography>
@@ -142,7 +165,7 @@ export default function Annoucements() {
                 <Typography>Annoucement Sender</Typography>
             </Grid>
             <Grid item xs = {12}>
-                <Typography>Annoucement message</Typography>
+                <Typography id='ann3msg' style={{display:'none'}}>Annoucement message</Typography>
             </Grid>
  
             <Grid item xs = {12}></Grid>           
