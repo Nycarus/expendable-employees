@@ -5,7 +5,7 @@ TODO fix spacing between text fields
 TODO fix Date of Birth styling; example hint is currently overlaid over field name
  */
 
-import React from 'react';
+import React, { useState } from 'react';
 import {makeStyles} from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -13,6 +13,9 @@ import {Divider, Paper, Container, TextField, Typography} from "@material-ui/cor
 import {Link} from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
+import axios from "axios";
+import {setUserSession, getUserToken} from "../utils/userSession";
+import {useHistory} from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     categoryText: {
@@ -45,8 +48,64 @@ export default function Register() {
     // eslint-disable-next-line
     const classes = useStyles();
 
+    const history = useHistory();
+
+    const [state, setState] = useState({
+        firstname: "",
+        lastname: "",
+        email: "",
+        phone: "",
+        address: "",
+        postal_code: "",
+        date_of_birth: "",
+        password: "",
+        confirmPassword: "",
+        company: "",
+        branch: ""
+    })
+
+    const handleInputChange = (event) => {
+        setState((prevProps) => ({
+            ...prevProps,
+            [event.target.name]: event.target.value
+        }));
+    }
+
+    const handleRegister = (value) => { 
+        value.preventDefault();
+
+        if (state.password == state.confirmPassword)
+        {
+            axios.post('http://localhost:3001/api/register/company', 
+            {
+                user : {
+                    "firstname" : state.firstname,
+                    "lastname": state.lastname,
+                    "email" : state.email, 
+                    "phone" : state.phone,
+                    "address" : state.address,
+                    "postal_code" : state.postal_code,
+                    "date_of_birth" : state.date_of_birth,
+                    "password" : state.password
+                },
+                "company" : state.company,
+                "branch" : state.branch
+            }
+            ).then(response => {
+                if (response.status == 200){
+
+                    setUserSession(response.data);
+
+                    history.push('/login');
+                }
+            }).catch(error => {
+                console.log("Error:", error);
+            })
+        }
+    }
+
     return (
-        <form>
+        <form onSubmit = {handleRegister}>
             <AppBar style={{marginBottom: "2rem"}} position="static">
                 <Toolbar>
                     <Container>
@@ -70,7 +129,10 @@ export default function Register() {
                         label="Email"
                         id="email"
                         type="email"
-                        color="secondary"/>
+                        color="secondary"
+                        value={state.email}
+                        onChange={handleInputChange}
+                        />
                     <br/>
                     <TextField
                         fullWidth={true}
@@ -81,18 +143,24 @@ export default function Register() {
                         label="Password"
                         id="password"
                         type="password"
-                        color="secondary"/>
+                        color="secondary"
+                        value={state.password}
+                        onChange={handleInputChange}
+                        />
                     <br/>
                     <TextField
                         fullWidth={true}
                         variant="outlined"
                         margin="dense"
                         required
-                        name="confirmpassword"
+                        name="confirmPassword"
                         label="Confirm Password"
-                        id="confirmpassword"
+                        id="confirmPassword"
                         type="password"
-                        color="secondary"/>
+                        color="secondary"
+                        value={state.confirmPassword}
+                        onChange={handleInputChange}
+                        />
                     <Divider className={classes.dividerStyle}/>
                     <Typography className={classes.categoryText} variant="h5">
                         Personal Information
@@ -107,7 +175,10 @@ export default function Register() {
                             name="firstname"
                             label="First Name"
                             id="firstname"
-                            color="secondary"/>
+                            color="secondary"
+                            value={state.firstname}
+                            onChange={handleInputChange}
+                            />
                         </Grid>
                         <Grid item xs={1}/>
                         <Grid item xs>
@@ -119,7 +190,10 @@ export default function Register() {
                             name="lastname"
                             label="Last Name"
                             id="lastname"
-                            color="secondary"/>
+                            color="secondary"
+                            value={state.lastname}
+                            onChange={handleInputChange}
+                            />
                         </Grid>
                     </Grid>
                     <Grid container justify="space-between">
@@ -129,11 +203,13 @@ export default function Register() {
                                 variant="outlined"
                                 margin="dense"
                                 required
-                                name="dateofbirth"
+                                name="date_of_birth"
                                 label="Date of Birth"
-                                id="dateofbirth"
+                                id="date_of_birth"
                                 type="date"
                                 color="secondary"
+                                value={state.date_of_birth}
+                                onChange={handleInputChange}
                                 InputLabelProps={{
                                     shrink: true,
                                 }}/>
@@ -152,7 +228,10 @@ export default function Register() {
                                 label="Phone Number"
                                 id="phone"
                                 type="tel"
-                                color="secondary"/>
+                                color="secondary"
+                                value={state.phone}
+                                onChange={handleInputChange}
+                                />
                         </Grid>
                         <Grid item xs={1}/>
                         <Grid item xs/>
@@ -165,7 +244,10 @@ export default function Register() {
                         name="address"
                         label="Address"
                         id="address"
-                        color="secondary"/>
+                        color="secondary"
+                        value={state.address}
+                        onChange={handleInputChange}
+                        />
                     <Grid container justify="space-between">
                         <Grid item xs>
                             <TextField
@@ -173,10 +255,13 @@ export default function Register() {
                                 variant="outlined"
                                 margin="dense"
                                 required
-                                name="postalcode"
+                                name="postal_code"
                                 label="Postal Code"
-                                id="postalcode"
-                                color="secondary"/>
+                                id="postal_code"
+                                color="secondary"
+                                value={state.postal_code}
+                                onChange={handleInputChange}
+                                />
                         </Grid>
                         <Grid item xs={1}/>
                         <Grid item xs/>
@@ -190,27 +275,34 @@ export default function Register() {
                         variant="outlined"
                         margin="dense"
                         required
-                        name="companyname"
+                        name="company"
                         label="Company Name"
-                        id="companyname"
-                        color="secondary"/>
+                        id="company"
+                        color="secondary"
+                        value={state.company}
+                        onChange={handleInputChange}
+                        />
                     <br/>
                     <TextField
                         fullWidth={true}
                         variant="outlined"
                         margin="dense"
                         required
-                        name="position"
-                        label="Position"
-                        id="position"
-                        color="secondary"/>
+                        name="branch"
+                        label="Branch"
+                        id="branch"
+                        color="secondary"
+                        value={state.branch}
+                        onChange={handleInputChange}
+                        />
                     <br/>
                     <Button
                         className={classes.registerButton}
                         type="submit"
                         variant="contained"
                         color="primary"
-                        component={Link} to="/user">
+                        //component={Link} to="/user"
+                        >
                         Register
                     </Button>
                 </Grid>
