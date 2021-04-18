@@ -117,9 +117,7 @@ export default function Homepage() {
                 <div className={classes.overlay}/>
                 <Container className={classes.headerContent}>
                     <Typography component="h1" variant="h3" color="inherit">
-                        Welcome to the perfect managerial tool.
-                    </Typography>
-                    <Typography component="h1" variant="h3" color="inherit">
+                        Welcome to the perfect managerial tool. <br/>
                         Our goal is to make your employees expendable.
                     </Typography>
                 </Container>
@@ -207,16 +205,13 @@ export default function Homepage() {
                         <Typography variant="h4" color="inherit" align="right">
                             Contact Us
                         </Typography>
-                        <Typography variant="overline" color="inherit" align="right" display="block">Anthony
-                            Huang</Typography>
-                        <Typography variant="overline" color="inherit" align="right" display="block">Aron-Seth
-                            Cohen</Typography>
-                        <Typography variant="overline" color="inherit" align="right" display="block">Cole
-                            Mollica</Typography>
-                        <Typography variant="overline" color="inherit" align="right" display="block">John
-                            Nemec</Typography>
-                        <Typography variant="overline" color="inherit" align="right" display="block">Kevin
-                            Chandra</Typography>
+                        <Typography variant="overline" color="inherit" align="right" display="block">
+                            Anthony Huang<br/>
+                            Aron-Seth Cohen<br/>
+                            Cole Mollica<br/>
+                            John Nemec<br/>
+                            Kevin Chandra<br/>
+                        </Typography>
                     </Grid>
                 </Grid>
             </Paper>
