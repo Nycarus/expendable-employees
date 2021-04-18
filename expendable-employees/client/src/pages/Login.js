@@ -15,7 +15,7 @@ import {makeStyles} from '@material-ui/core/styles';
 import {Link} from "react-router-dom";
 import {Divider, Link as MuiLink} from '@material-ui/core';
 import axios from "axios";
-import {setUserSession,getUserToken} from "../utils/userSession";
+import {setUserSession, getUserToken} from "../utils/userSession";
 import {useHistory} from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
