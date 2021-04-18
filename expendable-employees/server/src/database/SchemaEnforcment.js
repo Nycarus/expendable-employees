@@ -1,6 +1,6 @@
 var Validator = require('jsonschema').Validator;
 var fs = require('fs');
-dbschema = JSON.parse(fs.readFileSync('./enforced_schema.json', 'utf8'));
+dbschema = JSON.parse(fs.readFileSync('./src/database/enforced_schema.json', 'utf8'));
 
 
 
