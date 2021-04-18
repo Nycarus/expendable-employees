@@ -86,7 +86,7 @@ const useStyles = makeStyles((theme) => ({
     },
     fixedHeight: {
         height: 240,
-    },
+    }
 }));
 
 const buttonOptions = [
@@ -100,24 +100,33 @@ const buttonOptions = [
 function loadComponent(myComponent){
     return function(){
 
-        let myView = document.getElementById('currAccInfo');
 
-        console.log(myView.childElementCount)
-        console.log(myView.firstChild)
 
 
         if(myComponent === 'QuitJobComponent'){
             console.log('job successfuly quit, happy to see you go!')
-            myView.innerHTML = <div>f1</div>
+            document.getElementById('quitJob').style.display = 'block'
+            document.getElementById('editInfo').style.display = 'none'
+            document.getElementById('payInfo').style.display = 'none'
+            document.getElementById('changePass').style.display = 'none'
         } else if(myComponent === 'EditInfoComponent'){
             console.log("if you messed up the first time, it's your own fault")
-            myView.innerHTML = <div>f2</div>
+            document.getElementById('quitJob').style.display = 'none'
+            document.getElementById('editInfo').style.display = 'block'
+            document.getElementById('payInfo').style.display = 'none'
+            document.getElementById('changePass').style.display = 'none'
         } else if(myComponent === 'PayInfoComponent'){
             console.log("you don't get paid, you're an intern")
-            myView.innerHTML = <div>f3</div>
+            document.getElementById('quitJob').style.display = 'none'
+            document.getElementById('editInfo').style.display = 'none'
+            document.getElementById('payInfo').style.display = 'block'
+            document.getElementById('changePass').style.display = 'none'
         } else if(myComponent === 'ChangePassComponent'){
             console.log('fuck you no new password')
-            myView.innerHTML = <div>f4</div>
+            document.getElementById('quitJob').style.display = 'none'
+            document.getElementById('editInfo').style.display = 'none'
+            document.getElementById('payInfo').style.display = 'none'
+            document.getElementById('changePass').style.display = 'block'
         } 
 
     }
@@ -134,13 +143,25 @@ export default function TabsAccount() {
             
 
         <Toolbar>{buttonOptions.map((option) => (
-            <Button onClick= {loadComponent(option.component)}>
+            <Button style={{ marginRight: "15%" }, {marginLeft: "10%"}} onClick= {loadComponent(option.component)}>
                 {option.buttonLabel}
             </Button>
         ))}</Toolbar>
             
-        <div id='currAccInfo'>
+        <div id='quitJob' style={{display:'none'}}>
             <QuitJob></QuitJob>
+        </div>
+
+        <div id='editInfo' style={{display:'none'}}>
+            <EditInfo></EditInfo>
+        </div>
+
+        <div id='payInfo' style={{display:'none'}}>
+            <PayInfo></PayInfo>
+        </div>
+
+        <div id='changePass' style={{display:'none'}}>
+            <ChangePass></ChangePass>
         </div>
 
         </React.Fragment>

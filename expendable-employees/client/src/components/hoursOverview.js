@@ -125,7 +125,7 @@ function setHoursTableValues(){
                 let start = dayInfo.startDate.slice(11);
                 //eh, NaN 
                 let dur = end - start
-                document.getElementById('dataHours'+dataCats[i]+j).innerText = ((currDay - dayOffset)+schedulerData.length)%schedulerData.length;
+                document.getElementById('dataHours'+dataCats[i]+j).innerText = dayIndex;
             }
             dayOffset += 1;
         }

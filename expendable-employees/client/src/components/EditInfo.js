@@ -1,11 +1,12 @@
 import React from "react";
 import {makeStyles, Button, Toolbar } from '@material-ui/core/';
-import {Container, Grid, Paper } from '@material-ui/core';
+import AppBar from '@material-ui/core/AppBar';
+import {Container, Grid, Paper, TextField, Divider } from '@material-ui/core';
 import {Table, TableHead, TableBody, TableCell, TableRow, Typography} from '@material-ui/core';
 import {Link} from '@material-ui/core';
 import clsx from "clsx";
 
-import Title from "../components/Title";
+import Title from "./Title";
 
 
 function preventDefault(event) {
@@ -81,8 +82,111 @@ export default function EditInfo() {
 
     return(
         <React.Fragment>
-            <Typography>lol you don't get to change your info</Typography>
-        </React.Fragment>
+            <Grid container>
+                <Grid item xs/>
+                <Grid item xs={8}>
+                    
+                    <Typography className={classes.categoryText} variant="h5">
+                        Personal Information
+                    </Typography>
+                    <Grid container justify="space-between">
+                        <Grid item xs>
+                            <TextField
+                            fullWidth={true}
+                            variant="outlined"
+                            margin="dense"
+                            required
+                            name="firstname"
+                            label="First Name"
+                            id="firstname"
+                            color="secondary"/>
+                        </Grid>
+                        <Grid item xs={1}/>
+                        <Grid item xs>
+                            <TextField
+                            fullWidth={true}
+                            variant="outlined"
+                            margin="dense"
+                            required
+                            name="lastname"
+                            label="Last Name"
+                            id="lastname"
+                            color="secondary"/>
+                        </Grid>
+                    </Grid>
+                    <Grid container justify="space-between">
+                        <Grid item xs>
+                            <TextField
+                                fullWidth={true}
+                                variant="outlined"
+                                margin="dense"
+                                required
+                                name="dateofbirth"
+                                label="Date of Birth"
+                                id="dateofbirth"
+                                type="date"
+                                color="secondary"
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}/>
+                        </Grid>
+                        <Grid item xs={1}/>
+                        <Grid item xs/>
+                    </Grid>
+                    <Grid container justify="space-between">
+                        <Grid item xs>
+                            <TextField
+                                fullWidth={true}
+                                variant="outlined"
+                                margin="dense"
+                                required
+                                name="phone"
+                                label="Phone Number"
+                                id="phone"
+                                type="tel"
+                                color="secondary"/>
+                        </Grid>
+                        <Grid item xs={1}/>
+                        <Grid item xs/>
+                    </Grid>
+                    <TextField
+                        fullWidth={true}
+                        variant="outlined"
+                        margin="dense"
+                        required
+                        name="address"
+                        label="Address"
+                        id="address"
+                        color="secondary"/>
+                    <Grid container justify="space-between">
+                        <Grid item xs>
+                            <TextField
+                                fullWidth={true}
+                                variant="outlined"
+                                margin="dense"
+                                required
+                                name="postalcode"
+                                label="Postal Code"
+                                id="postalcode"
+                                color="secondary"/>
+                        </Grid>
+                        <Grid item xs={1}/>
+                        <Grid item xs/>
+                    </Grid>
+                    <Divider className={classes.dividerStyle}/>
+                    
+                    <Button
+                        className={classes.registerButton}
+                        type="submit"
+                        variant="contained"
+                        color="primary"
+                        component={Link} to="/user">
+                        Register
+                    </Button>
+                </Grid>
+                <Grid item xs/>
+            </Grid>
+</React.Fragment>
     )
 
 }

@@ -21,8 +21,15 @@ export default function Account() {
     return (
         <div>
             <main className={classes.content}>
-                <TopbarID></TopbarID>
-                <TabsAccount></TabsAccount>
+                <Grid container spacing={3}>
+                    <Grid item xs={12}>
+                        <TopbarID></TopbarID>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <TabsAccount></TabsAccount>
+
+                    </Grid>
+                </Grid>
                 <div className={classes.appBarSpacer} />
             </main>
         </div>
