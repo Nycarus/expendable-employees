@@ -4,7 +4,7 @@ TODO put "Forgot Password?" to be aligned far-left
 TODO put "Sign up" to be aligned far-right, but also anchored to bottom of screen
  */
 
-import React from 'react';
+import React, { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -48,16 +48,26 @@ const useStyles = makeStyles((theme) => ({
 export default function Login() {
     const classes = useStyles();
 
-    const handleChange = (event) => {
+    const [state, setState] = useState({
+        email: "",
+        password: ""
+    })
 
+    const handleInputChange = (event) => {
+        setState((prevProps) => ({
+            ...prevProps,
+            [event.target.name]: event.target.value
+        }));
     }
 
-    const LoginUser = (value) => {
+    const handleLogin = (value) => {
         value.preventDefault();
+        console.log(state.email);
+        console.log(state.password);
         axios.post('http://localhost:3001/api/login', 
         {
-            "email" : value.email, 
-            "password" : value.password
+            "email" : state.email, 
+            "password" : state.password
         }
         ).then(response => {
             console.log(response.status)
@@ -78,7 +88,7 @@ export default function Login() {
                     <img src="assets/logo_full.png" height="70px"/>
                     <Divider className={classes.dividerStyle}/>
                     <Typography component="h1" variant="h5">Sign in</Typography>
-                    <form onSubmit = {LoginUser}>
+                    <form onSubmit = {handleLogin}>
                         <TextField
                             variant="outlined"
                             margin="normal"
@@ -88,6 +98,8 @@ export default function Login() {
                             label="Email"
                             name="email"
                             color="secondary"
+                            value={state.email}
+                            onChange={handleInputChange}
                         />
                         <TextField
                             variant="outlined"
@@ -99,6 +111,8 @@ export default function Login() {
                             type="password"
                             id="password"
                             color="secondary"
+                            value={state.password}
+                            onChange={handleInputChange}
                         />
                         <Button
                             type="submit"
