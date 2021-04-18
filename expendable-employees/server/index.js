@@ -1,10 +1,14 @@
 let express = require('express');
 let bodyParser = require('body-parser');
+var cors = require('cors')
+
 let app = express();
 const jwt = require("jsonwebtoken")
 require("dotenv").config();
 
 app.use(bodyParser.json());
+app.use(cors())
+app.options('*', cors());
 
 let CustomerDataBaseOperations = require('./src/database/CustomerDataBaseOperations');
 const { query } = require('express');

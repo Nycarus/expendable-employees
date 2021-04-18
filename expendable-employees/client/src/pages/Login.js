@@ -14,6 +14,10 @@ import Typography from '@material-ui/core/Typography';
 import {makeStyles} from '@material-ui/core/styles';
 import {Link} from "react-router-dom";
 import {Divider, Link as MuiLink} from '@material-ui/core';
+import axios from "axios";
+import {setUserSession} from "../utils/userSession";
+import {useHistory} from 'react-router-dom';
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -44,6 +48,27 @@ const useStyles = makeStyles((theme) => ({
 export default function Login() {
     const classes = useStyles();
 
+    const handleChange = (event) => {
+
+    }
+
+    const LoginUser = (value) => {
+        value.preventDefault();
+        axios.post('http://localhost:3001/api/login', 
+        {
+            "email" : value.email, 
+            "password" : value.password
+        }
+        ).then(response => {
+            console.log(response.status)
+            if (response.status == "logged_in"){
+                setUserSession(response.data);
+            }
+        }).catch(error => {
+            console.log("Error:", error);
+        })
+    }
+
     return (
         <Grid container component="main" className={classes.root}>
             <CssBaseline/>
@@ -53,15 +78,15 @@ export default function Login() {
                     <img src="assets/logo_full.png" height="70px"/>
                     <Divider className={classes.dividerStyle}/>
                     <Typography component="h1" variant="h5">Sign in</Typography>
-                    <form>
+                    <form onSubmit = {LoginUser}>
                         <TextField
                             variant="outlined"
                             margin="normal"
                             //required
                             fullWidth
-                            id="username"
-                            label="Username"
-                            name="username"
+                            id="email"
+                            label="Email"
+                            name="email"
                             color="secondary"
                         />
                         <TextField
@@ -80,7 +105,7 @@ export default function Login() {
                             variant="contained"
                             color="primary"
                             className={classes.submit}
-                            component={Link} to="/user"
+                            //component={Link} to="/user"
                         >
                             Login
                         </Button>
