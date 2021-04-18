@@ -66,7 +66,6 @@ const useStyles = makeStyles((theme) => ({
     },
     paper: {
         height: '90%',
-        margin: theme.spacing(1)
     },
     root: {
         '& .MuiButton-textPrimary': {

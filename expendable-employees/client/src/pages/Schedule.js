@@ -26,9 +26,6 @@ const schedulerData = [
 ];
 
 const useStyles = makeStyles((theme) => ({
-    boxContainer: {
-        padding: theme.spacing(4),
-    },
     //Current day colour styling:
     todayCell: {
         backgroundColor: fade(theme.palette.primary.light, 0.05),
@@ -72,11 +69,11 @@ export default function Schedule() {
     const classes = useStyles();
 
     return (
-        <Box className={classes.boxContainer}>
+        <Box>
             <Paper>
                 <Scheduler
                     data={schedulerData}
-                    height={700}
+                    height='auto'
                 >
                     <ViewState
                         defaultCurrentDate={currentDate}
