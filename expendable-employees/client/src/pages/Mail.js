@@ -271,7 +271,7 @@ export default function Mail() {
                             <Checkbox
                                 checked={selAllCheck}
                                 onChange={handleSelectAll}
-                                edge="'start'"
+                                edge="start"
                             />
                         </Tooltip>
                         <Tooltip title="Mark As Read">
