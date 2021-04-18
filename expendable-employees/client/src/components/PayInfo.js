@@ -5,7 +5,7 @@ import {Container, Grid, Paper } from '@material-ui/core';
 import {Table, TableHead, TableBody, TableCell, TableRow, Typography} from '@material-ui/core';
 import {Link} from '@material-ui/core';
 import clsx from "clsx";
-
+import * as d3 from 'd3'; 
 import myNode from './PayInfoGraph'
 import Title from "../components/Title";
 
@@ -92,7 +92,9 @@ const schedulerData = [
 
 var currDay = 4;
 
-var hourlyRate = 1;
+var maxDailyMoney = 15;
+
+var hourlyRate = 3.75;
 
 function shiftDuration(start, end){
 
@@ -125,12 +127,18 @@ function calcPay(duration, rate){
 
         //console.log(myPay)
 
+        if(myPay > maxDailyMoney){
+            maxDailyMoney = parseInt(myPay)
+        }
+
         return myPay
 
 }
 
 
 function calcTotalPay(){
+
+    console.log('test3')
     return function(){
         generateGraph()
         //console.log('test')
@@ -149,39 +157,97 @@ function calcTotalPay(){
 
 const data = {}
 function generateGraph(){
-    data.width = 500;
-    data.height = 750;
-
+    //so seth suggested this library thing that'd help make D3 and React play nice
+    //but I can't really figure out how to use it, so imma not for now 
     let myData = []
 
     for(let i = 0; i < schedulerData.length; i ++){
         myData.push({day:i, pay: calcPay(shiftDuration(schedulerData[i].startDate, schedulerData[i].endDate), hourlyRate)})
     }
     
+    let myGraph = document.getElementById('myGraph');
+
     console.log(myData)
-
-    data.dataset = myData;
-    data.x_display_name = 'day you work';
-    data.x_display_name = 'how much you made';
-
-    data.margins = {top: 20, right: 10, bottom: 0, left: 10}
-    data.barClass = 'barChart';
-
-    let myGraph = document.getElementById('myGraph')
     
     console.log(myGraph.childElementCount)
-    if(myGraph.childElementCount > 0){
+
+    while(myGraph.childElementCount > 0){
         myGraph.removeChild(myGraph.childNodes[0])
     }
-    myGraph.append(data)
 
     console.log(data)
+
+    const margin = 50;
+    const width = 800;
+    const height = 500;
+    const chartWidth = width - 2 * margin;
+    const chartHeight = height - 2 * margin;
+    const colourScale = d3.scaleLinear().domain([0, maxDailyMoney]).range(['red', 'blue']);
+
+    const xScale = d3.scaleBand() // discrete, bucket
+                        .domain(myData.map((data) => data.day))
+                        .range([0, chartWidth])
+                        .padding(0.3);
+    
+    const yScale = d3.scaleLinear().domain([0, maxDailyMoney]).range([chartHeight, 0]);
+
+    let svg = d3.select('#myGraph')
+                    .append('svg')
+                        .attr('width', width)
+                        .attr('height', height);
+
+    svg.append('text')
+        .attr('x', width / 2)
+        .attr('y', margin)
+        .attr('text-anchor', 'middle')
+        .text('Money earned by day');
+
+    let g = svg.append('g').attr('transform', `translate(${margin}, ${margin})`);
+
+    g.append('g').call(d3.axisLeft(yScale));
+
+    g.append('g')
+        .attr('transform', `translate(0, ${chartHeight})`)
+        .call(d3.axisBottom(xScale));
+
+    let rectangles = g.selectAll('rect')
+        .data(myData)
+        .enter()
+            .append('rect')
+                .attr('x', (data) => xScale(data.day))
+                .attr('y', (data) => chartHeight)
+                .attr('width', xScale.bandwidth())
+                .attr('height', (data) => 0)
+                .attr('fill', (data) => colourScale(data.pay))
+                .on('mouseenter', function(source, index) {
+                    d3.select(this)
+                        .transition()
+                        .duration(200)
+                        .attr('opacity', 0.5);
+                })
+                .on('mouseleave', function(source, index) {
+                    d3.select(this)
+                        .transition()
+                        .duration(200)
+                        .attr('opacity', 1.0);
+                });
+
+    rectangles.transition()
+        .ease(d3.easeElastic)
+        .attr('height', (data) => chartHeight - yScale(data.pay))
+        .attr('y', (data) => yScale(data.pay))
+        .duration(1000)
+        .delay((data, index) => index * 50);
+
 }
 
 
 
 export default function PayInfo() {
     const classes = useStyles();
+    console.log('test1')
+    calcTotalPay()
+    console.log('test2')
 
 
     return(
@@ -190,9 +256,11 @@ export default function PayInfo() {
             <Container height="100%">
 
 
-                <Grid container spacing = {3}>
+                <Grid container spacing = {3} >
                     <Grid item xs>
+                        
                         <Button onClick={calcTotalPay()}> test button</Button>
+                        
                         {/* graph will go here */}
                         <div id='myGraph'></div>
                     </Grid>
