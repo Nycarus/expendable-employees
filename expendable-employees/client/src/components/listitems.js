@@ -44,11 +44,11 @@ export const mainListItems = (
             <ListItemText primary="Schedule" />
         </ListItem>
 
-        <ListItem button component={Link} to="/user/inbox">
+        <ListItem button component={Link} to="/user/mail">
             <ListItemIcon>
                 <Inbox />
             </ListItemIcon>
-            <ListItemText primary="Inbox" />
+            <ListItemText primary="Mail" />
         </ListItem>
 
     </div>

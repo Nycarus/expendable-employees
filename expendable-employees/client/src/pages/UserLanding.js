@@ -12,7 +12,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {Route, Switch, useRouteMatch, useLocation} from "react-router-dom";
 import Dashboard from "./Dashboard";
-import Inbox from "./Inbox";
+import Mail from "./Mail";
 import Finances from "./Finances";
 import Employees from "./Employees";
 import AddEmployee from "./AddEmployee";
@@ -133,11 +133,21 @@ export default function UserLanding() {
             return 'Dashboard'
         Else
             return substring with first char capitalized
+
+        If the returned substring is "Mail"
+            remove any suffixes from title
+        e.g. Mail/1" turns into "Mail"
      */
     const location = useLocation();
     const title = (location.pathname).substr(6);
     const titleUpperCase = (title.length !== 0) ? title.charAt(0).toUpperCase() + title.slice(1) : 'Dashboard';
-    //console.log(titleUpperCase);
+    const handleTitle = (title) => {
+        if(title.includes("Mail")){
+            return "Mail";
+        } else {
+            return title
+        }
+    }
 
     return (
         <div className={classes.root}>
@@ -160,7 +170,7 @@ export default function UserLanding() {
 
                     { /* Page Title */ }
                     <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-                        {titleUpperCase}
+                        {handleTitle(titleUpperCase)}
                     </Typography>
 
                 </Toolbar>
@@ -193,8 +203,8 @@ export default function UserLanding() {
                     <Route path={`${path}/schedule`}>
                         <Schedule/>
                     </Route>
-                    <Route path={`${path}/inbox`}>
-                        <Inbox/>
+                    <Route path={`${path}/mail`}>
+                        <Mail/>
                     </Route>
                     <Route path={`${path}/finances`}>
                         <Finances/>

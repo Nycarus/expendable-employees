@@ -79,9 +79,9 @@ function viewEmail(anEmail){
 }
 /*<ListItem button component={Link} to="/user/inbox">
             <ListItemIcon>
-                <Inbox />
+                <Mail />
             </ListItemIcon>
-            <ListItemText primary="Inbox" />
+            <ListItemText primary="Mail" />
         </ListItem>
         */
 //how the hell am i going to make this actually read emails? that's going to be a bit of a pain
