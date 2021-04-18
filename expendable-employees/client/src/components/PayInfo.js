@@ -111,6 +111,21 @@ export default function PayInfo() {
                                     <Title ><div id='totalMoney'>$0.00</div></Title>
                                 </TableRow>
                                 <TableRow>
+                                    <Title>Hours Worked</Title>
+                                </TableRow>
+                                <TableRow>
+                                    <Title><div id='hoursWorked'></div></Title>
+                                </TableRow>
+                                
+                                <TableRow>
+                                    <Title>Houry Rate</Title>
+                                </TableRow>
+
+                                <TableRow>
+                                    <Title><div id='hourlyRate'></div></Title>
+                                </TableRow>
+
+                                <TableRow>
                                     <Title>Payday</Title>
                                 </TableRow>
                                 <TableRow>

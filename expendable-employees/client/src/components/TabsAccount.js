@@ -5,8 +5,6 @@ Edit Info
 Money Information 
 Change Password 
 
-
-Going to do quit your job and money information first, and then editing stuff later if i can get around to it 
 */
 
 import React from "react";
@@ -153,20 +151,31 @@ function calcPay(duration, rate){
 function calcTotalPay(){
 
     console.log('test3')
-    //return function(){
         generateGraph()
         //console.log('test')
         let totalPay = 0.0;
+        let totalHours = 0;
+        let totalMinutes = 0;
         for(let i = 0; i < schedulerData.length; i ++){
+            totalHours += shiftDuration(schedulerData[i].startDate, schedulerData[i].endDate)[0]
+            totalMinutes += shiftDuration(schedulerData[i].startDate, schedulerData[i].endDate)[1]
             totalPay += calcPay(shiftDuration(schedulerData[i].startDate, schedulerData[i].endDate), hourlyRate)
+        }
+
+        while(totalMinutes >= 60){
+            totalHours += 1;
+            totalMinutes -= 60;
         }
 
         document.getElementById('totalMoney').innerText = '$' + totalPay
 
+        document.getElementById('hoursWorked').innerText = totalHours + ':' + totalMinutes;
+
+        document.getElementById('hourlyRate').innerText = '$' + hourlyRate + ' / hr';
+
         console.log(document.getElementById('totalMoney'))
 
         console.log(totalPay)
-    //}
 }
 
 const data = {}
@@ -290,7 +299,7 @@ function loadComponent(myComponent){
             document.getElementById('payInfo').style.display = 'block'
             document.getElementById('changePass').style.display = 'none'
         } else if(myComponent === 'ChangePassComponent'){
-            console.log('fuck you no new password')
+            console.log('you shoud have remembered your old password')
             document.getElementById('quitJob').style.display = 'none'
             document.getElementById('editInfo').style.display = 'none'
             document.getElementById('payInfo').style.display = 'none'

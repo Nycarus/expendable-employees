@@ -104,12 +104,15 @@ export default function Annoucements() {
             <Grid item xs={8}>
                 <Typography>Annoucement 1 Title</Typography>
             </Grid>
-            <Grid item xs={2}>
-                <Button onClick={removeAnnoucement('ann1')}>X</Button>
-            </Grid>
+
             <Grid item xs={2}>
                 <Button onClick={toggleVisibility('ann1msg')}>?</Button>
             </Grid>
+            
+            <Grid item xs={2}>
+                <Button onClick={removeAnnoucement('ann1')}>X</Button>
+            </Grid>
+            
             <Grid item xs = {6}>
                 <Typography>Company Branch</Typography>
             </Grid>
@@ -128,12 +131,15 @@ export default function Annoucements() {
             <Grid item xs={8}>
                 <Typography>Annoucement 2 Title</Typography>
             </Grid>
-            <Grid item xs={2}>
-                <Button onClick={removeAnnoucement('ann2')}>X</Button>
-            </Grid>
+
             <Grid item xs={2}>
                 <Button onClick={toggleVisibility('ann2msg')}>?</Button>
             </Grid>
+            
+            <Grid item xs={2}>
+                <Button onClick={removeAnnoucement('ann2')}>X</Button>
+            </Grid>
+            
             <Grid item xs = {6}>
                 <Typography>Company Branch</Typography>
             </Grid>
@@ -152,12 +158,15 @@ export default function Annoucements() {
             <Grid item xs={8}>
                 <Typography>Annoucement 3 Title</Typography>
             </Grid>
-            <Grid item xs={2}>
-                <Button onClick={removeAnnoucement('ann3')}>X</Button>
-            </Grid>
+
             <Grid item xs={2}>
                 <Button onClick={toggleVisibility('ann3msg')} >?</Button>
             </Grid>
+            
+            <Grid item xs={2}>
+                <Button onClick={removeAnnoucement('ann3')}>X</Button>
+            </Grid>
+            
             <Grid item xs = {6}>
                 <Typography>Company Branch</Typography>
             </Grid>

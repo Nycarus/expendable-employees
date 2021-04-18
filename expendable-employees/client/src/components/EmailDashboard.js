@@ -1,11 +1,17 @@
 import React from 'react';
 import Link from '@material-ui/core/Link';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
 import { makeStyles, Button, Tab } from '@material-ui/core/';
 import { Container, Grid, Paper } from '@material-ui/core';
 import { Table, TableHead, TableBody, TableCell, TableRow, Typography } from '@material-ui/core';
-import Title from './Title';
-//import {Link} from "react-router-dom";
 
+import {AccountCircle, Inbox, PersonAdd, Storage, Today} from "@material-ui/icons";
+import {Route, Switch, useRouteMatch, useLocation} from "react-router-dom";
+import Title from './Title';
+import Mail from './../pages/Mail'
+import {Link as myLink} from "react-router-dom";
 
 function preventDefault(event) {
     event.preventDefault();
@@ -74,30 +80,30 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function viewEmail(anEmail){
-    //there's an issue with the function being called twice, it seems
-    //console.log(anEmail)
-}
-/*<ListItem button component={Link} to="/user/inbox">
-            <ListItemIcon>
-                <Mail />
-            </ListItemIcon>
-            <ListItemText primary="Mail" />
-        </ListItem>
+    return function(){
+        console.log(anEmail)
+        /*
+        
         */
-//how the hell am i going to make this actually read emails? that's going to be a bit of a pain
+    }
+}
 export default function EmailDashboard() {
     const classes = useStyles();
+    const { path } = useRouteMatch();
     return (
         <React.Fragment>
+            <Route path={`${path}/mail`}><Mail/></Route>
             <Title>Unread Recent Emails</Title>
             <Table>
                 <TableBody>
                     <TableRow>
                         <TableCell width = "60%">
                             <Typography component="p" variant="h4">
-                                <Link color="secondary" href="#" onClick={viewEmail('placeholderArgument1')}>
-                                    It's Layoff season!
-                                </Link>
+                                <ListItem button component={myLink} to="/user/mail">
+                                    <Link color="secondary">
+                                        It's Layoff season!
+                                    </Link>
+                                </ListItem>
                             </Typography>
                         </TableCell>
                         <TableCell  width = "30%">
@@ -117,9 +123,11 @@ export default function EmailDashboard() {
                     <TableRow>
                         <TableCell width = "60%">
                             <Typography component="p" variant="h4">
-                                <Link color="secondary" href="#" onClick={viewEmail('placeholderArgument2')}>
-                                    Generic Email Topic
-                                </Link>
+                            <ListItem button component={myLink} to="/user/mail">
+                                    <Link color="secondary">
+                                        Generic Email Topic
+                                    </Link>
+                                </ListItem>
                             </Typography>
                         </TableCell>
                         <TableCell width = "30%">
