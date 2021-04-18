@@ -14,7 +14,6 @@ import {
     IconButton,
     List,
     ListItem,
-    ListItemIcon, ListItemSecondaryAction,
     ListItemText,
     Tab,
     Tabs,

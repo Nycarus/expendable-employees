@@ -56,12 +56,6 @@ export const mainListItems = (
 
 export const secondaryListItems = (
     <div>
-        <ListItem button component={Link} to="/user/finances">
-            <ListItemIcon>
-                <BarChartIcon />
-            </ListItemIcon>
-            <ListItemText primary="Finances" />
-        </ListItem>
 
         <ListItem button component={Link} to="/user/employees">
             <ListItemIcon>
