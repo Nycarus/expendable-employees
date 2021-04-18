@@ -6,7 +6,6 @@ import {Table, TableHead, TableBody, TableCell, TableRow, Typography} from '@mat
 import {Link} from '@material-ui/core';
 import clsx from "clsx";
 import * as d3 from 'd3'; 
-import myNode from './PayInfoGraph'
 import Title from "../components/Title";
 
 const RD3Component = rd3.Component;

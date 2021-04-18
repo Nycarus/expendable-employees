@@ -139,26 +139,11 @@ export default function TopbarID() {
                     </Grid>
                     <Grid item xs={4}>
                         {/* user info will be here, maybe a table */}
-                        <Table>
-                            <TableBody>
-                                <TableRow>
-                                    <Typography>{placeholderUser.firstname} {placeholderUser.lastname} </Typography>
-                                </TableRow>
-                                <TableRow>
-                                    <Typography>{placeholderUser.position}</Typography>
-                                </TableRow>
-                                <TableRow>
-                                    <Typography>  {/* how the hell do i make an empty line? */} </Typography>
-                                </TableRow>
-                                <TableRow>
-                                    <Typography>{placeholderUser.email}</Typography>
-                                </TableRow>
-                                <TableRow>
-                                    <Typography>{placeholderUser.phone}</Typography>
-                                </TableRow>
-                            </TableBody>
-                        </Table>
-                    </Grid>
+                        <Typography>{placeholderUser.firstname} {placeholderUser.lastname} </Typography>
+                        <Typography>{placeholderUser.position}</Typography><br/><br/>
+                        <Typography>{placeholderUser.email}</Typography>
+                        <Typography>{placeholderUser.phone}</Typography>
+                        </Grid>
                     <Grid item xs={5}>
                         {/* intentionally empty */}
                     </Grid>

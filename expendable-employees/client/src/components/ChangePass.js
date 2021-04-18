@@ -1,11 +1,11 @@
 import React from "react";
 import {makeStyles, Button, Toolbar } from '@material-ui/core/';
 import {Container, Grid, Paper } from '@material-ui/core';
-import {Table, TableHead, TableBody, TableCell, TableRow, Typography} from '@material-ui/core';
+import {Divider, TextField, Typography} from "@material-ui/core";
 import {Link} from '@material-ui/core';
 import clsx from "clsx";
 
-import Title from "../components/Title";
+import Title from "./Title";
 
 
 function preventDefault(event) {
@@ -74,6 +74,55 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
+function checkPassword(){
+
+    let newPassword = document.getElementById('newPass').value
+    let oldPassword = document.getElementById('oldPass').value
+    let confPassword = document.getElementById('confPass').value
+
+    let lengthRequirement = document.getElementById('lengthReq')
+    let req1 = false;
+    let notSameRequirement = document.getElementById('notSameReq')
+    let req2 = false;
+    let confirmationRequirement = document.getElementById('confirmReq')
+    let req3 = false;
+    
+    let acceptable = document.getElementById('allGood')
+
+    if(newPassword.length < 8){
+        lengthRequirement.style.display = 'block'
+        req1 = false;
+    } else {
+        lengthRequirement.style.display = 'none'
+        req1 = true;
+    }
+
+    if(newPassword === oldPassword){
+        notSameRequirement.style.display='block'
+        req2 = false;
+    } else {
+        
+        notSameRequirement.style.display='none'
+        req2 = true;
+    }
+
+    if(newPassword !== confPassword){
+        confirmationRequirement.style.display='block'
+        req3 = false;
+    } else {
+        confirmationRequirement.style.display='none'
+        req3 = true;
+    }
+
+
+    if(req1 && req2 && req3){
+        acceptable.style.display='block'
+    } else {
+        acceptable.style.display='none'
+    }
+
+}
+
 
 export default function ChangePass() {
     const classes = useStyles();
@@ -81,7 +130,65 @@ export default function ChangePass() {
 
     return(
         <React.Fragment>
-            <Typography>Your new password is *********************</Typography>
+            <Grid container>
+                <Grid item xs/>
+                <Grid item xs={5}>
+                    <Typography className={classes.categoryText} variant="h5">
+                        Account Information
+                    </Typography>
+                    <TextField
+                        fullWidth={true}
+                        variant="outlined"
+                        margin="dense"
+                        required
+                        name="oldPass"
+                        label="Old Password"
+                        id="oldPass"
+                        type="password"
+                        color="secondary"/>
+                    <br/>
+                    <TextField
+                        fullWidth={true}
+                        variant="outlined"
+                        margin="dense"
+                        required
+                        name="newPass"
+                        label="New Password"
+                        id="newPass"
+                        type="password"
+                        color="secondary"/>
+                    <br/>
+                    <TextField
+                        fullWidth={true}
+                        variant="outlined"
+                        margin="dense"
+                        required
+                        name="confPass"
+                        label="Confirm New Password"
+                        id="confPass"
+                        type="password"
+                        color="secondary"/>
+                    
+                    <Button
+                        className={classes.registerButton}
+                        type="submit"
+                        variant="contained"
+                        color="primary"
+                        onClick={checkPassword}>
+                        Register
+                    </Button>
+                </Grid>
+                <Grid item xs = {5}>
+                    {/* min 8 characters, old can't be same as new, new and confirm have to be the same  */}
+                    <br />
+                    <br />
+                    <br />
+                    <Typography id='lengthReq'  style={{display:'none'}}> New password must be at least 8 characters  </Typography> <br />
+                    <Typography id='notSameReq' style={{display:'none'}}> New password must be different from old password </Typography> <br /> 
+                    <Typography id='confirmReq' style={{display:'none'}}> New password does not match Confirmation password  </Typography> <br />
+                    <Typography id='allGood' style={{display:'none'}}> Your new password is valid and has been accepted   </Typography> <br />
+                </Grid>
+            </Grid>
         </React.Fragment>
     )
 
