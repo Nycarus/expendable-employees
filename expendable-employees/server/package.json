@@ -16,9 +16,7 @@
     "uuid": "^8.3.2"
   },
   "scripts": {
-    "server": "node index.js",
-    "client": "npm start --prefix client",
-    "both": "concurrently \"npm run server\" \"npm run client\""
+    "server": "node index.js"
   },
   "devDependencies": {
     "concurrently": "^6.0.0"

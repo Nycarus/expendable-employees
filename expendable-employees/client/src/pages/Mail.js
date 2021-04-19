@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import DoneIcon from '@material-ui/icons/Done';
 import {makeStyles} from '@material-ui/core/styles';
 import {
@@ -25,6 +25,8 @@ import SendIcon from '@material-ui/icons/Send';
 import CloseIcon from '@material-ui/icons/Close';
 import {Link, Route, Switch, useRouteMatch} from "react-router-dom";
 import EmailItem from "../components/EmailItem";
+import axios from "axios";
+import {setUserSession} from "../utils/userSession";
 
 const testReceivedArr = [
     {title: "Title Test 1", id: 0, message: "Test message 1.", is_read: false},
@@ -170,6 +172,28 @@ export default function Mail() {
         }
     }
 
+    // Compose Form Handlers:
+
+    const [state, setState] = useState({
+        recipient: "",
+        title: "",
+        message: ""
+    })
+
+    const handleInputChange = (event) => {
+        setState((prevProps) => ({
+            ...prevProps,
+            [event.target.name]: event.target.value
+        }));
+    }
+
+
+    const handleCompose = (value) => {
+        value.preventDefault();
+
+        // TODO send to backend
+    }
+
     // ----------------------------------------------------------------------------------------------------------------
     return (
         <Switch>
@@ -220,39 +244,49 @@ export default function Mail() {
                                     }
                                 </DialogTitle>
                                 <DialogContent dividers>
+                                    <form onSubmit = {handleCompose}>
                                     <TextField
-                                        autoFocus
-                                        margin="dense"
-                                        id="name"
-                                        label="Recipient(s):"
-                                        type="email"
+                                        margin="normal"
                                         fullWidth
-                                        color="secondary"
+                                        id="recipient"
+                                        label="Recipient"
+                                        name="recipient"
+                                        color="recipient"
+                                        value={state.recipient}
+                                        onChange={handleInputChange}
                                     />
+                                        <TextField
+                                            margin="normal"
+                                            fullWidth
+                                            id="title"
+                                            label="Title"
+                                            name="title"
+                                            color="secondary"
+                                            value={state.title}
+                                            onChange={handleInputChange}
+                                        />
                                     <TextField
-                                        autoFocus
-                                        margin="dense"
-                                        id="name"
-                                        label="Title:"
-                                        type="text"
+                                        margin="normal"
                                         fullWidth
+                                        name="message"
+                                        label="Message"
+                                        type="message"
+                                        id="message"
                                         color="secondary"
-                                    />
-                                    <TextField
-                                        autoFocus
-                                        margin="dense"
-                                        id="name"
-                                        label="Message:"
-                                        type="text"
-                                        fullWidth
-                                        color="secondary"
+                                        value={state.message}
                                         multiline
                                         rows={5}
                                         rowsMax={15}
+                                        onChange={handleInputChange}
                                     />
+                                </form>
                                 </DialogContent>
                                 <DialogActions>
-                                    <Button onClick={handleComposeDialog} color="secondary">
+                                    <Button
+                                        onClick={handleComposeDialog}
+                                        color="secondary"
+                                        type="submit"
+                                    >
                                         Send
                                     </Button>
                                 </DialogActions>
@@ -340,7 +374,7 @@ export default function Mail() {
                     </TabPanel>
                     { /* Sent mail view */}
                     <TabPanel value={tab} index={1}>
-                        <List disablePadding >
+                        <List disablePadding>
                             {
                                 testSentArr.map((value) => {
                                     return (
