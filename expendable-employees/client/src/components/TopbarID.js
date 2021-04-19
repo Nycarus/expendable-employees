@@ -19,7 +19,7 @@ import Title from "../components/Title";
 
 import pfp from './pfp.png'
 
-import {setUserSession, getUserToken} from "../utils/userSession";
+import {getUserToken} from "../utils/userSession";
 import {useHistory} from 'react-router-dom';
 import axios from "axios";
 
@@ -137,27 +137,27 @@ export default function TopbarID() {
     let token = getUserToken();
 
 
-    useEffect(() => {
+        useEffect(() => {
 
-    async function getData(){
-        if (token == null){
-            history.push('/login');
-        }else{
+        async function getData(){
+            if (token == null){
+                history.push('/login');
+            }else{
 
-        let response = await axios({
-            method : "get",
-            url : "http://localhost:3001/api/self/user",
-            headers : {
-                "Content-Type": "application/json",
-                "Authorization" : "Bearer "+token
-        }}).catch(error => {
-            console.log(error);
-            history.push('/login');
-        });
-        setData(response.data[0])
-        return response.data[0];
-        }            
-    
+            let response = await axios({
+                method : "get",
+                url : "http://localhost:3001/api/self/user",
+                headers : {
+                    "Content-Type": "application/json",
+                    "Authorization" : "Bearer "+token
+            }}).catch(error => {
+                console.log(error);
+                history.push('/login');
+            });
+            setData(response.data[0])
+            return response.data[0];
+            }            
+        
     }
     getData();
     },[token]);

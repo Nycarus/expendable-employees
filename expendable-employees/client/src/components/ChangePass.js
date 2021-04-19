@@ -6,6 +6,8 @@ import {Link} from '@material-ui/core';
 import clsx from "clsx";
 
 import Title from "./Title";
+import {getUserToken} from "../utils/userSession";
+import axios from "axios";
 
 
 function preventDefault(event) {
@@ -116,10 +118,34 @@ function checkPassword(){
 
 
     if(req1 && req2 && req3){
+        console.log("password good");
+        let token = getUserToken();
+        if(token != null){
+            axios({
+                method : "post",
+                data : {
+                    "password" : newPassword
+                },
+                url : "http://localhost:3001/api/reset/password",
+                headers : {
+                    "Content-Type": "application/json",
+                    "Authorization" : "Bearer "+token
+            }}).catch(error => {
+                console.log(error);
+            });
+    
+
+        }
+        
+
+
         acceptable.style.display='block'
     } else {
         acceptable.style.display='none'
     }
+
+
+    
 
 }
 
