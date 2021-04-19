@@ -7,6 +7,9 @@ import {ThemeProvider, createMuiTheme} from '@material-ui/core/styles'
 import CssBaseline from "@material-ui/core/CssBaseline";
 import UserLanding from "./pages/UserLanding";
 import Dashboard from "./pages/Dashboard";
+import {ProtectedRoute} from "./utils/ProtectedRoute";
+import {NonUserRoute} from "./utils/NonUserRoute";
+
 // Custom Theme
 const theme = createMuiTheme({
     palette: {
@@ -46,10 +49,10 @@ export default function App() {
             <CssBaseline/>
             <div className="App">
                 <Switch>
-                    <Route exact from="/" component={Homepage}/>
-                    <Route path="/login" component={Login}/>
-                    <Route path="/register" component={Register}/>
-                    <Route path="/user" component={UserLanding}/>
+                    <NonUserRoute exact from="/" component={Homepage}/>
+                    <NonUserRoute path="/login" component={Login}/>
+                    <NonUserRoute path="/register" component={Register}/>
+                    <ProtectedRoute path="/user" component={UserLanding}/>
                 </Switch>
             </div>
         </ThemeProvider>

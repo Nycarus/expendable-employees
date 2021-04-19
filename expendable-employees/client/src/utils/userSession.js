@@ -1,25 +1,14 @@
-export function isLogin() {
-    if (window.sessionStorage.getItem("user")) {
-        return true;
-    }
-    else {
-        return false;
-    }
-}
+import axios from "axios";
 
-export function getUser() {
-    let user = window.sessionStorage.getItem("user");
-    
-    if (user){
-        return JSON.parse(user);
-    }
-    else {
-        return null;
-    }
+/* To be implemented: Authenticate Token
+
+export function isAuthenticated() {
+    axios.get
 }
+*/
 
 export function getUserToken() {
-    let token = window.sessionStorage.getItem("token")
+    let token = window.sessionStorage.getItem("token");
 
     if (token) {
         return token;
@@ -31,10 +20,8 @@ export function getUserToken() {
 
 export function removeUserSession() {
     window.sessionStorage.removeItem("token");
-    window.sessionStorage.removeItem("user");
 }
 
 export function setUserSession(data) {
-    window.sessionStorage.setItem("user", data.user);
     window.sessionStorage.setItem("token", data.token);
 }
