@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import DoneIcon from '@material-ui/icons/Done';
 import {makeStyles} from '@material-ui/core/styles';
 import {
@@ -75,7 +75,7 @@ export default function Mail() {
     const classes = useStyles();
     const {path} = useRouteMatch();
 
-    const [checkedCheckboxes, setCheckedCheckboxes] = React.useState([-1]);
+    const [checkedCheckboxes, setCheckedCheckboxes] = React.useState([]);
     const [openComposeDialog, setOpenComposeDialog] = React.useState(false);
     const [tab, setTab] = React.useState(0);
     const [selAllCheck, setSelAllChecked] = React.useState(false);
@@ -111,7 +111,7 @@ export default function Mail() {
     // Handler for tab change
     const handleTabChange = (event, newTab) => {
         setSelAllChecked(false);                // Sets Select All checkbox to false
-        setCheckedCheckboxes([-1]);             // Sets all email checkboxes to false
+        setCheckedCheckboxes([]);             // Sets all email checkboxes to false
         setTab(newTab);                               // Sets to other tab
     };
 
@@ -135,10 +135,17 @@ export default function Mail() {
                 setCheckedCheckboxes(testSentArr.map(x => x.id));
             }
         } else {
-            setCheckedCheckboxes([-1]);
+            setCheckedCheckboxes([]);
         }
 
     };
+
+    // Handler for marking emails as read:
+    const handleMarkAsRead = () => {
+        console.log(checkedCheckboxes);
+
+        // TODO mark all ID's in checkedCheckboxes as read
+    }
 
     // Handler for email title text colour
     const handleTitleColor = (is_read) => {
@@ -170,6 +177,27 @@ export default function Mail() {
         }
     }
 
+    // Compose Form Handlers:
+
+    const [state, setState] = useState({
+        recipient: "",
+        title: "",
+        message: ""
+    })
+
+    const handleInputChange = (event) => {
+        setState((prevProps) => ({
+            ...prevProps,
+            [event.target.name]: event.target.value
+        }));
+    }
+
+    const handleCompose = (value) => {
+        value.preventDefault();
+
+        // TODO send to backend
+    }
+
     // ----------------------------------------------------------------------------------------------------------------
     return (
         <Switch>
@@ -187,7 +215,7 @@ export default function Mail() {
                     >
                         { /* Tabs */}
                         <Grid item>
-                            <Tabs value={tab} onChange={handleTabChange} aria-label="simple tabs example">
+                            <Tabs value={tab} onChange={handleTabChange}>
                                 <Tab label="Inbox"/>
                                 <Tab label="Sent"/>
                             </Tabs>
@@ -220,39 +248,49 @@ export default function Mail() {
                                     }
                                 </DialogTitle>
                                 <DialogContent dividers>
+                                    <form onSubmit = {handleCompose}>
                                     <TextField
-                                        autoFocus
-                                        margin="dense"
-                                        id="name"
-                                        label="Recipient(s):"
-                                        type="email"
+                                        margin="normal"
                                         fullWidth
-                                        color="secondary"
+                                        id="recipient"
+                                        label="Recipient"
+                                        name="recipient"
+                                        color="recipient"
+                                        value={state.recipient}
+                                        onChange={handleInputChange}
                                     />
+                                        <TextField
+                                            margin="normal"
+                                            fullWidth
+                                            id="title"
+                                            label="Title"
+                                            name="title"
+                                            color="secondary"
+                                            value={state.title}
+                                            onChange={handleInputChange}
+                                        />
                                     <TextField
-                                        autoFocus
-                                        margin="dense"
-                                        id="name"
-                                        label="Title:"
-                                        type="text"
+                                        margin="normal"
                                         fullWidth
+                                        name="message"
+                                        label="Message"
+                                        type="message"
+                                        id="message"
                                         color="secondary"
-                                    />
-                                    <TextField
-                                        autoFocus
-                                        margin="dense"
-                                        id="name"
-                                        label="Message:"
-                                        type="text"
-                                        fullWidth
-                                        color="secondary"
+                                        value={state.message}
                                         multiline
                                         rows={5}
                                         rowsMax={15}
+                                        onChange={handleInputChange}
                                     />
+                                </form>
                                 </DialogContent>
                                 <DialogActions>
-                                    <Button onClick={handleComposeDialog} color="secondary">
+                                    <Button
+                                        onClick={handleComposeDialog}
+                                        color="secondary"
+                                        type="submit"
+                                    >
                                         Send
                                     </Button>
                                 </DialogActions>
@@ -275,7 +313,7 @@ export default function Mail() {
                             />
                         </Tooltip>
                         <Tooltip title="Mark As Read">
-                            <IconButton aria-label="mark as read">
+                            <IconButton aria-label="mark as read" onClick={handleMarkAsRead}>
                                 <DoneIcon/>
                             </IconButton>
                         </Tooltip>
@@ -340,7 +378,7 @@ export default function Mail() {
                     </TabPanel>
                     { /* Sent mail view */}
                     <TabPanel value={tab} index={1}>
-                        <List disablePadding >
+                        <List disablePadding>
                             {
                                 testSentArr.map((value) => {
                                     return (

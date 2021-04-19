@@ -1,10 +1,3 @@
-/*
-TODO fix app bar in Homepage.js; set buttons to far-right, set logo & header to far-left.
-TODO fix banner image text to be centered on screen instead of aligned far-left
-TODO add random product gibberish below banner to make landing page more pleasing;
-     things like analytics, about us info, company goals, fake reviews, etc
- */
-
 import React from 'react';
 import {makeStyles} from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
