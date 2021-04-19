@@ -7,7 +7,7 @@ Custom Drawer for overall user view
 import React from "react";
 import {Drawer as MUIDrawer, List, Divider} from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import {mainListItems, secondaryListItems} from "./listitems";
+import {mainListItems, secondaryListItems, tertiaryListItems} from "./listitems";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import IconButton from "@material-ui/core/IconButton";
 import clsx from "clsx";
@@ -74,6 +74,8 @@ const Drawer = props => {
             <List>{mainListItems}</List>
             <Divider />
             <List>{secondaryListItems}</List>
+            <Divider />
+            <List>{tertiaryListItems}</List>
         </MUIDrawer>
     );
 };

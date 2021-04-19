@@ -16,7 +16,7 @@ export function ProtectedRoute({component: Component, fallBack: fallback, ...res
                     return <Component {...props}/>;
                 }
                 else {
-                    return <Redirect to={{pathname: "/", state: {from: props.location}}}/>;
+                    return <Redirect to={{pathname: "/login", state: {from: props.location}}}/>;
                 }
             }
         }/>

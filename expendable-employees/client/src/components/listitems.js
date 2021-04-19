@@ -72,3 +72,14 @@ export const secondaryListItems = (
         </ListItem>
     </div>
 );
+
+export const tertiaryListItems = (
+    <div>
+        <ListItem button component={Link} to="/logout">
+            <ListItemIcon>
+                <Storage />
+            </ListItemIcon>
+            <ListItemText primary="Log Out" />
+        </ListItem>
+    </div>
+)

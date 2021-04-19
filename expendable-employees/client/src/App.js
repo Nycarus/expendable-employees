@@ -3,6 +3,7 @@ import Homepage from './pages/Homepage';
 import { Route, Switch} from "react-router-dom";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import Logout from "./pages/Logout";
 import {ThemeProvider, createMuiTheme} from '@material-ui/core/styles'
 import CssBaseline from "@material-ui/core/CssBaseline";
 import UserLanding from "./pages/UserLanding";
@@ -52,6 +53,7 @@ export default function App() {
                     <NonUserRoute exact from="/" component={Homepage}/>
                     <NonUserRoute path="/login" component={Login}/>
                     <NonUserRoute path="/register" component={Register}/>
+                    <Route path="/logout" component={Logout}/>
                     <ProtectedRoute path="/user" component={UserLanding}/>
                 </Switch>
             </div>
