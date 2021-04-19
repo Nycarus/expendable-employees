@@ -4,7 +4,6 @@ import {Divider, Grid, Paper, Typography, makeStyles } from '@material-ui/core';
 
 const RD3Component = rd3.Component;
 
-
 function preventDefault(event) {
     event.preventDefault();
 }
@@ -19,8 +18,6 @@ const useStyles = makeStyles((theme) => ({
         marginBottom: theme.spacing(1)
     }
 }));
-
-
 
 
 export default function PayInfo() {
