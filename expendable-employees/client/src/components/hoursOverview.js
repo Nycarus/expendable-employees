@@ -15,8 +15,9 @@ I'm going to come back to this later
 
 import React from "react";
 import {makeStyles, Button } from '@material-ui/core/';
-import {Table, TableHead, TableBody, TableCell, TableRow, Typography} from '@material-ui/core';
-
+import {Table, TableHead, TableBody, TableCell, TableRow, Typography, Grid, IconButton} from '@material-ui/core';
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import Title from "../components/Title";
 
 const useStyles = makeStyles((theme) => ({
@@ -69,7 +70,6 @@ function setHoursTableValues(){
             dayOffset += 1;
         }
     }
-
 }
 
 const arrowClickLeft = () => {
@@ -94,52 +94,60 @@ const arrowClickRight = () => {
     console.log(currDay)
     setHoursTableValues()
 }
+
 export default function HoursOverview() {
     return(
         <React.Fragment>
-            <Title>Overview of Hours</Title>
-            <Table size="small">
-                <TableHead>
-                    <TableRow>
-                        <TableCell><Button onClick = {arrowClickLeft}>leftArrow</Button></TableCell>
-                        <TableCell id='dataHoursTitle1'>{schedulerData[((currDay - 2)+schedulerData.length)%schedulerData.length].title}</TableCell>
-                        <TableCell id='dataHoursTitle2'>{schedulerData[((currDay - 1)+schedulerData.length)%schedulerData.length].title}</TableCell>
-                        <TableCell id='dataHoursTitle3'>{schedulerData[((currDay - 0)+schedulerData.length)%schedulerData.length].title}</TableCell>
-                        <TableCell id='dataHoursTitle4'>{schedulerData[((currDay + 1)+schedulerData.length)%schedulerData.length].title}</TableCell>
-                        <TableCell id='dataHoursTitle5'>{schedulerData[((currDay + 2)+schedulerData.length)%schedulerData.length].title}</TableCell>
-                        <TableCell><Button onClick = {arrowClickRight}>rightArrow</Button></TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    <TableRow>
-                        <TableCell>----</TableCell>
-                        <TableCell id='dataHoursStart1'>{schedulerData[((currDay - 2)+schedulerData.length)%schedulerData.length].startDate.slice(11)}</TableCell>
-                        <TableCell id='dataHoursStart2'>{schedulerData[((currDay - 1)+schedulerData.length)%schedulerData.length].startDate.slice(11)}</TableCell>
-                        <TableCell id='dataHoursStart3'>{schedulerData[((currDay - 0)+schedulerData.length)%schedulerData.length].startDate.slice(11)}</TableCell>
-                        <TableCell id='dataHoursStart4'>{schedulerData[((currDay + 1)+schedulerData.length)%schedulerData.length].startDate.slice(11)}</TableCell>
-                        <TableCell id='dataHoursStart5'>{schedulerData[((currDay + 2)+schedulerData.length)%schedulerData.length].startDate.slice(11)}</TableCell>
-                        <TableCell>----</TableCell>
-                    </TableRow>
-                    <TableRow>
-                        <TableCell>----</TableCell>
-                        <TableCell id='dataHoursEnd1'>{schedulerData[((currDay - 2)+schedulerData.length)%schedulerData.length].endDate.slice(11)}</TableCell>
-                        <TableCell id='dataHoursEnd2'>{schedulerData[((currDay - 1)+schedulerData.length)%schedulerData.length].endDate.slice(11)}</TableCell>
-                        <TableCell id='dataHoursEnd3'>{schedulerData[((currDay - 0)+schedulerData.length)%schedulerData.length].endDate.slice(11)}</TableCell>
-                        <TableCell id='dataHoursEnd4'>{schedulerData[((currDay + 1)+schedulerData.length)%schedulerData.length].endDate.slice(11)}</TableCell>
-                        <TableCell id='dataHoursEnd5'>{schedulerData[((currDay + 2)+schedulerData.length)%schedulerData.length].endDate.slice(11)}</TableCell>
-                        <TableCell>----</TableCell>
-                    </TableRow>
-                    <TableRow>
-                        <TableCell>----</TableCell>
-                        <TableCell id='dataHoursTotal1'>{((currDay - 2)+schedulerData.length)%schedulerData.length}</TableCell>
-                        <TableCell id='dataHoursTotal2'>{((currDay - 1)+schedulerData.length)%schedulerData.length}</TableCell>
-                        <TableCell id='dataHoursTotal3'>{((currDay - 0)+schedulerData.length)%schedulerData.length}</TableCell>
-                        <TableCell id='dataHoursTotal4'>{((currDay + 1)+schedulerData.length)%schedulerData.length}</TableCell>
-                        <TableCell id='dataHoursTotal5'>{((currDay + 2)+schedulerData.length)%schedulerData.length}</TableCell>
-                        <TableCell>----</TableCell>
-                    </TableRow>
-                </TableBody>
-            </Table>
+            <Title><Typography variant="h4" gutterBottom={true}>Overview of Hours</Typography></Title>
+            <Grid container justify="space-between" alignItems="center">
+                <Grid item xs={1}>
+                    <IconButton onClick={arrowClickLeft}>
+                        <ArrowBackIosIcon/>
+                    </IconButton>
+                </Grid>
+                <Grid item xs>
+                    <Table size="small">
+                        <TableHead>
+                            <TableRow>
+                                <TableCell id='dataHoursTitle1'>{schedulerData[((currDay - 2)+schedulerData.length)%schedulerData.length].title}</TableCell>
+                                <TableCell id='dataHoursTitle2'>{schedulerData[((currDay - 1)+schedulerData.length)%schedulerData.length].title}</TableCell>
+                                <TableCell id='dataHoursTitle3'>{schedulerData[((currDay - 0)+schedulerData.length)%schedulerData.length].title}</TableCell>
+                                <TableCell id='dataHoursTitle4'>{schedulerData[((currDay + 1)+schedulerData.length)%schedulerData.length].title}</TableCell>
+                                <TableCell id='dataHoursTitle5'>{schedulerData[((currDay + 2)+schedulerData.length)%schedulerData.length].title}</TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            <TableRow>
+                                <TableCell id='dataHoursStart1'>{schedulerData[((currDay - 2)+schedulerData.length)%schedulerData.length].startDate.slice(11)}</TableCell>
+                                <TableCell id='dataHoursStart2'>{schedulerData[((currDay - 1)+schedulerData.length)%schedulerData.length].startDate.slice(11)}</TableCell>
+                                <TableCell id='dataHoursStart3'>{schedulerData[((currDay - 0)+schedulerData.length)%schedulerData.length].startDate.slice(11)}</TableCell>
+                                <TableCell id='dataHoursStart4'>{schedulerData[((currDay + 1)+schedulerData.length)%schedulerData.length].startDate.slice(11)}</TableCell>
+                                <TableCell id='dataHoursStart5'>{schedulerData[((currDay + 2)+schedulerData.length)%schedulerData.length].startDate.slice(11)}</TableCell>
+                            </TableRow>
+                            <TableRow>
+                                <TableCell id='dataHoursEnd1'>{schedulerData[((currDay - 2)+schedulerData.length)%schedulerData.length].endDate.slice(11)}</TableCell>
+                                <TableCell id='dataHoursEnd2'>{schedulerData[((currDay - 1)+schedulerData.length)%schedulerData.length].endDate.slice(11)}</TableCell>
+                                <TableCell id='dataHoursEnd3'>{schedulerData[((currDay - 0)+schedulerData.length)%schedulerData.length].endDate.slice(11)}</TableCell>
+                                <TableCell id='dataHoursEnd4'>{schedulerData[((currDay + 1)+schedulerData.length)%schedulerData.length].endDate.slice(11)}</TableCell>
+                                <TableCell id='dataHoursEnd5'>{schedulerData[((currDay + 2)+schedulerData.length)%schedulerData.length].endDate.slice(11)}</TableCell>
+                            </TableRow>
+                            <TableRow>
+                                <TableCell id='dataHoursTotal1'>{((currDay - 2)+schedulerData.length)%schedulerData.length}</TableCell>
+                                <TableCell id='dataHoursTotal2'>{((currDay - 1)+schedulerData.length)%schedulerData.length}</TableCell>
+                                <TableCell id='dataHoursTotal3'>{((currDay - 0)+schedulerData.length)%schedulerData.length}</TableCell>
+                                <TableCell id='dataHoursTotal4'>{((currDay + 1)+schedulerData.length)%schedulerData.length}</TableCell>
+                                <TableCell id='dataHoursTotal5'>{((currDay + 2)+schedulerData.length)%schedulerData.length}</TableCell>
+                            </TableRow>
+                        </TableBody>
+                    </Table>
+                </Grid>
+                <Grid item xs={1}>
+                    <IconButton onClick={arrowClickRight}>
+                        <ArrowForwardIosIcon/>
+                    </IconButton>
+                </Grid>
+            </Grid>
+            
         </React.Fragment>
         )
 
