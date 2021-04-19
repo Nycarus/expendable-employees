@@ -28,21 +28,15 @@ import {setUserSession} from "../utils/userSession";
 import {getUserToken} from "../utils/userSession";
 
 const columns = [
-    {field: 'id', headerName: 'ID', width: 100},
-    {field: 'firstName', headerName: 'First name', width: 130},
-    {field: 'lastName', headerName: 'Last name', width: 130},
+    {field: 'id', headerName: 'ID', flex: 1},
+    {field: 'firstName', headerName: 'First name', flex: 1},
+    {field: 'lastName', headerName: 'Last name', flex: 1},
     {
         field: 'fullName',
         headerName: 'Full name',
-        width: 160,
+        flex: 1,
         valueGetter: (params) =>
             `${params.getValue('firstName') || ''} ${params.getValue('lastName') || ''}`,
-    },
-    {
-        field: 'payrate',
-        headerName: 'Payrate',
-        type: 'number',
-        width: 120,
     },
 ];
 
@@ -97,8 +91,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function CustomGridFooter(props) {
-
-
 
     const classes = useStyles();
 

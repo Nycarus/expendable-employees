@@ -166,6 +166,7 @@ function generateGraph(){
         .attr('x', width / 2)
         .attr('y', margin)
         .attr('text-anchor', 'middle')
+        .attr('fill', 'white')
         .text('Money earned by day');
 
     let g = svg.append('g').attr('transform', `translate(${margin}, ${margin})`);
@@ -218,9 +219,6 @@ const buttonOptions = [
 
 function loadComponent(myComponent){
     return function(){
-
-
-
 
         if(myComponent === 'QuitJobComponent'){
             console.log('job successfuly quit, happy to see you go!')

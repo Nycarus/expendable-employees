@@ -1,11 +1,7 @@
 import React from "react";
 import {makeStyles, Button} from '@material-ui/core/';
-import {Grid, Paper } from '@material-ui/core';
+import {Grid, Paper, Box } from '@material-ui/core';
 import {TextField, Typography} from "@material-ui/core";
-import {Link} from '@material-ui/core';
-import clsx from "clsx";
-
-import Title from "./Title";
 import {getUserToken} from "../utils/userSession";
 import axios from "axios";
 
@@ -15,7 +11,26 @@ function preventDefault(event) {
 }
 
 const useStyles = makeStyles((theme) => ({
-
+    categoryText: {
+        marginBottom: theme.spacing(4),
+    },
+    dividerStyle: {
+        marginTop: theme.spacing(2),
+        marginBottom: theme.spacing(2),
+    },
+    registerButton: {
+        width: "10rem",
+        marginTop: theme.spacing(2),
+    },
+    lastTextfield: {
+        marginBottom: theme.spacing(2)
+    },
+    paperStyle: {
+        paddingTop: theme.spacing(6),
+        paddingBottom: theme.spacing(6),
+        paddingLeft: theme.spacing(8),
+        paddingRight: theme.spacing(8)
+    }
 }));
 
 function checkPassword(){
@@ -91,53 +106,59 @@ export default function ChangePass() {
             <Grid container>
                 <Grid item xs/>
                 <Grid item xs={5}>
-                    <Typography className={classes.categoryText} variant="h5">
-                        Account Information
-                    </Typography>
-                    <TextField
-                        fullWidth={true}
-                        variant="outlined"
-                        margin="dense"
-                        required
-                        name="oldPass"
-                        label="Old Password"
-                        id="oldPass"
-                        type="password"
-                        color="secondary"/>
-                    <br/>
-                    <TextField
-                        fullWidth={true}
-                        variant="outlined"
-                        margin="dense"
-                        required
-                        name="newPass"
-                        label="New Password"
-                        id="newPass"
-                        type="password"
-                        color="secondary"/>
-                    <br/>
-                    <TextField
-                        fullWidth={true}
-                        variant="outlined"
-                        margin="dense"
-                        required
-                        name="confPass"
-                        label="Confirm New Password"
-                        id="confPass"
-                        type="password"
-                        color="secondary"/>
-                    
-                    <Button
-                        className={classes.registerButton}
-                        type="submit"
-                        variant="contained"
-                        color="primary"
-                        onClick={checkPassword}>
-                        Register
-                    </Button>
+                    <Paper className={classes.paperStyle}>
+                        <Typography className={classes.categoryText} variant="h5">
+                            Change Password
+                        </Typography>
+                        <TextField
+                            fullWidth={true}
+                            variant="outlined"
+                            margin="dense"
+                            required
+                            name="oldPass"
+                            label="Old Password"
+                            id="oldPass"
+                            type="password"
+                            color="secondary"/>
+                        <br/>
+                        <TextField
+                            fullWidth={true}
+                            variant="outlined"
+                            margin="dense"
+                            required
+                            name="newPass"
+                            label="New Password"
+                            id="newPass"
+                            type="password"
+                            color="secondary"/>
+                        <br/>
+                        <TextField
+                            fullWidth={true}
+                            className={classes.lastTextfield}
+                            variant="outlined"
+                            margin="dense"
+                            required
+                            name="confPass"
+                            label="Confirm New Password"
+                            id="confPass"
+                            type="password"
+                            color="secondary"/>
+                        <Box><Typography id='lengthReq'  style={{display:'none'}}> New password must be at least 8 characters</Typography></Box>
+                        <Box><Typography id='notSameReq' style={{display:'none'}}> New password must be different from old password</Typography></Box>
+                        <Box><Typography id='confirmReq' style={{display:'none'}}> New password does not match Confirmation password</Typography></Box>
+                        <Box><Typography id='allGood' style={{display:'none'}}> Your new password is valid and has been accepted</Typography></Box>
+                        <Button
+                            className={classes.registerButton}
+                            type="submit"
+                            variant="contained"
+                            color="primary"
+                            onClick={checkPassword}>
+                            Register
+                        </Button>
+                    </Paper>
                 </Grid>
-                <Grid item xs = {5}>
-                    {/* min 8 characters, old can't be same as new, new and confirm have to be the same  */}
+                <Grid item xs>
+                    {/* min 8 characters, old can't be same as new, new and confirm have to be the same  
                     <br />
                     <br />
                     <br />
@@ -145,6 +166,7 @@ export default function ChangePass() {
                     <Typography id='notSameReq' style={{display:'none'}}> New password must be different from old password </Typography> <br /> 
                     <Typography id='confirmReq' style={{display:'none'}}> New password does not match Confirmation password  </Typography> <br />
                     <Typography id='allGood' style={{display:'none'}}> Your new password is valid and has been accepted   </Typography> <br />
+                    */}
                 </Grid>
             </Grid>
         </React.Fragment>

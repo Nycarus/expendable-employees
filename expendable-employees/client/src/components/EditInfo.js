@@ -1,6 +1,5 @@
 import React,{useEffect, useState} from "react";
 import {makeStyles, Button, Typography, Grid, Paper, TextField, Divider } from '@material-ui/core';
-import {Link} from '@material-ui/core';
 import axios from "axios";
 import {getUserToken} from "../utils/userSession";
 
@@ -26,7 +25,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function EditInfo() {
     const classes = useStyles();
-
 
     let token = getUserToken();
     
@@ -99,9 +97,7 @@ export default function EditInfo() {
             console.log(error);
         });
     
-        
     }
-
 
     return(
         <React.Fragment>

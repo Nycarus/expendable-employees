@@ -36,6 +36,9 @@ const testSentArr = [
     {title: "Title Test 6", id: 9, message: "Test message 6.", is_read: false}];
 
 const useStyles = makeStyles((theme) => ({
+    removeHorizontalBar: {
+        overflowX: 'hidden'
+    },
     composeButton: {
         margin: theme.spacing(1),
     },
@@ -204,6 +207,7 @@ export default function Mail() {
             { /* General Mail Route */}
             <Route exact path={path}>
                 <Grid
+                    className={classes.removeHorizontalBar}
                     container
                     direction="column"
                 >
