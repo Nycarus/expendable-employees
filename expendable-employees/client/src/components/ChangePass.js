@@ -1,6 +1,6 @@
 import React from "react";
 import {makeStyles, Button} from '@material-ui/core/';
-import {Grid, Paper } from '@material-ui/core';
+import {Grid, Paper, Box } from '@material-ui/core';
 import {TextField, Typography} from "@material-ui/core";
 import {getUserToken} from "../utils/userSession";
 import axios from "axios";
@@ -20,7 +20,10 @@ const useStyles = makeStyles((theme) => ({
     },
     registerButton: {
         width: "10rem",
-        marginTop: theme.spacing(4),
+        marginTop: theme.spacing(2),
+    },
+    lastTextfield: {
+        marginBottom: theme.spacing(2)
     },
     paperStyle: {
         paddingTop: theme.spacing(6),
@@ -36,37 +39,37 @@ function checkPassword(){
     let oldPassword = document.getElementById('oldPass').value
     let confPassword = document.getElementById('confPass').value
 
-    //let lengthRequirement = document.getElementById('lengthReq')
+    let lengthRequirement = document.getElementById('lengthReq')
     let req1 = false;
-    //let notSameRequirement = document.getElementById('notSameReq')
+    let notSameRequirement = document.getElementById('notSameReq')
     let req2 = false;
-    //let confirmationRequirement = document.getElementById('confirmReq')
+    let confirmationRequirement = document.getElementById('confirmReq')
     let req3 = false;
     
-    //let acceptable = document.getElementById('allGood')
+    let acceptable = document.getElementById('allGood')
 
     if(newPassword.length < 8){
-        //lengthRequirement.style.display = 'block'
+        lengthRequirement.style.display = 'block'
         req1 = false;
     } else {
-        //lengthRequirement.style.display = 'none'
+        lengthRequirement.style.display = 'none'
         req1 = true;
     }
 
     if(newPassword === oldPassword){
-        //notSameRequirement.style.display='block'
+        notSameRequirement.style.display='block'
         req2 = false;
     } else {
         
-        //notSameRequirement.style.display='none'
+        notSameRequirement.style.display='none'
         req2 = true;
     }
 
     if(newPassword !== confPassword){
-        //confirmationRequirement.style.display='block'
+        confirmationRequirement.style.display='block'
         req3 = false;
     } else {
-        //confirmationRequirement.style.display='none'
+        confirmationRequirement.style.display='none'
         req3 = true;
     }
 
@@ -88,9 +91,9 @@ function checkPassword(){
                 console.log(error);
             });
         }
-        //acceptable.style.display='block'
+        acceptable.style.display='block'
     } else {
-        //acceptable.style.display='none'
+        acceptable.style.display='none'
     }
 }
 
@@ -105,7 +108,7 @@ export default function ChangePass() {
                 <Grid item xs={5}>
                     <Paper className={classes.paperStyle}>
                         <Typography className={classes.categoryText} variant="h5">
-                            Account Information
+                            Change Password
                         </Typography>
                         <TextField
                             fullWidth={true}
@@ -131,6 +134,7 @@ export default function ChangePass() {
                         <br/>
                         <TextField
                             fullWidth={true}
+                            className={classes.lastTextfield}
                             variant="outlined"
                             margin="dense"
                             required
@@ -139,7 +143,10 @@ export default function ChangePass() {
                             id="confPass"
                             type="password"
                             color="secondary"/>
-                        
+                        <Box><Typography id='lengthReq'  style={{display:'none'}}> New password must be at least 8 characters</Typography></Box>
+                        <Box><Typography id='notSameReq' style={{display:'none'}}> New password must be different from old password</Typography></Box>
+                        <Box><Typography id='confirmReq' style={{display:'none'}}> New password does not match Confirmation password</Typography></Box>
+                        <Box><Typography id='allGood' style={{display:'none'}}> Your new password is valid and has been accepted</Typography></Box>
                         <Button
                             className={classes.registerButton}
                             type="submit"
