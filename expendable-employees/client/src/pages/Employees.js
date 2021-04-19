@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
     DataGrid,
     GridColumnsToolbarButton,
@@ -19,8 +19,10 @@ import {
     Tooltip,
     Typography
 } from "@material-ui/core";
-import {DeleteForever, DeleteSweep, Edit} from "@material-ui/icons";
+import {DeleteForever, DeleteSweep, Edit, Event} from "@material-ui/icons";
 import CloseIcon from "@material-ui/icons/Close";
+import {MuiPickersUtilsProvider, DateTimePicker} from "@material-ui/pickers";
+import MomentUtils from '@date-io/moment';
 
 const columns = [
     {field: 'id', headerName: 'ID', width: 100},
@@ -77,13 +79,22 @@ const useStyles = makeStyles((theme) => ({
         right: theme.spacing(1),
         top: theme.spacing(1),
     },
+    container: {
+        display: 'flex',
+        flexWrap: 'wrap',
+    },
+    textField: {
+        marginLeft: theme.spacing(1),
+        marginRight: theme.spacing(1),
+        width: 200,
+    },
 
 }));
 
 function CustomGridFooter(props) {
     const classes = useStyles();
 
-    // Handler for warning user that they selected too many employees to edit
+    // Error Dialog Handler
     const [openErrorDialog, setOpenErrorDialog] = React.useState(false);
     const handleErrorDialog = () => {
         /*
@@ -122,13 +133,39 @@ function CustomGridFooter(props) {
 
     // TODO
     const handleFireSelected = () => {
-        // remove props.selectionModel ID's from database
+        // remove props.selectionModel.selectionModel ID's from database
     }
 
     // TODO
     const handleFireRandom = () => {
         //pick a random id and delete
     }
+
+    // Handler for
+    const handleAddSchedule = () => {
+        if (props.selectionModel.selectionModel.length >= 1) {
+            handleScheduleDialog();
+        }
+    }
+
+    // Handler for opening Add Schedule dialog box
+    const [openScheduleDialog, setOpenScheduleDialog] = React.useState(false);
+    const handleScheduleDialog = () => {
+        /*
+            If Dialog is open, close on clicks
+            If Dialog is not open, open on clicks
+         */
+        if (openScheduleDialog) {
+            setOpenScheduleDialog(false);
+        } else {
+            setOpenScheduleDialog(true);
+        }
+    };
+
+
+    const [selectedStartDate, handleStartDateChange] = useState(new Date());
+    const [selectedEndDate, handleEndDateChange] = useState(new Date());
+
 
     return (
         <Grid
@@ -138,9 +175,9 @@ function CustomGridFooter(props) {
             justify="space-between"
             alignItems="center">
 
-            { /* Delete/Edit Button Group */ }
+            { /* Delete/Edit Button Group */}
             <Grid item>
-                { /* Fire Selected Employee(s) */ }
+                { /* Fire Selected Employee(s) */}
                 <Tooltip title="Fire Selected Employee(s)">
                     <IconButton
                         onClick={handleFireSelected}
@@ -148,7 +185,7 @@ function CustomGridFooter(props) {
                         <DeleteForever/>
                     </IconButton>
                 </Tooltip>
-                { /* Edit Selected Employee */ }
+                { /* Edit Selected Employee */}
                 <Tooltip title="Edit Employee">
                     <IconButton
                         onClick={handleEditEmployee}
@@ -156,7 +193,7 @@ function CustomGridFooter(props) {
                         <Edit/>
                     </IconButton>
                 </Tooltip>
-                { /* Edit Selected Employee Dialogs */ }
+                { /* Edit Selected Employee Dialogs */}
                 <Dialog
                     open={openErrorDialog}
                     onClose={handleErrorDialog}
@@ -219,12 +256,62 @@ function CustomGridFooter(props) {
                         </Button>
                     </DialogActions>
                 </Dialog>
+                { /* Add Schedule To Employee(s) */}
+                <Tooltip title="Add Schedule">
+                    <IconButton
+                        onClick={handleAddSchedule}
+                    >
+                        <Event/>
+                    </IconButton>
+                </Tooltip>
+                { /* Add Schedule Dialog */}
+                <Dialog
+                    open={openScheduleDialog}
+                    onClose={handleScheduleDialog}
+                >
+                    <DialogTitle>
+                        Add To Schedule:
+                        {handleScheduleDialog ? (
+                            <IconButton
+                                className={classes.closeButton}
+                                onClick={handleScheduleDialog}>
+                                <CloseIcon/>
+                            </IconButton>
+                        ) : null
+                        }
+                    </DialogTitle>
+                    <DialogContent dividers>
+                        <Grid container spacing="1">
+                            <Grid item>
+                                <Typography>
+                                    Start:
+                                </Typography>
+                                <MuiPickersUtilsProvider utils={MomentUtils}>
+                                    <DateTimePicker value={selectedStartDate} onChange={handleStartDateChange}/>
+                                </MuiPickersUtilsProvider>
+                            </Grid>
+                            <Grid item>
+                                <Typography>
+                                    End:
+                                </Typography>
+                                <MuiPickersUtilsProvider utils={MomentUtils}>
+                                    <DateTimePicker value={selectedEndDate} onChange={handleEndDateChange}/>
+                                </MuiPickersUtilsProvider>
+                            </Grid>
+                        </Grid>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={handleScheduleDialog} color="secondary">
+                            Add
+                        </Button>
+                    </DialogActions>
+                </Dialog>
             </Grid>
 
             { /* Table Paginator */}
             <GridFooter/>
 
-            { /* Fire Random Employee */ }
+            { /* Fire Random Employee */}
             <Tooltip title="Fire Random Employee">
                 <IconButton
                     onClick={handleFireRandom}

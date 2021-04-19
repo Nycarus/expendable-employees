@@ -43,11 +43,11 @@ const useStyles = makeStyles((theme) => ({
         margin: theme.spacing(1),
     },
     selectIndividual: {
-        padding: "4px",
+        padding: "5px",
         margin: theme.spacing(1),
     },
     options: {
-        padding: "4px"
+        marginLeft: theme.spacing(2),
     },
     closeButton: {
         position: 'absolute',
