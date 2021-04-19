@@ -217,6 +217,13 @@ const buttonOptions = [
     {buttonLabel: 'Change Password', component:'ChangePassComponent'}
 ]
 
+const handleFireSelected = () => {
+    console.log(getUserToken())
+    //so all i think this needs now is something like fireEmployee(getUserToken()) or something like that 
+    
+}    
+
+
 
 function loadComponent(myComponent){
     return function(){
@@ -228,7 +235,7 @@ function loadComponent(myComponent){
             document.getElementById('payInfo').style.display = 'none'
             document.getElementById('changePass').style.display = 'none'
 
-
+            handleFireSelected()
 
 
         } else if(myComponent === 'EditInfoComponent'){
@@ -259,6 +266,7 @@ function loadComponent(myComponent){
 export default function TabsAccount() {
     const classes = useStyles();
 
+    
 
     return(
 

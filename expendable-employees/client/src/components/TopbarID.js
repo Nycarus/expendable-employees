@@ -62,7 +62,7 @@ export default function TopbarID() {
     getData();
     },[token]);
 
-    console.log(data)
+    //console.log(data)
 
     return(
         <React.Fragment>

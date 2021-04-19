@@ -47,7 +47,7 @@ export default function EditInfo() {
                     console.log(error);
                 });
                 setState(response.data[0])
-                console.log(response.data[0]);
+                //console.log(response.data[0]);
                 return response.data[0];
             }            
         
