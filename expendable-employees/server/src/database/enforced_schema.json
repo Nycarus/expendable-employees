@@ -94,6 +94,10 @@
                 "type" : "string",
                 "required" : true
             },
+            "branch_id" : {
+                "type" : "string",
+                "required" : true
+            },
             "company_id" : {
                 "type" : "string",
                 "required" : true

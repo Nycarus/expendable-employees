@@ -341,16 +341,65 @@ class CustomerDataBaseOperations {
     }
 
     async registerEmployee(data){
-        var validation = jsonValidator(data,"Employee");
+
+        if(data.user == undefined){
+            return {"success" : false,
+                    "reason" : "user entry is left blank"}
+        }
+
+        if(data.employee.company_id == undefined) {
+            return {"success" : false,
+            "reason" : "you do not belong to a company"}
+        }
+
+        if(data.branch == undefined) {
+            return {"success" : false,
+            "reason" : "branch entry left blank"}
+        }
+
+        if(data.employee.position == undefined) {
+            return {"success" : false,
+            "reason" : "position entry left blank"}
+        }
+
+        if(data.employee.pay_rate == undefined) {
+            return {"success" : false,
+            "reason" : "position entry left blank"}
+        }
+
+        let success = await this.registerUser(data.user);
+        if (!success.success) {
+            return success;
+        }
+
+        // Query User Infomration For User ID
+        let query = {
+            email: data.user.email
+        };
+        let user = await this.db_instance.queryCollection(query, "User");
+
+        data.employee.user_id = user[0]._id.toString();
+
+
+        // Query Company Branch For Branch ID
+        let query = {
+            company_id: data.employee.company_id,
+            name : data.employee.branch
+        };
+        let branch = await this.db_instance.queryCollection(query, "Branch");
+
+        data.employee.branch_id = branch[0]._id.toString();
+
+
+        var validation = jsonValidator(data.employee,"Employee");
         if(!validation.valid){
             return{
                 "success": false,
                 "reason" : validation.errors
             }
         }
-        let company_query = await this.db_instance.queryCollection(data.company_id, "Company");
 
-        let user_query = await this.db_instance.queryCollection(data.user_id, "User");
+        let company_query = await this.db_instance.queryCollection(data.employee.company_id, "Company");
 
 
         if (company_query.length < 1) {
@@ -358,13 +407,9 @@ class CustomerDataBaseOperations {
                 "success": false,
                 "reason": "that company doesnt exist"
             };
-        } else if (user_query.length < 1) {
-            return {
-                "success": false,
-                "reason": "the user being submitted does not exist"
-            };
-        } else {
-            let result = await this.db_instance.insertToCollection(data, "Employee");
+        }
+        else {
+            let result = await this.db_instance.insertToCollection(data.employee, "Employee");
             if (result) {
                 return {
                     "success": true

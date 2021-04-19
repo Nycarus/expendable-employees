@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Paper, Divider, Typography, TextField, Button } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import {Link} from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
     appBarSpacer: theme.mixins.toolbar,
@@ -32,6 +33,61 @@ const useStyles = makeStyles((theme) => ({
 export default function AddEmployee() {
     const classes = useStyles();
 
+    const [state, setState] = useState({
+        firstname: "",
+        lastname: "",
+        email: "",
+        phone: "",
+        address: "",
+        postal_code: "",
+        date_of_birth: "",
+        password: "",
+        confirmPassword: "",
+        branch: "",
+        position: "",
+        pay_rate: ""
+    })
+
+    const handleInputChange = (event) => {
+        setState((prevProps) => ({
+            ...prevProps,
+            [event.target.name]: event.target.value
+        }));
+    }
+
+    const handleRegisterEmployee = (value) => { 
+        value.preventDefault();
+
+        if (state.password == state.confirmPassword)
+        {
+            axios.post('http://localhost:3001/api/register/employee', 
+            {
+                user : {
+                    "firstname" : state.firstname,
+                    "lastname": state.lastname,
+                    "email" : state.email, 
+                    "phone" : state.phone,
+                    "address" : state.address,
+                    "postal_code" : state.postal_code,
+                    "date_of_birth" : state.date_of_birth,
+                    "password" : state.password
+                },
+                employee : {
+                    "pay_rate" : state.pay_rate,
+                    "position" : state.position
+                },
+                "branch" : state.branch
+            }
+            ).then(response => {
+                if (response.status == 200){
+
+                }
+            }).catch(error => {
+                console.log("Error:", error);
+            })
+        }
+    }
+
     return (
         <div>
             <main className={classes.content}>
@@ -51,6 +107,8 @@ export default function AddEmployee() {
                                         name="firstname"
                                         label="First Name"
                                         id="firstname"
+                                        value={state.firstname}
+                                        onChange={handleInputChange}
                                         color="secondary"/>
                                 </Grid>
                                 <Grid item xs>
@@ -62,6 +120,8 @@ export default function AddEmployee() {
                                     name="lastname"
                                     label="Last Name"
                                     id="lastname"
+                                    value={state.lastname}
+                                    onChange={handleInputChange}
                                     color="secondary"/>
                                 </Grid>
                             </Grid>
@@ -72,11 +132,13 @@ export default function AddEmployee() {
                                         variant="outlined"
                                         margin="dense"
                                         required
-                                        name="dateofbirth"
+                                        name="date_of_birth"
                                         label="Date of Birth"
-                                        id="dateofbirth"
+                                        id="date_of_birth"
                                         type="date"
                                         color="secondary"
+                                        value={state.date_of_birth}
+                                        onChange={handleInputChange}
                                         InputLabelProps={{
                                             shrink: true,
                                         }}/>
@@ -89,6 +151,8 @@ export default function AddEmployee() {
                                         label="Phone Number"
                                         id="phone"
                                         type="tel"
+                                        value={state.phone}
+                                        onChange={handleInputChange}
                                         color="secondary"/>
                                 </Grid>
                                 <Grid item xs/>
@@ -102,6 +166,8 @@ export default function AddEmployee() {
                                 name="address"
                                 label="Address"
                                 id="address"
+                                value={state.address}
+                                onChange={handleInputChange}
                                 color="secondary"/>
                             <Grid container spacing={2} justify="space-between">
                                 <Grid item xs>
@@ -110,9 +176,11 @@ export default function AddEmployee() {
                                         variant="outlined"
                                         margin="dense"
                                         required
-                                        name="postalcode"
+                                        name="postal_code"
                                         label="Postal Code"
-                                        id="postalcode"
+                                        id="postal_code"
+                                        value={state.postal_code}
+                                        onChange={handleInputChange}
                                         color="secondary"/>
                                 </Grid>
                                 <Grid item xs/>
@@ -127,9 +195,11 @@ export default function AddEmployee() {
                                 variant="outlined"
                                 margin="dense"
                                 required
-                                name="companyname"
-                                label="Company Name"
-                                id="companyname"
+                                name="branch"
+                                label="Branch Name"
+                                id="branch"
+                                value={state.branch}
+                                onChange={handleInputChange}
                                 color="secondary"/>
                             <br/>
                             <TextField
@@ -140,6 +210,58 @@ export default function AddEmployee() {
                                 name="position"
                                 label="Position"
                                 id="position"
+                                value={state.position}
+                                onChange={handleInputChange}
+                                color="secondary"/>
+                            <br/>
+                            <TextField
+                                fullWidth={true}
+                                variant="outlined"
+                                margin="dense"
+                                required
+                                name="pay_rate"
+                                label="Pay Rate"
+                                id="pay_rate"
+                                value={state.pay_rate}
+                                onChange={handleInputChange}
+                                color="secondary"/>
+                        </Paper>
+                    </Grid>
+                    <Grid item xs>
+                        <Paper className={classes.paperStyle}>
+                            <Typography variant="h5" gutterBottom={true}>Employee Credentials</Typography>
+                            <TextField
+                                fullWidth={true}
+                                variant="outlined"
+                                margin="dense"
+                                required
+                                name="email"
+                                label="Email"
+                                id="email"
+                                value={state.email}
+                                onChange={handleInputChange}
+                                color="secondary"/>
+                            <TextField
+                                fullWidth={true}
+                                variant="outlined"
+                                margin="dense"
+                                required
+                                name="password"
+                                label="Password"
+                                id="password"
+                                value={state.password}
+                                onChange={handleInputChange}
+                                color="secondary"/>
+                            <TextField
+                                fullWidth={true}
+                                variant="outlined"
+                                margin="dense"
+                                required
+                                name="confirmPassword"
+                                label="Confirm Password"
+                                id="confirmPassword"
+                                value={state.confirmPassword}
+                                onChange={handleInputChange}
                                 color="secondary"/>
                         </Paper>
                     </Grid>
@@ -150,7 +272,8 @@ export default function AddEmployee() {
                         type="submit"
                         variant="contained"
                         color="primary"
-                        component={Link} to="#">
+                        component={Link} to="#"
+                        onClick={handleRegisterEmployee}>
                         Add Employee
                     </Button>
                 </Grid>

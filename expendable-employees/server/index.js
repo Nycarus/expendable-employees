@@ -100,9 +100,13 @@ app.post("/api/register/employee",authToken, function(request,response){
 
         cdo.isAdminForCompany(admin_query).then(function(result){
             if(result){
-                cdo.registerEmployee(request.body).then(function(insert_result){
-                    response.send(insert_result);
-                });
+                cdo.getCompanyUsers(admin_query).then(function(query_result){
+                    request.body.employee.company_id = query_result.company_id;
+
+                    cdo.registerEmployee(request.body).then(function(insert_result){
+                        response.send(insert_result);
+                    });
+                })
             }else{
                 response.sendStatus(401);
 

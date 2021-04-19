@@ -34,7 +34,7 @@ const getScheduleData = () => {
     axios.get('http://localhost:3001/api/schedule/user', {
         headers:{
             "Content-Type": "application/json",
-            "authorization" : "Bearer "+ getUserToken()
+            "Authorization" : "Bearer "+ getUserToken()
         }
     }).then(response => 
     {
