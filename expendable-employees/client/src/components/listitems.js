@@ -4,6 +4,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import BarChartIcon from '@material-ui/icons/BarChart';
+import ExitToApp from '@material-ui/icons/ExitToApp';
 import {AccountCircle, Inbox, PersonAdd, Storage, Today} from "@material-ui/icons";
 import {Link} from "react-router-dom";
 
@@ -77,7 +78,7 @@ export const tertiaryListItems = (
     <div>
         <ListItem button component={Link} to="/logout">
             <ListItemIcon>
-                <Storage />
+                <ExitToApp />
             </ListItemIcon>
             <ListItemText primary="Log Out" />
         </ListItem>
