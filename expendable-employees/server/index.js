@@ -52,6 +52,33 @@ app.post('/api/login', function(request, response) {
      });
 });
 
+/*
+    this function expects the payload to be 
+    payload {
+        "firstname" : "firstname",
+        "lastname" : "lastname",
+        "date_of_birth" : "Date",
+        "phone" : "phone numb",
+        "address" : address,
+        
+    }
+*/
+
+app.post("/api/user/update", authToken, function(request,response){
+    request.body.user_id = request.user_id.user_id;
+    let data = request.body
+    console.log(data);
+
+    if(data.firstname == undefined || data.lastname == undefined || data.date_of_birth == undefined || data.phone == undefined || data.address == undefined ){
+        return response.sendStatus(400);
+    }
+    
+    cdo.updateUser(data).then(function(value){
+        return response.send(value);
+    });
+    
+
+});
 
 
 /*
@@ -167,6 +194,7 @@ app.get("/api/admin/user",authToken, function(request,response){
 
 */
 
+
 app.post("/api/email/send",authToken, function(request,response){
     request.body.sender = request.user_id.user_id;
     cdo.sendEmail(request.body).then(function(result){
@@ -209,6 +237,25 @@ function authToken(request,response,next){
     
 }
 
+/*
+
+This is meant for the user to change their own password
+expets payload = {
+    "password" : "newpassword"
+}
+*/
+
+app.post("/api/reset/password",authToken, function(request,response){
+    if(request.body.password == undefined){
+        response.send(400);
+    }
+    request.body.user_id = request.user_id.user_id;
+    cdo.resetPassword(request.body).then(function(password_change){
+        return response.send(password_change);
+    });
+
+});
+
 // only an admin to that employee can reset the password
 /* 
     payload = {
@@ -217,8 +264,6 @@ function authToken(request,response,next){
     }
 
 */
-
-
 app.post("/api/reset/employee/password",authToken, function(request,response){
         
         let admin_verify_query = {

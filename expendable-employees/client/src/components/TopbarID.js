@@ -76,31 +76,30 @@ export default function TopbarID() {
     let token = getUserToken();
 
 
-        useEffect(() => {
+    useEffect(() => {
 
         async function getData(){
             if (token == null){
                 history.push('/login');
             }else{
 
-            let response = await axios({
-                method : "get",
-                url : "http://localhost:3001/api/self/user",
-                headers : {
-                    "Content-Type": "application/json",
-                    "Authorization" : "Bearer "+token
-            }}).catch(error => {
-                console.log(error);
-                history.push('/login');
-            });
-            setData(response.data[0])
-            return response.data[0];
+                let response = await axios({
+                    method : "get",
+                    url : "http://localhost:3001/api/self/user",
+                    headers : {
+                        "Content-Type": "application/json",
+                        "Authorization" : "Bearer "+token
+                }}).catch(error => {
+                    console.log(error);
+                    history.push('/login');
+                });
+                setData(response.data[0])
+                return response.data[0];
             }            
         
     }
     getData();
     },[token]);
-    console.log(data)
     return(
         <React.Fragment>
             <Paper className={classes.paperStyle}>
