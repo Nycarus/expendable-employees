@@ -1,5 +1,9 @@
 import React from "react";
-import {makeStyles, Paper, Typography } from '@material-ui/core/';
+import {makeStyles, Button, Grid, Typography, Paper } from '@material-ui/core/';
+import { Redirect } from 'react-router';
+import ListItem from '@material-ui/core/ListItem';
+import {useHistory} from 'react-router-dom';
+import {Link as myLink} from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
     paperStyle: {
@@ -10,6 +14,12 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
+
+function jobQuit(){
+    return function(){
+        console.log('test')
+    }
+}
 
 export default function QuitJob() {
     const classes = useStyles();
@@ -32,6 +42,13 @@ export default function QuitJob() {
                 Thank you for your time to read this.<br/>
                 DO NOT call us.<br/><br/>
                 -Expendable Employees Inc.</Typography>
+
+                <br/>
+
+                <Button type="submit" variant="contained" color="primary" component={myLink} to="/logout">
+                    I Understand 
+                </Button>
+                
             </Paper>
         </React.Fragment>
     )

@@ -14,8 +14,7 @@ I'm going to come back to this later
 
 
 import React from "react";
-import {makeStyles, Button } from '@material-ui/core/';
-import {Table, TableHead, TableBody, TableCell, TableRow, Typography, Grid, IconButton} from '@material-ui/core';
+import {makeStyles, Table, TableHead, TableBody, TableCell, TableRow, Typography, Grid, IconButton} from '@material-ui/core';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import Title from "../components/Title";
@@ -37,6 +36,30 @@ const schedulerData = [
 
 var currDay = 4;
 
+function shiftDuration(start, end){
+
+    let myStart = [parseInt(start.slice(11).slice(0,2)), parseInt( start.slice(11).slice(3))]
+    let myEnd = [parseInt(end.slice(11).slice(0,2)), parseInt( end.slice(11).slice(3))]
+    
+
+    //console.log(myStart)
+    //console.log(myEnd)
+
+    let myHours = myEnd[0] - myStart[0]
+    let myMins = myEnd[1] - myStart[1]
+
+    if(myMins < 0){
+        myHours -= 1;
+        myMins += 60;
+    }
+
+    let myDur = [myHours, myMins]
+
+
+    return myDur
+
+}
+
 function setHoursTableValues(){
     //there may be a better way to go about implementing this that doesn't involve giving every table cell an ID
     //but I don't know of that better way, so we're gonna go with this for now 
@@ -51,8 +74,15 @@ function setHoursTableValues(){
             let dayInfo = schedulerData[dayIndex]
             if(i === 0){
                 //instead of title, maybe date would be better
-                let info = dayInfo.title
-                document.getElementById('dataHours'+dataCats[i]+j).innerText = info;
+                //gonna do duration 
+                let dur = shiftDuration(dayInfo.startDate, dayInfo.endDate);
+                let durToString = dur[0] + 'h'
+                if(dur[1] < 10){
+                    durToString += '0' + dur[1] + 'm'
+                } else {
+                    durToString += dur[1] + 'm'
+                }
+                document.getElementById('dataHours'+dataCats[i]+j).innerText = durToString;
             } else if(i === 1){
                 let info = dayInfo.startDate.slice(11)
                 document.getElementById('dataHours'+dataCats[i]+j).innerText = info;
@@ -96,6 +126,29 @@ const arrowClickRight = () => {
 }
 
 export default function HoursOverview() {
+
+    let shiftDurations = []
+
+    let dayOffset = -2;
+    for(let j = 1; j < 6; j ++){
+        let dayIndex = (currDay + dayOffset)% schedulerData.length;
+        if(dayIndex < 0){
+            dayIndex += schedulerData.length;
+        }
+        let dayInfo = schedulerData[dayIndex]
+        let dur = shiftDuration(dayInfo.startDate, dayInfo.endDate);
+        let durToString = dur[0] + 'h'
+        if(dur[1] < 10){
+            durToString += '0' + dur[1] + 'm'
+        } else {
+            durToString += dur[1] + 'm'
+        }    
+        shiftDurations.push(durToString)
+        dayOffset += 1;
+    }
+
+
+
     return(
         <React.Fragment>
             <Title><Typography variant="h4" gutterBottom={true}>Overview of Hours</Typography></Title>
@@ -109,11 +162,11 @@ export default function HoursOverview() {
                     <Table size="small">
                         <TableHead>
                             <TableRow>
-                                <TableCell id='dataHoursTitle1'>{schedulerData[((currDay - 2)+schedulerData.length)%schedulerData.length].title}</TableCell>
-                                <TableCell id='dataHoursTitle2'>{schedulerData[((currDay - 1)+schedulerData.length)%schedulerData.length].title}</TableCell>
-                                <TableCell id='dataHoursTitle3'>{schedulerData[((currDay - 0)+schedulerData.length)%schedulerData.length].title}</TableCell>
-                                <TableCell id='dataHoursTitle4'>{schedulerData[((currDay + 1)+schedulerData.length)%schedulerData.length].title}</TableCell>
-                                <TableCell id='dataHoursTitle5'>{schedulerData[((currDay + 2)+schedulerData.length)%schedulerData.length].title}</TableCell>
+                                <TableCell id='dataHoursTitle1'>{shiftDurations[0]}</TableCell>
+                                <TableCell id='dataHoursTitle2'>{shiftDurations[1]}</TableCell>
+                                <TableCell id='dataHoursTitle3'>{shiftDurations[2]}</TableCell>
+                                <TableCell id='dataHoursTitle4'>{shiftDurations[3]}</TableCell>
+                                <TableCell id='dataHoursTitle5'>{shiftDurations[4]}</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
