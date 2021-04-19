@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
     content: {
         flexGrow: 1,
         height: '100vh',
-        overflow: 'auto',
+        overflowX: 'hidden',
     },
 }));
 
@@ -21,6 +21,7 @@ export default function Account() {
     return (
         <div>
             <main className={classes.content}>
+                <div className={classes.appBarSpacer}/>
                 <Grid container spacing={3}>
                     <Grid item xs={12}>
                         <TopbarID></TopbarID>
