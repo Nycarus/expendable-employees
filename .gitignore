@@ -117,3 +117,4 @@ dist
 expendable-employees/package-lock.json
 expendable-employees/client/.idea/*
 expendable-employees/server/.idea/*
+expendable-employees/client/package-lock.json
