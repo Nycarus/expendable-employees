@@ -144,7 +144,7 @@ export default function Mail() {
     const handleMarkAsRead = () => {
         console.log(checkedCheckboxes);
 
-        // TODO mark all ID's in checkedCheckboxes as read
+        // TODO Mark As Read: mark all ID's in checkedCheckboxes as read
     }
 
     // Handler for email title text colour
@@ -195,7 +195,7 @@ export default function Mail() {
     const handleCompose = (value) => {
         value.preventDefault();
 
-        // TODO send to backend
+        // TODO Compose: send to backend
     }
 
     // ----------------------------------------------------------------------------------------------------------------

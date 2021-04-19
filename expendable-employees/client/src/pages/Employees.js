@@ -23,6 +23,8 @@ import {DeleteForever, DeleteSweep, Edit, Event} from "@material-ui/icons";
 import CloseIcon from "@material-ui/icons/Close";
 import {MuiPickersUtilsProvider, DateTimePicker} from "@material-ui/pickers";
 import MomentUtils from '@date-io/moment';
+import axios from "axios";
+import {setUserSession} from "../utils/userSession";
 
 const columns = [
     {field: 'id', headerName: 'ID', width: 100},
@@ -36,29 +38,29 @@ const columns = [
             `${params.getValue('firstName') || ''} ${params.getValue('lastName') || ''}`,
     },
     {
-        field: 'pay_rate',
-        headerName: 'pay_rate',
+        field: 'payrate',
+        headerName: 'Payrate',
         type: 'number',
         width: 120,
     },
 ];
 
 const rows = [
-    {id: 1, lastName: 'Cohen', firstName: 'Aron', pay_rate: 35},
-    {id: 2, lastName: 'Mollica', firstName: 'Cole', pay_rate: 42},
-    {id: 3, lastName: 'Huang', firstName: 'Anthony', pay_rate: 45},
-    {id: 4, lastName: 'Nemec', firstName: 'John', pay_rate: 16},
-    {id: 5, lastName: 'Chandra', firstName: 'Kevin', pay_rate: 69},
-    {id: 6, lastName: 'Cohen', firstName: 'Seth', pay_rate: 150},
-    {id: 7, lastName: 'Huang', firstName: 'Aron', pay_rate: 44},
-    {id: 8, lastName: 'Chandra', firstName: 'John', pay_rate: 36},
-    {id: 9, lastName: 'Nemec', firstName: 'Anthony', pay_rate: 65},
-    {id: 10, lastName: 'Chandra', firstName: 'Cole', pay_rate: 150},
-    {id: 11, lastName: 'Huang', firstName: 'Kevin', pay_rate: 44},
-    {id: 12, lastName: 'Mollica', firstName: 'Anthony', pay_rate: 420},
-    {id: 13, lastName: 'Chandra', firstName: 'Seth', pay_rate: 150},
-    {id: 14, lastName: 'Huang', firstName: 'Seth', pay_rate: 44},
-    {id: 15, lastName: 'Mollica', firstName: 'John', pay_rate: 36},
+    {id: 1, lastName: 'Cohen', firstName: 'Aron', payrate: 35},
+    {id: 2, lastName: 'Mollica', firstName: 'Cole', payrate: 42},
+    {id: 3, lastName: 'Huang', firstName: 'Anthony', payrate: 45},
+    {id: 4, lastName: 'Nemec', firstName: 'John', payrate: 16},
+    {id: 5, lastName: 'Chandra', firstName: 'Kevin', payrate: 69},
+    {id: 6, lastName: 'Cohen', firstName: 'Seth', payrate: 150},
+    {id: 7, lastName: 'Huang', firstName: 'Aron', payrate: 44},
+    {id: 8, lastName: 'Chandra', firstName: 'John', payrate: 36},
+    {id: 9, lastName: 'Nemec', firstName: 'Anthony', payrate: 65},
+    {id: 10, lastName: 'Chandra', firstName: 'Cole', payrate: 150},
+    {id: 11, lastName: 'Huang', firstName: 'Kevin', payrate: 44},
+    {id: 12, lastName: 'Mollica', firstName: 'Anthony', payrate: 420},
+    {id: 13, lastName: 'Chandra', firstName: 'Seth', payrate: 150},
+    {id: 14, lastName: 'Huang', firstName: 'Seth', payrate: 44},
+    {id: 15, lastName: 'Mollica', firstName: 'John', payrate: 36},
 ];
 
 const useStyles = makeStyles((theme) => ({
@@ -94,13 +96,12 @@ const useStyles = makeStyles((theme) => ({
 function CustomGridFooter(props) {
     const classes = useStyles();
 
-    // Error Dialog Handler
     const [openErrorDialog, setOpenErrorDialog] = React.useState(false);
+    const [openEditEmployeeDialog, setOpenEditEmployeeDialog] = React.useState(false);
+    const [openScheduleDialog, setOpenScheduleDialog] = React.useState(false);
+
+    // Error Dialog Handler
     const handleErrorDialog = () => {
-        /*
-            If Dialog is open, close on clicks
-            If Dialog is not open, open on clicks
-         */
         if (openErrorDialog) {
             setOpenErrorDialog(false);
         } else {
@@ -108,53 +109,8 @@ function CustomGridFooter(props) {
         }
     };
 
-    // Handler for opening Edit Selected Employee dialog box
-    const [openSuccessDialog, setOpenSuccessDialog] = React.useState(false);
-    const handleSuccessDialog = () => {
-        /*
-            If Dialog is open, close on clicks
-            If Dialog is not open, open on clicks
-         */
-        if (openSuccessDialog) {
-            setOpenSuccessDialog(false);
-        } else {
-            setOpenSuccessDialog(true);
-        }
-    };
-
-    // Handler for editing selected employee
-    const handleEditEmployee = () => {
-        if (props.selectionModel.selectionModel.length == 1) {
-            handleSuccessDialog();
-        } else {
-            handleErrorDialog();
-        }
-    }
-
-    const handleFireSelected = () => {
-        console.log(props.selectionModel.selectionModel)
-        // TODO remove props.selectionModel.selectionModel ID's from database
-    }
-
-
-    const handleFireRandom = () => {
-        // TODO pick a random id and delete from database
-    }
-
-    // Handler for Add Schedule
-    const handleAddSchedule = () => {
-        if (props.selectionModel.selectionModel.length >= 1) {
-            handleScheduleDialog();
-        }
-    }
-
-    // Handler for opening Add Schedule dialog box
-    const [openScheduleDialog, setOpenScheduleDialog] = React.useState(false);
+    // Scheduler Dialog Handler
     const handleScheduleDialog = () => {
-        /*
-            If Dialog is open, close on clicks
-            If Dialog is not open, open on clicks
-         */
         if (openScheduleDialog) {
             setOpenScheduleDialog(false);
         } else {
@@ -162,10 +118,79 @@ function CustomGridFooter(props) {
         }
     };
 
+    // Scheduler Button Click Handler
+    const handleAddSchedule = () => {
+        if (props.selectionModel.selectionModel.length >= 1) {
+            handleScheduleDialog();
+        } else {
+            handleErrorDialog();
+        }
+    }
+
+    // Edit Employee Dialog Handler
+    const handleEditEmployeeDialog = () => {
+        if (openEditEmployeeDialog) {
+            setOpenEditEmployeeDialog(false);
+        } else {
+            setOpenEditEmployeeDialog(true);
+        }
+    };
+
+    // Edit Employee Button Click Handler
+    const handleEditEmployee = () => {
+        if (props.selectionModel.selectionModel.length == 1) {
+            handleEditEmployeeDialog();
+        } else {
+            handleErrorDialog();
+        }
+    }
+
+    // Fire Selected Button Click Handler
+    const handleFireSelected = () => {
+        console.log(props.selectionModel.selectionModel)
+        // TODO Fir Selected: remove props.selectionModel.selectionModel ID's from database
+    }
+
+    // Fire Random Button Click Handler
+    const handleFireRandom = () => {
+        // TODO Fire Random: pick a random id and delete from database
+    }
+
+    // ----------------------------------------------------------------------------------------------------------------
+        // Edit Employee Form Handlers:
+
+    const [editState, setEditState] = useState({
+        payrate: ""
+    })
+
+    const handleEditInputChange = (event) => {
+        setEditState((prevProps) => ({
+            ...prevProps,
+            [event.target.name]: event.target.value
+        }));
+    }
+
+    const handleEdit = (value) => {
+        value.preventDefault();
+
+        // TODO Edit Employee: pass form info to backend at props.selectionModel.selectionModel ID's
+
+    }
+
+    // ----------------------------------------------------------------------------------------------------------------
+        // Schedule Form Handlers:
 
     const [selectedStartDate, handleStartDateChange] = useState(new Date());
     const [selectedEndDate, handleEndDateChange] = useState(new Date());
 
+    const handleSchedule = (value) => {
+        value.preventDefault();
+
+        // TODO Add Schedule: pass form info to backend at props.selectionModel.selectionModel ID's
+
+    }
+
+    // ----------------------------------------------------------------------------------------------------------------
 
     return (
         <Grid
@@ -216,42 +241,42 @@ function CustomGridFooter(props) {
                     </DialogContent>
                 </Dialog>
                 <Dialog
-                    open={openSuccessDialog}
-                    onClose={handleSuccessDialog}
+                    fullWidth
+                    open={openEditEmployeeDialog}
+                    onClose={handleEditEmployeeDialog}
                 >
                     <DialogTitle>
                         Update Employee Form:
-                        {handleSuccessDialog ? (
+                        {handleEditEmployeeDialog ? (
                             <IconButton
                                 className={classes.closeButton}
-                                onClick={handleSuccessDialog}>
+                                onClick={handleEditEmployeeDialog}>
                                 <CloseIcon/>
                             </IconButton>
                         ) : null
                         }
                     </DialogTitle>
                     <DialogContent dividers>
-                        <TextField
-                            autoFocus
-                            margin="dense"
-                            id="name"
-                            label="Employee:"
-                            type="text"
-                            fullWidth
-                            color="secondary"
-                        />
-                        <TextField
-                            autoFocus
-                            margin="dense"
-                            id="name"
-                            label="Pay Rate:"
-                            type="number"
-                            fullWidth
-                            color="secondary"
-                        />
+                        <form onSubmit={handleEdit} id="editForm">
+                            <TextField
+                                margin="normal"
+                                id="payrate"
+                                label="Payrate"
+                                name="payrate"
+                                color="secondary"
+                                fullWidth
+                                value={editState.payrate}
+                                onChange={handleEditInputChange}
+                            />
+                        </form>
                     </DialogContent>
                     <DialogActions>
-                        <Button onClick={handleSuccessDialog} color="secondary">
+                        <Button
+                            onClick={handleEditEmployeeDialog}
+                            color="secondary"
+                            type="submit"
+                            form="editForm"
+                        >
                             Send
                         </Button>
                     </DialogActions>
@@ -266,6 +291,7 @@ function CustomGridFooter(props) {
                 </Tooltip>
                 { /* Add Schedule Dialog */}
                 <Dialog
+                    fullWidth
                     open={openScheduleDialog}
                     onClose={handleScheduleDialog}
                 >
@@ -281,27 +307,38 @@ function CustomGridFooter(props) {
                         }
                     </DialogTitle>
                     <DialogContent dividers>
-                        <Grid container spacing="1">
-                            <Grid item>
-                                <Typography>
-                                    Start:
-                                </Typography>
-                                <MuiPickersUtilsProvider utils={MomentUtils}>
-                                    <DateTimePicker value={selectedStartDate} onChange={handleStartDateChange}/>
-                                </MuiPickersUtilsProvider>
+                        <form onSubmit={handleSchedule} id="scheduleForm">
+                            <Grid container spacing="1">
+                                <Grid item>
+                                    <MuiPickersUtilsProvider utils={MomentUtils}>
+                                        <DateTimePicker
+                                            id="startdate"
+                                            label="Start Date"
+                                            name="startdate"
+                                            value={selectedStartDate}
+                                            onChange={handleStartDateChange}/>
+                                    </MuiPickersUtilsProvider>
+                                </Grid>
+                                <Grid item>
+                                    <MuiPickersUtilsProvider utils={MomentUtils}>
+                                        <DateTimePicker
+                                            id="enddate"
+                                            label="End Date"
+                                            name="enddate"
+                                            value={selectedEndDate}
+                                            onChange={handleStartDateChange}/>
+                                    </MuiPickersUtilsProvider>
+                                </Grid>
                             </Grid>
-                            <Grid item>
-                                <Typography>
-                                    End:
-                                </Typography>
-                                <MuiPickersUtilsProvider utils={MomentUtils}>
-                                    <DateTimePicker value={selectedEndDate} onChange={handleEndDateChange}/>
-                                </MuiPickersUtilsProvider>
-                            </Grid>
-                        </Grid>
+                        </form>
                     </DialogContent>
                     <DialogActions>
-                        <Button onClick={handleScheduleDialog} color="secondary">
+                        <Button
+                            onClick={handleScheduleDialog}
+                            color="secondary"
+                            type="submit"
+                            form="scheduleForm"
+                        >
                             Add
                         </Button>
                     </DialogActions>
