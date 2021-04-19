@@ -7,7 +7,7 @@ Email
 Phone Number 
 */
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {makeStyles, Button } from '@material-ui/core/';
 import {Container, Grid, Paper } from '@material-ui/core';
 import {Table, TableHead, TableBody, TableCell, TableRow, Typography} from '@material-ui/core';
@@ -19,6 +19,9 @@ import Title from "../components/Title";
 
 import pfp from './pfp.png'
 
+import {setUserSession, getUserToken} from "../utils/userSession";
+import {useHistory} from 'react-router-dom';
+import axios from "axios";
 
 function preventDefault(event) {
     event.preventDefault();
@@ -109,9 +112,9 @@ const buttonOptions = [
     {buttonLabel: 'Change Password', component:'ChangePassComponent'}
 ]
 
-*/
 
-const placeholderUser = {
+
+let placeholderUser = {
     firstname: "lol",
     lastname: "idk",
     position: "placeholderBitch",
@@ -124,25 +127,52 @@ const placeholderUser = {
     picture: 'idk what to do for this'
 }
 
+*/
+
 export default function TopbarID() {
+    const history = useHistory();
     const classes = useStyles();
+    const [data, setData] = useState([]);
+
+    let token = getUserToken();
 
 
+    useEffect(() => {
+
+    async function getData(){
+        if (token == null){
+            history.push('/login');
+        }else{
+
+        let response = await axios({
+            method : "get",
+            url : "http://localhost:3001/api/self/user",
+            headers : {
+                "Content-Type": "application/json",
+                "Authorization" : "Bearer "+token
+        }}).catch(error => {
+            console.log(error);
+            history.push('/login');
+        });
+        setData(response.data[0])
+        return response.data[0];
+        }            
+    
+    }
+    getData();
+    },[token]);
+    console.log(data)
     return(
-
         <React.Fragment>
             <Container>
                 <Grid container spacing={3}>
-                    <Grid item xs={3} >
-                        {/* this is where the pfp will be, i don't know how to do images right now  */}
-                        <Typography>Placeholder for pfp</Typography>
-                    </Grid>
+               
                     <Grid item xs={6}>
                         {/* user info will be here, maybe a table */}
-                        <Typography>{placeholderUser.firstname} {placeholderUser.lastname} </Typography>
-                        <Typography>{placeholderUser.position}</Typography><br/><br/>
-                        <Typography>{placeholderUser.email}</Typography>
-                        <Typography>{placeholderUser.phone}</Typography>
+                        <Typography>{data.firstname} {data.lastname} </Typography>
+                        <Typography>{data.position}</Typography><br/><br/>
+                        <Typography>{data.email}</Typography>
+                        <Typography>{data.phone}</Typography>
                         </Grid>
                     <Grid item xs={3}>
                         {/* intentionally empty */}
