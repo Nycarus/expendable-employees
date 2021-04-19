@@ -96,19 +96,6 @@ const useStyles = makeStyles((theme) => ({
         height: '100vh',
         overflow: 'auto',
     },
-    container: {
-        paddingTop: theme.spacing(4),
-        paddingBottom: theme.spacing(4),
-    },
-    paper: {
-        padding: theme.spacing(2),
-        display: 'flex',
-        overflow: 'auto',
-        flexDirection: 'column',
-    },
-    fixedHeight: {
-        height: 240,
-    },
 }));
 
 export default function UserLanding() {
@@ -188,7 +175,6 @@ export default function UserLanding() {
 
             <main className={classes.content}>
                 <div className={classes.appBarSpacer}/>
-
                 { /* Routing */ }
                 <Switch>
                     <Route exact path={path}>
