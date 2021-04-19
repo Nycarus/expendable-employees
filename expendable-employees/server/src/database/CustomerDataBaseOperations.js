@@ -382,7 +382,7 @@ class CustomerDataBaseOperations {
 
 
         // Query Company Branch For Branch ID
-        let query = {
+        query = {
             company_id: data.employee.company_id,
             name : data.employee.branch
         };
