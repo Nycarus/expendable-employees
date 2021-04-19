@@ -112,8 +112,8 @@ export default function TopbarID() {
                     <Grid item xs={10}>
                         {/* user info will be here, maybe a table */}
                         <Typography variant="h3">{data.firstname} {data.lastname} </Typography>
-                        <Divider className={classes.dividerStyle}/>
                         <Typography>{data.position}</Typography>
+                        <Divider className={classes.dividerStyle}/>
                         <Typography>{data.email}</Typography>
                         <Typography>{data.phone}</Typography>
                     </Grid>
