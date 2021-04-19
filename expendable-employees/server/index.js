@@ -330,6 +330,14 @@ app.post('/api/register/company', function(request, response) {
     });    
 });
 
+app.get('/api/schedule/user', authToken, function(request, response) {
+    request.body.user_id = request.user_id.user_id;
+
+    cdo.getUserSchedule(request.body.user_id).then(function(result){
+        response.send(result);
+    })
+});
+
 app.set('port', process.env.PORT || 3001);
 app.listen(app.get('port'), function() {
     console.log(`Listening for requests on port ${app.get('port')}.`);

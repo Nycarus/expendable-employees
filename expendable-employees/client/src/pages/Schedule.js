@@ -12,7 +12,10 @@ import {
     AppointmentTooltip
 } from '@devexpress/dx-react-scheduler-material-ui';
 import {Box} from "@material-ui/core";
+import axios from "axios";
+import {getUserToken, setUserSession} from "../utils/userSession";
 
+/*
 //Hardcoded test data
 const schedulerData = [
     {startDate: '2021-04-12T08:00', endDate: '2021-04-12T12:00', title: 'Shift'},
@@ -24,6 +27,24 @@ const schedulerData = [
     {startDate: '2021-04-21T09:45', endDate: '2021-04-21T12:00', title: 'Shift'},
     {startDate: '2021-04-22T08:00', endDate: '2021-04-22T20:00', title: 'Shift'},
 ];
+*/
+
+const getScheduleData = () => {
+    console.log("check")
+    axios.get('http://localhost:3001/api/schedule/user', {
+        headers:{
+            "Content-Type": "application/json",
+            "authorization" : "Bearer "+ getUserToken()
+        }
+    }).then(response => 
+    {
+        if (response.status == 200){
+            return response.data;
+        }
+    }).catch(error => {
+        console.log("Error:", error);
+    })
+}
 
 const useStyles = makeStyles((theme) => ({
     //Current day colour styling:
@@ -65,6 +86,8 @@ const DayScaleCell = (props) => {
 };
 
 export default function Schedule() {
+    let schedulerData = getScheduleData();
+
     const currentDate = new Date();
     const classes = useStyles();
 
