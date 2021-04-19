@@ -104,7 +104,7 @@ export default function TopbarID() {
     return(
         <React.Fragment>
             <Paper className={classes.paperStyle}>
-                <Grid container alignItems="center" justify="flex-start">
+                <Grid container alignItems="center">
                     <Grid item xs>
                         {/* this is where the pfp will be, i don't know how to do images right now  */}
                         {/*<Typography>Placeholder for pfp</Typography>*/}
