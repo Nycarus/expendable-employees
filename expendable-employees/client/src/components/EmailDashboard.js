@@ -112,7 +112,7 @@ export default function EmailDashboard() {
                             </Typography>
                             
                             <Typography color="textSecondary" className={classes.depositContext}>
-                                timestamp
+                                12:34pm
                             </Typography>                    
                         </TableCell>
                     </TableRow>
@@ -135,7 +135,7 @@ export default function EmailDashboard() {
                                 Generic Email Sender
                             </Typography>
                             <Typography color="textSecondary" className={classes.depositContext}>
-                                timestamp
+                                12:34pm
                             </Typography>
                         </TableCell>
                     </TableRow>

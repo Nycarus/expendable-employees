@@ -15,7 +15,8 @@ import QuitJob from "./QuitJob";
 import EditInfo from "./EditInfo";
 import PayInfo from "./PayInfo";
 import ChangePass from "./ChangePass";
-
+import {getUserToken} from "../utils/userSession";
+import axios from "axios";
 
 
 function preventDefault(event) {
@@ -226,6 +227,10 @@ function loadComponent(myComponent){
             document.getElementById('editInfo').style.display = 'none'
             document.getElementById('payInfo').style.display = 'none'
             document.getElementById('changePass').style.display = 'none'
+
+
+
+
         } else if(myComponent === 'EditInfoComponent'){
             console.log("if you messed up the first time, it's your own fault")
             document.getElementById('quitJob').style.display = 'none'
@@ -259,32 +264,32 @@ export default function TabsAccount() {
 
         <React.Fragment>
             
-        <Paper className={classes.paperStyle}>
-            <Grid container justify="space-evenly">{buttonOptions.map((option) => (
-                <Grid item>
-                    <Button onClick= {loadComponent(option.component)}>
-                        {option.buttonLabel}
-                    </Button>
+            <Paper className={classes.paperStyle}>
+                <Grid container justify="space-evenly">{buttonOptions.map((option) => (
+                    <Grid item>
+                        <Button onClick= {loadComponent(option.component)}>
+                            {option.buttonLabel}
+                        </Button>
+                    </Grid>
+                ))}
                 </Grid>
-            ))}
-            </Grid>
-        </Paper>
-            
-        <div id='quitJob' style={{display:'none'}}>
-            <QuitJob></QuitJob>
-        </div>
+            </Paper>
+                    
+            <div id='quitJob' style={{display:'none'}}>
+                <QuitJob></QuitJob>
+            </div>
 
-        <div id='editInfo' style={{display:'none'}}>
-            <EditInfo></EditInfo>
-        </div>
+            <div id='editInfo' style={{display:'none'}}>
+                <EditInfo></EditInfo>
+            </div>
+                    
+            <div id='payInfo' style={{display:'none'}}>
+                <PayInfo></PayInfo>
+            </div>
 
-        <div id='payInfo' style={{display:'none'}}>
-            <PayInfo></PayInfo>
-        </div>
-
-        <div id='changePass' style={{display:'none'}}>
-            <ChangePass></ChangePass>
-        </div>
+            <div id='changePass' style={{display:'none'}}>
+                <ChangePass></ChangePass>
+            </div>
 
         </React.Fragment>
     )
