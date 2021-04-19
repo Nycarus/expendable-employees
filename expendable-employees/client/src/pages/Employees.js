@@ -181,8 +181,22 @@ function CustomGridFooter(props) {
     const [selectedStartDate, handleStartDateChange] = useState(new Date());
     const [selectedEndDate, handleEndDateChange] = useState(new Date());
 
+    const [scheduleState, setScheduleState] = useState({
+        title: ""
+    })
+
+    const handleScheduleInputChange = (event) => {
+        setScheduleState((prevProps) => ({
+            ...prevProps,
+            [event.target.name]: event.target.value
+        }));
+    }
+
     const handleSchedule = (value) => {
         value.preventDefault();
+        console.log("Title: " + scheduleState.title);
+        console.log("Start Date: " + selectedStartDate.toISOString());
+        console.log("End Date: " + selectedEndDate.toISOString());
 
         // TODO Add Schedule: pass form info to backend at props.selectionModel.selectionModel ID's
 
@@ -306,6 +320,16 @@ function CustomGridFooter(props) {
                     </DialogTitle>
                     <DialogContent dividers>
                         <form onSubmit={handleSchedule} id="scheduleForm">
+                            <TextField
+                                margin="normal"
+                                id="title"
+                                label="Title"
+                                name="title"
+                                color="secondary"
+                                fullWidth
+                                value={scheduleState.title}
+                                onChange={handleScheduleInputChange}
+                            />
                             <Grid container spacing="1">
                                 <Grid item>
                                     <MuiPickersUtilsProvider utils={MomentUtils}>
@@ -324,7 +348,7 @@ function CustomGridFooter(props) {
                                             label="End Date"
                                             name="enddate"
                                             value={selectedEndDate}
-                                            onChange={handleStartDateChange}/>
+                                            onChange={handleEndDateChange}/>
                                     </MuiPickersUtilsProvider>
                                 </Grid>
                             </Grid>
