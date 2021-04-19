@@ -551,6 +551,55 @@ class CustomerDataBaseOperations {
             "reason": "was unable to update the document"
         };
     }
+
+    /*
+     payload = {
+        "firstname" : "firstname",
+        "lastname" : "lastname",
+        "date_of_birth" : "Date",
+        "phone" : "phone numb",
+        "address" : address,
+        "user_id" : User._id
+
+    }
+    
+
+    */
+    async updateUser(data){
+
+        try{
+            var user_query = await this.db_instance.queryCollection({"_id": new ObjectID(data.user_id)}, "User");
+
+        }catch(err){
+            return {   
+                "success": false,
+                "reason": "id provided is invalid format"
+            };
+        }
+        
+        if(user_query < 1){
+            return {   
+                "success": false,
+                "reason": "user being updated does not exist"
+            };
+        }
+
+        let query = {
+            "_id" : new ObjectID(data.user_id),
+        }
+        delete data["user_id"];
+        let success = this.db_instance.updateDocument(query,data,"User");
+        if(success){
+            return {
+                "success": true
+            };
+        }
+        return {
+            "success": success,
+            "reason": "was unable to update the document"
+        };
+
+    }
 }
 
 module.exports = CustomerDataBaseOperations;

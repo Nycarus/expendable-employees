@@ -1,6 +1,8 @@
-import React from "react";
+import React,{useEffect, useState} from "react";
 import {makeStyles, Button, Typography, Grid, Paper, TextField, Divider } from '@material-ui/core';
 import {Link} from '@material-ui/core';
+import axios from "axios";
+import {getUserToken} from "../utils/userSession";
 
 const useStyles = makeStyles((theme) => ({
     categoryText: {
@@ -25,6 +27,82 @@ const useStyles = makeStyles((theme) => ({
 export default function EditInfo() {
     const classes = useStyles();
 
+
+    let token = getUserToken();
+    
+    const [state, setState] = useState([]);
+
+    useEffect(() => {
+
+        async function getData(){
+            if (token == null){
+                
+            }else{
+
+                let response = await axios({
+                    method : "get",
+                    url : "http://localhost:3001/api/self/user",
+                    headers : {
+                        "Content-Type": "application/json",
+                        "Authorization" : "Bearer "+token
+                }}).catch(error => {
+                    console.log(error);
+                });
+                setState(response.data[0])
+                console.log(response.data[0]);
+                return response.data[0];
+            }            
+        
+    }
+    getData();
+    },[token]);
+
+
+    const handleInputChange = (event) => {
+        console.log(event.target.value);
+        setState((prevProps) => ({
+            ...prevProps,
+            [event.target.name]: event.target.value
+        }));
+    }
+
+    const handleSubmit = (value) => {
+        value.preventDefault();
+        console.log(state);
+        var arr = [];
+
+        for (var key in state) {
+            if (state.hasOwnProperty(key)) {
+                arr.push( [ key, state[key] ] );
+            }
+        }
+
+        axios({
+            method : "post",
+            url : "http://localhost:3001/api/user/update",
+            headers : {
+                "Content-Type": "application/json",
+                "Authorization" : "Bearer "+token
+            },
+           data : {
+               firstname: state.firstname,
+               lastname: state.lastname,
+               email : state.email,
+               phone: state.phone,
+               address : state.address,
+               postal_code : state.postal_code,
+               date_of_birth: state.date_of_birth
+           }
+        }).then(function(response){
+            window.location.reload();
+        }).catch(function(error){
+            console.log(error);
+        });
+    
+        
+    }
+
+
     return(
         <React.Fragment>
             <Grid container>
@@ -34,6 +112,7 @@ export default function EditInfo() {
                         <Typography className={classes.categoryText} variant="h5">
                             Current Personal Information
                         </Typography>
+                        <form onSubmit = {handleSubmit}>
                         <Grid container justify="space-between">
                             <Grid item xs>
                                 <TextField
@@ -42,8 +121,11 @@ export default function EditInfo() {
                                 margin="dense"
                                 required
                                 name="firstname"
-                                label="First Name"
+                                label="Firstname"
+                                value={state.firstname}
                                 id="firstname"
+                                onChange={handleInputChange}
+                                InputLabelProps={{ shrink: true }} 
                                 color="secondary"/>
                             </Grid>
                             <Grid item xs={1}/>
@@ -56,6 +138,9 @@ export default function EditInfo() {
                                 name="lastname"
                                 label="Last Name"
                                 id="lastname"
+                                onChange={handleInputChange}
+                                value={state.lastname}
+                                InputLabelProps={{ shrink: true }} 
                                 color="secondary"/>
                             </Grid>
                         </Grid>
@@ -67,9 +152,11 @@ export default function EditInfo() {
                                     margin="dense"
                                     required
                                     name="dateofbirth"
+                                    onChange={handleInputChange}
                                     label="Date of Birth"
                                     id="dateofbirth"
                                     type="date"
+                                    value = {state.date_of_birth}
                                     color="secondary"
                                     InputLabelProps={{
                                         shrink: true,
@@ -86,9 +173,12 @@ export default function EditInfo() {
                                     margin="dense"
                                     required
                                     name="phone"
+                                    value={state.phone}
                                     label="Phone Number"
+                                    onChange={handleInputChange}
                                     id="phone"
                                     type="tel"
+                                    InputLabelProps={{ shrink: true }} 
                                     color="secondary"/>
                             </Grid>
                             <Grid item xs={1}/>
@@ -102,6 +192,9 @@ export default function EditInfo() {
                             name="address"
                             label="Address"
                             id="address"
+                            value={state.address}
+                            onChange={handleInputChange}
+                            InputLabelProps={{ shrink: true }} 
                             color="secondary"/>
                         <Grid container justify="space-between">
                             <Grid item xs>
@@ -109,10 +202,13 @@ export default function EditInfo() {
                                     fullWidth={true}
                                     variant="outlined"
                                     margin="dense"
+                                    value={state.postal_code}
                                     required
                                     name="postalcode"
                                     label="Postal Code"
                                     id="postalcode"
+                                    onChange={handleInputChange}
+                                    InputLabelProps={{ shrink: true }} 
                                     color="secondary"/>
                             </Grid>
                             <Grid item xs={1}/>
@@ -125,9 +221,10 @@ export default function EditInfo() {
                             type="submit"
                             variant="contained"
                             color="primary"
-                            component={Link} to="/user">
+                            >
                             Submit Changes 
                         </Button>
+                    </form>
                     </Paper>
                 </Grid>
                 <Grid item xs/>
