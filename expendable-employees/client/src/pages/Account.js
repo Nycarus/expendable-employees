@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
     appBarSpacer: theme.mixins.toolbar,
     content: {
         flexGrow: 1,
-        height: '100vh',
+        height: '90%',
         overflowX: 'hidden',
     },
 }));
@@ -21,7 +21,6 @@ export default function Account() {
     return (
         <div>
             <main className={classes.content}>
-                <div className={classes.appBarSpacer}/>
                 <Grid container spacing={3}>
                     <Grid item xs={12}>
                         <TopbarID></TopbarID>

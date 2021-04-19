@@ -8,7 +8,7 @@ Phone Number
 */
 
 import React, { useEffect, useState } from "react";
-import {makeStyles, Container, Grid, Paper, Typography, Divider, Avatar } from '@material-ui/core';
+import {makeStyles, Grid, Paper, Typography, Divider, Avatar } from '@material-ui/core';
 
 import {getUserToken} from "../utils/userSession";
 import {useHistory} from 'react-router-dom';
@@ -21,8 +21,9 @@ const useStyles = makeStyles((theme) => ({
         height: '150px'
     },
     paperStyle: {
-        marginLeft: theme.spacing(8),
-        marginRight: theme.spacing(8),
+        marginLeft: theme.spacing(4),
+        marginRight: theme.spacing(4),
+        marginTop: theme.spacing(4),
         padding: theme.spacing(4)
     },
     dividerStyle: {
@@ -109,7 +110,7 @@ export default function TopbarID() {
                         {/*<Typography>Placeholder for pfp</Typography>*/}
                         <Avatar className={classes.avatar}>Placeholder</Avatar>
                     </Grid>
-                    <Grid item xs>
+                    <Grid item xs={10}>
                         {/* user info will be here, maybe a table */}
                         <Typography variant="h3">{data.firstname} {data.lastname} </Typography>
                         <Divider className={classes.dividerStyle}/>
