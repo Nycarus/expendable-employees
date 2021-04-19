@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
         marginBottom: theme.spacing(5)
     },
     paperStyle: {
-        padding: theme.spacing(5)
+        padding: theme.spacing(4)
     },
     dividerStyle: {
         marginTop: theme.spacing(2),
@@ -93,11 +93,11 @@ export default function AddEmployee() {
             <main className={classes.content}>
                 <div className={classes.appBarSpacer} />
 
-                <Grid container spacing={10} justify="space-evenly">
+                <Grid container spacing={1} justify="space-evenly">
                     <Grid item xs>
                         <Paper className={classes.paperStyle}>
                             <Typography variant="h5" gutterBottom={true}>Employee Information</Typography>
-                            <Grid container spacing={2}justify="space-between">
+                            <Grid container spacing={1} justify="space-between">
                                 <Grid item xs>
                                     <TextField
                                         fullWidth={true}
@@ -125,7 +125,7 @@ export default function AddEmployee() {
                                     color="secondary"/>
                                 </Grid>
                             </Grid>
-                            <Grid container spacing={2} justify="space-between">
+                            <Grid container spacing={1} justify="space-between">
                                 <Grid item xs>
                                     <TextField
                                         fullWidth={true}
