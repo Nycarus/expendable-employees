@@ -45,7 +45,9 @@ export default function Login() {
 
     const [state, setState] = useState({
         email: "",
-        password: ""
+        password: "",
+        invalidInput: false,
+        reason: ""
     })
 
     const handleInputChange = (event) => {
@@ -71,8 +73,17 @@ export default function Login() {
                 history.push('/user');
             }
         }).catch(error => {
-            console.log("Error:", error);
-            console.log("bad password");
+            //console.log("Error:", error);
+            //console.log(error.request.status)
+            let message = error.request.status == 0 ? "The Auth Server Never Sent a Response" :"You Have Ented and Invalid Email Or Password";
+            
+            setState({
+                invalidInput: true,
+                password : "",
+                email: "",
+                reason: message
+            });
+
             
         })
     }
@@ -88,6 +99,7 @@ export default function Login() {
                     <Typography component="h1" variant="h5">Sign in</Typography>
                     <form onSubmit = {handleLogin}>
                         <TextField
+                            autoFocus="true"
                             variant="outlined"
                             margin="normal"
                             //required
@@ -110,6 +122,8 @@ export default function Login() {
                             id="password"
                             color="secondary"
                             value={state.password}
+                            error={state.invalidInput}
+                            helperText={state.reason}
                             onChange={handleInputChange}
                         />
                         <Button
