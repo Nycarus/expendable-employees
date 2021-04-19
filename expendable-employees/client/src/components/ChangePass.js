@@ -45,6 +45,8 @@ function checkPassword(){
     let req2 = false;
     let confirmationRequirement = document.getElementById('confirmReq')
     let req3 = false;
+    let oldPassRequirement = document.getElementById('oldPassReq')
+    let req4 = true;
     
     let acceptable = document.getElementById('allGood')
 
@@ -73,8 +75,20 @@ function checkPassword(){
         req3 = true;
     }
 
+    /*
+    
+    if(oldPassword !== something){
+        oldPassRequirement.style.display = 'block'
+        req4 = false;
+    } else {
+        oldPassRequirement.style.display = 'none'
+        req4 = true;
+    }
 
-    if(req1 && req2 && req3){
+    */
+
+
+    if(req1 && req2 && req3 && req4){
         console.log("password good");
         let token = getUserToken();
         if(token != null){
@@ -155,18 +169,20 @@ export default function ChangePass() {
                             onClick={checkPassword}>
                             Register
                         </Button>
+
+                        <br />
+                        <br />
+                        <Typography id='oldPassReq'  style={{display:'none'}}> Old password is incorrect </Typography> <br />
+                        <Typography id='lengthReq'  style={{display:'none'}}> New password must be at least 8 characters  </Typography> <br />
+                        <Typography id='notSameReq' style={{display:'none'}}> New password must be different from old password </Typography> <br /> 
+                        <Typography id='confirmReq' style={{display:'none'}}> New password does not match Confirmation password  </Typography> <br />
+                        <Typography id='allGood' style={{display:'none'}}> Your new password is valid and has been accepted   </Typography> <br />
+
                     </Paper>
                 </Grid>
                 <Grid item xs>
-                    {/* min 8 characters, old can't be same as new, new and confirm have to be the same  
-                    <br />
-                    <br />
-                    <br />
-                    <Typography id='lengthReq'  style={{display:'none'}}> New password must be at least 8 characters  </Typography> <br />
-                    <Typography id='notSameReq' style={{display:'none'}}> New password must be different from old password </Typography> <br /> 
-                    <Typography id='confirmReq' style={{display:'none'}}> New password does not match Confirmation password  </Typography> <br />
-                    <Typography id='allGood' style={{display:'none'}}> Your new password is valid and has been accepted   </Typography> <br />
-                    */}
+                    {/* min 8 characters, old can't be same as new, new and confirm have to be the same */}
+                    
                 </Grid>
             </Grid>
         </React.Fragment>

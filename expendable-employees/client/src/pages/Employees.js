@@ -146,7 +146,7 @@ function CustomGridFooter(props) {
     // Fire Selected Button Click Handler
     const handleFireSelected = () => {
         console.log(props.selectionModel.selectionModel)
-        // TODO Fir Selected: remove props.selectionModel.selectionModel ID's from database
+        // TODO Fire Selected: remove props.selectionModel.selectionModel ID's from database
     }
 
     // Fire Random Button Click Handler

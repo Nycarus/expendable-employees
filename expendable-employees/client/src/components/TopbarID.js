@@ -31,42 +31,6 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-/*
-"User" : {
-        "_id": "ObjectId(...)",
-        "firstname" : "string",
-        "lastname" : "string",
-        "email" : "string",
-        "phone" : "string",
-        "address" : "string",
-        "postal_code" : "string",
-        "date_of_birth" : "string",
-        "password" : "string",
-        "picture" : "binary"
-    }, 
-const buttonOptions = [
-    {buttonLabel: 'Quit Job', component:'QuitJobComponent'},
-    {buttonLabel: 'Edit Info', component:'EditInfoComponent'},
-    {buttonLabel: 'Payment Info', component:'PayInfoComponent'},
-    {buttonLabel: 'Change Password', component:'ChangePassComponent'}
-]
-
-
-
-let placeholderUser = {
-    firstname: "lol",
-    lastname: "idk",
-    position: "placeholderBitch",
-    email: "lolidk@man.com",
-    phone: "123-456-7890",
-    address: "3 idk street",
-    postal_code:"L1N 1L1",
-    date_of_birth: "0000-00-00",
-    password: "password",
-    picture: 'idk what to do for this'
-}
-
-*/
 
 export default function TopbarID() {
     const history = useHistory();
@@ -97,6 +61,8 @@ export default function TopbarID() {
     }
     getData();
     },[token]);
+
+    console.log(data)
 
     return(
         <React.Fragment>
