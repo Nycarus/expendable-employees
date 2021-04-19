@@ -16,3 +16,6 @@ The database being used for this project is a mongodb. It is being hosted on the
 If you wish to use an already created user the credentials for a premade user are      
 - email :`cole@gmails.com`  
 - password : `password`
+
+## Independent Study Component 
+Presentation on Independent Study Component can be found at https://docs.google.com/presentation/d/1o2Fuk2XBOVB76uwcESpkLm3kqGYXxJSImSdfrZb0qUU/edit?usp=sharing
