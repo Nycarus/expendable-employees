@@ -131,17 +131,17 @@ function CustomGridFooter(props) {
         }
     }
 
-    // TODO
     const handleFireSelected = () => {
-        // remove props.selectionModel.selectionModel ID's from database
+        console.log(props.selectionModel.selectionModel)
+        // TODO remove props.selectionModel.selectionModel ID's from database
     }
 
-    // TODO
+
     const handleFireRandom = () => {
-        //pick a random id and delete
+        // TODO pick a random id and delete from database
     }
 
-    // Handler for
+    // Handler for Add Schedule
     const handleAddSchedule = () => {
         if (props.selectionModel.selectionModel.length >= 1) {
             handleScheduleDialog();
@@ -211,7 +211,7 @@ function CustomGridFooter(props) {
                     </DialogTitle>
                     <DialogContent dividers>
                         <Typography>
-                            Please select only one employee.
+                            Please select an employee.
                         </Typography>
                     </DialogContent>
                 </Dialog>

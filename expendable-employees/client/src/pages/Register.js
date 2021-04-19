@@ -1,10 +1,3 @@
-/*
-TODO add background outline to form
-TODO fix form to be in actual center of page
-TODO fix spacing between text fields
-TODO fix Date of Birth styling; example hint is currently overlaid over field name
- */
-
 import React, { useState } from 'react';
 import {makeStyles} from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';

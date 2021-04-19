@@ -1,9 +1,3 @@
-/*
-TODO put SIGN IN button to be aligned far-right instead of centered
-TODO put "Forgot Password?" to be aligned far-left
-TODO put "Sign up" to be aligned far-right, but also anchored to bottom of screen
- */
-
 import React, { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';

@@ -25,8 +25,6 @@ import SendIcon from '@material-ui/icons/Send';
 import CloseIcon from '@material-ui/icons/Close';
 import {Link, Route, Switch, useRouteMatch} from "react-router-dom";
 import EmailItem from "../components/EmailItem";
-import axios from "axios";
-import {setUserSession} from "../utils/userSession";
 
 const testReceivedArr = [
     {title: "Title Test 1", id: 0, message: "Test message 1.", is_read: false},
