@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
     DataGrid,
     GridColumnsToolbarButton,
@@ -25,6 +25,7 @@ import {MuiPickersUtilsProvider, DateTimePicker} from "@material-ui/pickers";
 import MomentUtils from '@date-io/moment';
 import axios from "axios";
 import {setUserSession} from "../utils/userSession";
+import {getUserToken} from "../utils/userSession";
 
 const columns = [
     {field: 'id', headerName: 'ID', width: 100},
@@ -45,6 +46,7 @@ const columns = [
     },
 ];
 
+/*
 const rows = [
     {id: 1, lastName: 'Cohen', firstName: 'Aron', payrate: 35},
     {id: 2, lastName: 'Mollica', firstName: 'Cole', payrate: 42},
@@ -62,6 +64,7 @@ const rows = [
     {id: 14, lastName: 'Huang', firstName: 'Seth', payrate: 44},
     {id: 15, lastName: 'Mollica', firstName: 'John', payrate: 36},
 ];
+*/
 
 const useStyles = makeStyles((theme) => ({
     grid: {
@@ -94,6 +97,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function CustomGridFooter(props) {
+
+
+
     const classes = useStyles();
 
     const [openErrorDialog, setOpenErrorDialog] = React.useState(false);
@@ -364,13 +370,46 @@ function CustomGridFooter(props) {
 export default function Employees() {
     const classes = useStyles();
 
+
     const [selectionModel, setSelectionModel] = React.useState([])
+
+    let token = getUserToken();
+    const [state, setState] = useState({
+        "rows" : []
+    });
+
+
+    useEffect(() => {
+
+        async function getData(){
+            if (token == null){
+                
+            }else{
+
+                let response = await axios({
+                    method : "get",
+                    url : "http://localhost:3001/api/company/users",
+                    headers : {
+                        "Content-Type": "application/json",
+                        "Authorization" : "Bearer "+token
+                }}).catch(error => {
+                    console.log(error);
+                });
+                setState({"rows" :response.data});
+                return response.data[0];
+            }            
+        
+    }
+    getData();
+    },[token]);
+
+
 
     return (
         <Paper className={classes.paper}>
             <DataGrid
                 className={classes.root}
-                rows={rows}
+                rows={state.rows}
                 columns={columns}
                 pageSize={15}
                 checkboxSelection

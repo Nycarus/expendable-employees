@@ -472,7 +472,11 @@ class CustomerDataBaseOperations {
         let redacted_usrs = [];
 
         for(var i = 0; i < users.length; i++){
-            redacted_usrs.push({"user_id":users[i]._id.toString(), "email":users[i].email});
+            redacted_usrs.push({
+                "id" : users[i]._id.toString(), 
+                "firstName" : users[i].firstname,
+                "lastName" :  users[i].lastname,
+            });
         }
 
 
