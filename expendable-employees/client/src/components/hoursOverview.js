@@ -126,6 +126,29 @@ const arrowClickRight = () => {
 }
 
 export default function HoursOverview() {
+
+    let shiftDurations = []
+
+    let dayOffset = -2;
+    for(let j = 1; j < 6; j ++){
+        let dayIndex = (currDay + dayOffset)% schedulerData.length;
+        if(dayIndex < 0){
+            dayIndex += schedulerData.length;
+        }
+        let dayInfo = schedulerData[dayIndex]
+        let dur = shiftDuration(dayInfo.startDate, dayInfo.endDate);
+        let durToString = dur[0] + 'h'
+        if(dur[1] < 10){
+            durToString += '0' + dur[1] + 'm'
+        } else {
+            durToString += dur[1] + 'm'
+        }    
+        shiftDurations.push(durToString)
+        dayOffset += 1;
+    }
+
+
+
     return(
         <React.Fragment>
             <Title><Typography variant="h4" gutterBottom={true}>Overview of Hours</Typography></Title>
@@ -139,11 +162,11 @@ export default function HoursOverview() {
                     <Table size="small">
                         <TableHead>
                             <TableRow>
-                                <TableCell id='dataHoursTitle1'>{schedulerData[((currDay - 2)+schedulerData.length)%schedulerData.length].title}</TableCell>
-                                <TableCell id='dataHoursTitle2'>{schedulerData[((currDay - 1)+schedulerData.length)%schedulerData.length].title}</TableCell>
-                                <TableCell id='dataHoursTitle3'>{schedulerData[((currDay - 0)+schedulerData.length)%schedulerData.length].title}</TableCell>
-                                <TableCell id='dataHoursTitle4'>{schedulerData[((currDay + 1)+schedulerData.length)%schedulerData.length].title}</TableCell>
-                                <TableCell id='dataHoursTitle5'>{schedulerData[((currDay + 2)+schedulerData.length)%schedulerData.length].title}</TableCell>
+                                <TableCell id='dataHoursTitle1'>{shiftDurations[0]}</TableCell>
+                                <TableCell id='dataHoursTitle2'>{shiftDurations[1]}</TableCell>
+                                <TableCell id='dataHoursTitle3'>{shiftDurations[2]}</TableCell>
+                                <TableCell id='dataHoursTitle4'>{shiftDurations[3]}</TableCell>
+                                <TableCell id='dataHoursTitle5'>{shiftDurations[4]}</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
