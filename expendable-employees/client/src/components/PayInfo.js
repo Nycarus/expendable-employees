@@ -1,12 +1,6 @@
 import React from "react";
 import rd3 from 'react-d3-library';
-import {makeStyles, Button, Toolbar } from '@material-ui/core/';
-import {Container, Grid, Paper } from '@material-ui/core';
-import {Table, TableHead, TableBody, TableCell, TableRow, Typography} from '@material-ui/core';
-import {Link} from '@material-ui/core';
-import clsx from "clsx";
-import * as d3 from 'd3'; 
-import Title from "../components/Title";
+import {Divider, Grid, Paper, Typography, makeStyles } from '@material-ui/core';
 
 const RD3Component = rd3.Component;
 
@@ -16,65 +10,14 @@ function preventDefault(event) {
 }
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-        display: 'flex',
+    paperInfo: {
+        paddingTop: theme.spacing(2),
+        paddingBottom: theme.spacing(2),
     },
-    toolbar: {
-        paddingRight: 24, // keep right padding when drawer closed
-    },
-    toolbarIcon: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'flex-end',
-        padding: '0 8px',
-        ...theme.mixins.toolbar,
-    },
-    appBar: {
-        zIndex: theme.zIndex.drawer + 1,
-        transition: theme.transitions.create(['width', 'margin'], {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen,
-        }),
-    },
-    menuButton: {
-        marginRight: 36,
-    },
-    menuButtonHidden: {
-        display: 'none',
-    },
-    title: {
-        flexGrow: 1,
-    },
-    drawerPaperClose: {
-        overflowX: 'hidden',
-        transition: theme.transitions.create('width', {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen,
-        }),
-        width: theme.spacing(7),
-        [theme.breakpoints.up('sm')]: {
-            width: theme.spacing(9),
-        },
-    },
-    appBarSpacer: theme.mixins.toolbar,
-    content: {
-        flexGrow: 1,
-        height: '100vh',
-        overflow: 'auto',
-    },
-    container: {
-        paddingTop: theme.spacing(4),
-        paddingBottom: theme.spacing(4),
-    },
-    paper: {
-        padding: theme.spacing(2),
-        display: 'flex',
-        overflow: 'auto',
-        flexDirection: 'column',
-    },
-    fixedHeight: {
-        height: 240,
-    },
+    dividerStyle: {
+        marginTop: theme.spacing(1),
+        marginBottom: theme.spacing(1)
+    }
 }));
 
 
@@ -83,60 +26,44 @@ const useStyles = makeStyles((theme) => ({
 export default function PayInfo() {
     const classes = useStyles();
     
-
-
     return(
         <React.Fragment>
-
-            <Container height="100%">
-
-
-                <Grid container spacing = {3} >
-                    <Grid item xs>
-                        
-                        
+                <Grid container spacing={2} justify="center" alignItems="center">
+                    <Grid item xs={8}>
+                        <Paper>
                         {/* graph will go here */}
                         <div id='myGraph'></div>
+                        </Paper>
                     </Grid>
 
-                    <Grid item xs>
-                        {/* will contain total money per pay period
-                        and next payday date  */}
-                        <Table>
-                            <TableHead>
-                                <TableRow>
-                                    <Title>Total</Title>
-                                </TableRow>
-                                <TableRow>
-                                    <Title ><div id='totalMoney'>$0.00</div></Title>
-                                </TableRow>
-                                <TableRow>
-                                    <Title>Hours Worked</Title>
-                                </TableRow>
-                                <TableRow>
-                                    <Title><div id='hoursWorked'></div></Title>
-                                </TableRow>
-                                
-                                <TableRow>
-                                    <Title>Houry Rate</Title>
-                                </TableRow>
-
-                                <TableRow>
-                                    <Title><div id='hourlyRate'></div></Title>
-                                </TableRow>
-
-                                <TableRow>
-                                    <Title>Payday</Title>
-                                </TableRow>
-                                <TableRow>
-                                    <Title ><div id ='nextPayday'>Never </div></Title>
-                                </TableRow>
-                            </TableHead>
-                        </Table>
+                    <Grid item xs={2}>
+                        <Paper className={classes.paperInfo}>
+                            {/* will contain total money per pay period
+                            and next payday date  */}
+                            <Grid container direction="column">
+                                <Grid items xs>
+                                    <Typography variant="h5">Income</Typography>
+                                    <div id='totalMoney'>$0.00</div>
+                                    <Divider className={classes.dividerStyle}/>
+                                </Grid>
+                                <Grid item xs>
+                                    <Typography variant="h5">Hours Worked</Typography>
+                                    <div id='hoursWorked'></div>
+                                    <Divider className={classes.dividerStyle}/>
+                                </Grid>
+                                <Grid item xs>
+                                    <Typography variant="h5">Hourly Rate</Typography>
+                                    <div id='hourlyRate'></div>
+                                    <Divider className={classes.dividerStyle}/>
+                                </Grid>
+                                <Grid item xs>
+                                    <Typography variant="h5">Payday</Typography>
+                                    <div id ='nextPayday'>Never </div>
+                                </Grid>
+                            </Grid>
+                        </Paper>
                     </Grid>
-
                 </Grid>
-            </Container>
 
         </React.Fragment>
     )
