@@ -13,7 +13,7 @@ import {
 } from '@devexpress/dx-react-scheduler-material-ui';
 import {Box} from "@material-ui/core";
 import axios from "axios";
-import {getUserToken, setUserSession} from "../utils/userSession";
+import {getUserToken} from "../utils/userSession";
 
 /*
 //Hardcoded test data

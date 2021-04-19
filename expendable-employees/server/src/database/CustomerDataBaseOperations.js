@@ -382,7 +382,7 @@ class CustomerDataBaseOperations {
 
 
         // Query Company Branch For Branch ID
-        let query = {
+        query = {
             company_id: data.employee.company_id,
             name : data.employee.branch
         };
@@ -427,7 +427,7 @@ class CustomerDataBaseOperations {
     async sendEmail(message){
     
         var validation = jsonValidator(message,"Email");
-        console.log(message)
+
         if(!validation.valid){
             return {
                 "success" : false,
@@ -462,7 +462,15 @@ class CustomerDataBaseOperations {
         };
     }
 
+    async sentEmails(query){
+        console.log("sent:");
+        let company_query = await this.db_instance.queryCollection({"sender" : query.user_id}, "Email");
+        console.log(company_query);
+        return company_query;
+    }
+
     async receiveEmails(query){
+        console.log("receive:");
         let company_query = await this.db_instance.queryCollection({"user_id" : query.user_id}, "Email");
         console.log(company_query);
         return company_query;

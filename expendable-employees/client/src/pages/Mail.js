@@ -25,7 +25,11 @@ import SendIcon from '@material-ui/icons/Send';
 import CloseIcon from '@material-ui/icons/Close';
 import {Link, Route, Switch, useRouteMatch} from "react-router-dom";
 import EmailItem from "../components/EmailItem";
+import axios from 'axios';
+import {getUserToken} from "../utils/userSession";
 
+
+/*
 const testReceivedArr = [
     {title: "Title Test 1", id: 0, message: "Test message 1.", is_read: false},
     {title: "Title Test 2", id: 1, message: "Test message 2.", is_read: true},
@@ -34,6 +38,7 @@ const testSentArr = [
     {title: "Title Test 4", id: 7, message: "Test message 4.", is_read: false},
     {title: "Title Test 5", id: 8, message: "Test message 5.", is_read: false},
     {title: "Title Test 6", id: 9, message: "Test message 6.", is_read: false}];
+*/
 
 const useStyles = makeStyles((theme) => ({
     removeHorizontalBar: {
@@ -74,7 +79,62 @@ function TabPanel(props) {
     );
 }
 
+const getReceivedMessages = () => {
+    axios({
+        method : "get",
+        url : "http://localhost:3001/api/email/receive",
+        headers : {
+            "Content-Type": "application/json",
+            "Authorization" : "Bearer " + getUserToken()
+        }
+    }).then(response => {
+        if (response.status == 200){
+            let data = response.data;
+            for (let i = 0; i < data.length; i++) {
+                data[i].is_read = false;
+            }
+            return data;
+        }
+    }).catch(error => {
+        console.log(error);
+    });
+}
+
+const getSentMessages = () => {
+    axios({
+        method : "get",
+        url : "http://localhost:3001/api/email/sent",
+        headers : {
+            "Content-Type": "application/json",
+            "Authorization" : "Bearer " + getUserToken()
+        }
+    }).then(response => {
+        if (response.status == 200){
+            let data = response.data;
+            for (let i = 0; i < data.length; i++) {
+                data[i].is_read = false;
+            }
+            return data;
+        }
+    }).catch(error => {
+        console.log(error);
+    });
+}
+
+
 export default function Mail() {
+
+    const [state, setState] = useState({
+        sentData: [],
+        receivedData: [],
+        recipient: "",
+        title: "",
+        message: ""
+    })
+
+    state.receivedData = getReceivedMessages()
+    state.sentData = getSentMessages()
+
     const classes = useStyles();
     const {path} = useRouteMatch();
 
@@ -133,9 +193,9 @@ export default function Mail() {
         */
         if (event.target.checked) {
             if (tab == 0) {
-                setCheckedCheckboxes(testReceivedArr.map(x => x.id));
+                setCheckedCheckboxes(state.receivedData && state.receivedData.map(x => x._id));
             } else {
-                setCheckedCheckboxes(testSentArr.map(x => x.id));
+                setCheckedCheckboxes(state.receivedData && state.sentData.map(x => x._id));
             }
         } else {
             setCheckedCheckboxes([]);
@@ -182,12 +242,6 @@ export default function Mail() {
 
     // Compose Form Handlers:
 
-    const [state, setState] = useState({
-        recipient: "",
-        title: "",
-        message: ""
-    })
-
     const handleInputChange = (event) => {
         setState((prevProps) => ({
             ...prevProps,
@@ -196,9 +250,40 @@ export default function Mail() {
     }
 
     const handleCompose = (value) => {
+        console.log("sending message");
         value.preventDefault();
 
-        // TODO Compose: send to backend
+        let temp = state.recipient.split(" ");
+        let users = []
+        for (let i = 0; i < temp.length; i++){
+            users.push({"email": temp[i]});
+        }
+
+        axios({
+            method : "post",
+            url : "http://localhost:3001/api/email/send",
+            headers : {
+                "Content-Type": "application/json",
+                "Authorization" : "Bearer " + getUserToken()
+            },
+            data : {
+                email: {
+                    message: state.message,
+                    title: state.title
+                },
+                recipients: users
+            }
+        }).then(response => {
+            if (response.status == 200){
+                let data = response.data;
+                for (let i = 0; i < data.length; i++) {
+                    data[i].is_read = false;
+                }
+                return data;
+            }
+        }).catch(error => {
+            console.log(error);
+        });
     }
 
     // ----------------------------------------------------------------------------------------------------------------
@@ -332,7 +417,7 @@ export default function Mail() {
                     <TabPanel value={tab} index={0}>
                         <List disablePadding>
                             {
-                                testReceivedArr.map((value) => {
+                                state.receivedData && state.receivedData.map((value) => {
                                     return (
                                         <div>
                                             <Grid
@@ -343,19 +428,19 @@ export default function Mail() {
                                                 <Grid item>
                                                     <Checkbox
                                                         edge="start"
-                                                        checked={checkedCheckboxes.indexOf(value.id) !== -1}
-                                                        onClick={handleToggle(value.id)}
+                                                        checked={checkedCheckboxes.indexOf(value._id) !== -1}
+                                                        onClick={handleToggle(value._id)}
                                                         className={classes.selectIndividual}
                                                     />
                                                 </Grid>
                                                 <Grid item lg md sm xl xs>
                                                     <ListItem
-                                                        key={value.id}
+                                                        key={value._id}
                                                         dense
                                                         button
                                                         disableRipple
                                                         component={Link} to={{
-                                                        pathname: `${path}/${value.id}`,
+                                                        pathname: `${path}/${value._id}`,
                                                         state: {
                                                             title: value.title,
                                                             message: value.message,
@@ -384,7 +469,7 @@ export default function Mail() {
                     <TabPanel value={tab} index={1}>
                         <List disablePadding>
                             {
-                                testSentArr.map((value) => {
+                                state.sentData && state.sentData.map((value) => {
                                     return (
                                         <div>
                                             <Grid
@@ -395,19 +480,19 @@ export default function Mail() {
                                                 <Grid item>
                                                     <Checkbox
                                                         edge="start"
-                                                        checked={checkedCheckboxes.indexOf(value.id) !== -1}
-                                                        onClick={handleToggle(value.id)}
+                                                        checked={checkedCheckboxes.indexOf(value._id) !== -1}
+                                                        onClick={handleToggle(value._id)}
                                                         className={classes.selectIndividual}
                                                     />
                                                 </Grid>
                                                 <Grid item lg md sm xl xs>
                                                     <ListItem
-                                                        key={value.id}
+                                                        key={value._id}
                                                         dense
                                                         button
                                                         disableRipple
                                                         component={Link} to={{
-                                                        pathname: `${path}/${value.id}`,
+                                                        pathname: `${path}/${value._id}`,
                                                         state: {
                                                             title: value.title,
                                                             message: value.message,

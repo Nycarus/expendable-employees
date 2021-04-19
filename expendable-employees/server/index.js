@@ -201,15 +201,37 @@ app.get("/api/admin/user",authToken, function(request,response){
 
 
 app.post("/api/email/send",authToken, function(request,response){
-    request.body.sender = request.user_id.user_id;
-    cdo.sendEmail(request.body).then(function(result){
-        if(result.success){
-            response.send(result);
-        }else{
-            
-            response.sendStatus(result.code);
+    request.body.email.sender = request.user_id.user_id;
+
+    cdo.getUser({$or : request.body.recipients}).then(function(result_query){
+        if (result_query){
+            let temp = [];
+            for (let i = 0; i < result_query.length; i ++) {
+                temp.push({"user_id":result_query[i]._id});
+            }
+            request.body.email.receivers = temp;
+
+            cdo.sendEmail(request.body).then(function(result){
+                if(result.success){
+                    response.send(result);
+                }else{
+                    
+                    response.sendStatus(result.code);
+                }
+            })
         }
-    });    
+        else {
+            console.log("recipient does not exist")
+        }
+    });
+});
+
+app.get("/api/email/sent",authToken, function(request,response){
+    request.body.user_id = request.user_id.user_id;
+    
+    cdo.sentEmails(request.body.user_id).then(function(results){
+        response.send(results);
+    });   
 });
 
 // doesnt expect any payload  will use auth user id

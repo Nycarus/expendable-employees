@@ -121,11 +121,14 @@
                 "uniqueItems": true,
                 "required" : true ,
                 "minItems": 1,
-                "items": { 
+                "user_id": { 
                     "type": "string",                
                     "required" : true 
+                },
+                "is-read" : { 
+                    "type": "boolean",                
+                    "required" : true 
                 }
-                    
             },
             "sender" : {
                 "type" : "string",
@@ -133,6 +136,10 @@
             },
             "title" : {
                 "type" : "string",
+                "required" : true
+            },
+            "time_sent" : {
+                "type" : "date",
                 "required" : true
             }
         
