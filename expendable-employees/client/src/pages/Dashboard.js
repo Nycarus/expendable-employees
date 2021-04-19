@@ -1,90 +1,39 @@
 import React from 'react';
-import {makeStyles, Button } from '@material-ui/core/';
-import {Container, Grid, Paper } from '@material-ui/core';
-import {Table, TableHead, TableBody, TableCell, TableRow, Typography} from '@material-ui/core';
-import {Link} from '@material-ui/core';
-import clsx from "clsx";
+import {makeStyles, Container, Grid, Paper, Divider } from '@material-ui/core';
 import HoursOverview from "../components/hoursOverview";
-import Title from "../components/Title";
 import Annoucements from "../components/Annoucements";
 import EmailDashboard from "../components/EmailDashboard";
 
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-        display: 'flex',
-    },
-    toolbar: {
-        paddingRight: 24, // keep right padding when drawer closed
-    },
-    toolbarIcon: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'flex-end',
-        padding: '0 8px',
-        ...theme.mixins.toolbar,
-    },
-    appBar: {
-        zIndex: theme.zIndex.drawer + 1,
-        transition: theme.transitions.create(['width', 'margin'], {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen,
-        }),
-    },
-    menuButton: {
-        marginRight: 36,
-    },
-    menuButtonHidden: {
-        display: 'none',
-    },
-    title: {
-        flexGrow: 1,
-    },
-    drawerPaperClose: {
-        overflowX: 'hidden',
-        transition: theme.transitions.create('width', {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen,
-        }),
-        width: theme.spacing(7),
-        [theme.breakpoints.up('sm')]: {
-            width: theme.spacing(9),
-        },
-    },
     appBarSpacer: theme.mixins.toolbar,
     content: {
         flexGrow: 1,
         height: '100vh',
-        overflow: 'auto',
     },
     container: {
         paddingTop: theme.spacing(4),
         paddingBottom: theme.spacing(4),
     },
     paper: {
-        padding: theme.spacing(2),
+        padding: theme.spacing(4),
         display: 'flex',
-        overflow: 'auto',
+        overflowY: 'hidden',
         flexDirection: 'column',
     },
-    fixedHeight: {
-        height: 240,
+    divider: {
+        marginTop: theme.spacing(2),
+        marginBottom: theme.spacing(2)
     },
 }));
 
 
-function preventDefault(event) {
-    event.preventDefault();
-  }
 
 export default function Dashboard() {
     const classes = useStyles();
-
-    const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
     return (
         <div>
             <main className={classes.content}>
-                <div className={classes.appBarSpacer} />
                 <Container className={classes.container} height="100%">
                     <Grid container spacing={3}>
                         <Grid item xs>
@@ -94,6 +43,7 @@ export default function Dashboard() {
                             </Paper>
                         </Grid>
                     </Grid>
+                    <Divider className={classes.divider}/>
                     <Grid container spacing = {3}>
                         {/* Annoucements */}
                         <Grid item xs>
