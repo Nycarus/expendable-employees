@@ -445,28 +445,24 @@ class CustomerDataBaseOperations {
         }*/
     }
 
-    async readEmail(data) {
-        let query_result = await this.db_instance.queryCollection({"_id" : new ObjectID(data.mail_id)}, "Email");
+    async readEmailMultiple(data) {
+        for (let i = 0; i < data.mail_id.length; i++ ){
+            let query_result = await this.db_instance.queryCollection({"_id" : new ObjectID(data.mail_id[i].mail_id)}, "Email");
 
-        if (query_result < 1) {
-            return {
-                "success" : false,
-                "reason" : "email message does not exist"
-            }; 
+            console.log(query_result);
+
+            for (let i = 0 ; i <  query_result[0].receivers.length;i++){
+                console.log(query_result[0].receivers[i].user_id);
+                console.log(query_result[0].receivers[i].user_id == data.user_id);
+                if (query_result[0].receivers[i].user_id == data.user_id ){
+                    query_result[0].receivers[i]["is-read"] = true;
+                }
+            }
+
+            if (query_result > 0){
+                await this.db_instance.updateDocument({"_id" : new ObjectID(data.mail_id[i].mail_id)}, query_result[0], "Email");
+            }
         }
-        query_result[0].receivers[0]["is-read"] = true;
-
-        let result = await this.db_instance.updateDocument({"_id" : new ObjectID(data.mail_id)}, query_result[0], "Email");
-
-        if(!result){
-            return {
-                "success" : false,
-                "code" : 500
-            };
-        }
-        return {
-            "success" : true,
-        };
     }
 
     async sendEmail(message){

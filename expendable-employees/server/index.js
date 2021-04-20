@@ -45,7 +45,12 @@ app.post('/api/login', function(request, response) {
             let token = {
                 token : jwt.sign(user,process.env.ACCESS_TOKEN_SECRET)
             };
-            return response.json(token);
+
+            let user_data = {
+                user_id: hashed_password.user._id.toString(),
+                token : jwt.sign(user,process.env.ACCESS_TOKEN_SECRET)
+            } 
+            return response.json(user_data);
             
         });
         
@@ -166,6 +171,10 @@ app.post("/api/register/admin",authToken, function(request,response){
 
 });
 
+app.get("/api/self/user_id", authToken, function(request,response){
+    response.send(request.user_id.user_id);
+})
+
 // gets the senders user infomration from database
 app.get("/api/self/user",authToken, function(request,response){
     let query = {
@@ -233,11 +242,10 @@ app.post("/api/email/send",authToken, function(request,response){
 });
 
 app.post("/api/email/mark_read", authToken, function(request, response){
+    request.body.user_id = request.user_id.user_id;
 
-    for (let i = 0; i < request.body.mail_id.length; i++ )
-    {
-        cdo.readEmail(request.body.mail_id[i]).then(function(result){})
-    }
+    cdo.readEmailMultiple(request.body).then(function(result){})
+
 });
 
 app.get("/api/email/sent",authToken, function(request,response){

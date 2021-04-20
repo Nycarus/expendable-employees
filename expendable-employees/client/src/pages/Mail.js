@@ -26,7 +26,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import {Link, Route, Switch, useRouteMatch} from "react-router-dom";
 import EmailItem from "../components/EmailItem";
 import axios from 'axios';
-import {getUserToken} from "../utils/userSession";
+import {getUserToken, getUser} from "../utils/userSession";
 
 
 /*
@@ -288,6 +288,18 @@ export default function Mail() {
         });
     }
 
+    const getIndexOfUserId = (val) => {
+
+        let tempVal = getUser();
+        
+        for (let i = 0; i < val.length; i++){
+            if(val[i]["user_id"] == tempVal){
+                return i;
+            }
+        }
+        return null;
+    }
+
     // ----------------------------------------------------------------------------------------------------------------
     return (
         <Switch>
@@ -452,8 +464,8 @@ export default function Mail() {
                                                     >
                                                         <ListItemText
                                                             primary={
-                                                                <Typography color={handleTitleColor(value.is_read)}>
-                                                                    <Box fontWeight={handleTitleWeight(value.is_read)}>
+                                                                <Typography color={handleTitleColor(value.receivers[getIndexOfUserId(value.receivers)]["is-read"])}>
+                                                                    <Box fontWeight={handleTitleWeight(value.receivers[getIndexOfUserId(value.receivers)]["is-read"])}>
                                                                         {new Date(value.time_sent).toString() + "\t" + (value.title ? value.title : "")}
                                                                     </Box>
                                                                 </Typography>
@@ -504,8 +516,8 @@ export default function Mail() {
                                                     >
                                                         <ListItemText
                                                             primary={
-                                                                <Typography color={handleTitleColor(value.is_read)}>
-                                                                    <Box fontWeight={handleTitleWeight(value.is_read)}>
+                                                                <Typography color={handleTitleColor(value.receivers[getIndexOfUserId(value.receivers)]["is-read"])}>
+                                                                    <Box fontWeight={handleTitleWeight(value.receivers[getIndexOfUserId(value.receivers)]["is-read"])}>
                                                                         {new Date(value.time_sent).toString() + "\t" + (value.title ? value.title : "")}
                                                                     </Box>
                                                                 </Typography>
