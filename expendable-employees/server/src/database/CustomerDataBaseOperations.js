@@ -423,6 +423,38 @@ class CustomerDataBaseOperations {
         }
     }
 
+    async readEmail(data) {
+        if (data.receiver == null) {
+            return {
+                "success" : false,
+                "code" : 400
+            }; 
+        }
+        
+        let query_result = await this.db_instance.queryCollection({"_id" : new ObjectID(data)}, "Email");
+
+        if (query_result < 1) {
+            return {
+                "success" : false,
+                "reason" : "email message does not exist"
+            }; 
+        }
+
+        query_result.receiver[0]["is-read"] = true;
+
+        let result = await this.db_instance.updateCollection({"_id" : new ObjectID(data)}, query_result, "Email");
+
+        if(!result){
+            return {
+                "success" : false,
+                "code" : 500
+            };
+        }
+
+        return {
+            "success" : true,
+        };
+    }
 
     async sendEmail(message){
     
