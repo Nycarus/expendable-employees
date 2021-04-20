@@ -88,8 +88,8 @@ export default function EditInfo() {
                email : state.email,
                phone: state.phone,
                address : state.address,
-               postalcode : state.postalcode,
-               dateofbirth: state.dateofbirth
+               postal_code : state.postal_code,
+               date_of_birth: state.date_of_birth
            }
         }).then(function(response){
             window.location.reload();
@@ -147,12 +147,12 @@ export default function EditInfo() {
                                     variant="outlined"
                                     margin="dense"
                                     required
-                                    name="dateofbirth"
+                                    name="date_of_birth"
                                     onChange={handleInputChange}
                                     label="Date of Birth"
-                                    id="dateofbirth"
+                                    id="date_of_birth"
                                     type="date"
-                                    value = {state.dateofbirth}
+                                    value = {state.date_of_birth}
                                     color="secondary"
                                     InputLabelProps={{
                                         shrink: true,
@@ -199,10 +199,10 @@ export default function EditInfo() {
                                     variant="outlined"
                                     margin="dense"
                                     required
-                                    name="postalcode"
+                                    name="postal_code"
                                     label="Postal Code"
-                                    id="postalcode"
-                                    value={state.postalcode}
+                                    id="postal_code"
+                                    value={state.postal_code}
                                     onChange={handleInputChange}
                                     InputLabelProps={{ shrink: true }}
                                     color="secondary"/>

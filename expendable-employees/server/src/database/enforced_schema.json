@@ -124,10 +124,6 @@
                 "user_id": { 
                     "type": "string",                
                     "required" : true 
-                },
-                "is-read" : { 
-                    "type": "boolean",                
-                    "required" : true 
                 }
             },
             "sender" : {
@@ -137,12 +133,7 @@
             "title" : {
                 "type" : "string",
                 "required" : true
-            },
-            "time_sent" : {
-                "type" : "date",
-                "required" : true
             }
-        
         }
     },
     "Schedule" : {

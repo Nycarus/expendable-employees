@@ -61,7 +61,7 @@ message = {
         "60696b3fa9433d382e1b6c81",
     ],
     "message" : "nice",
-    
+    "title" : "you like jazz"
 }
 
 
@@ -75,7 +75,7 @@ user_info = {
 }
 
 comp_usrs_url = "http://localhost:3001/api/company/users"
-response = requests.get(read_email,json=message, headers=headers)
+response = requests.post(send_msg_url,json=message, headers=headers)
 if(response.status_code == 200):
     print(json.dumps(response.json(), indent=4, sort_keys=True))
 else:
