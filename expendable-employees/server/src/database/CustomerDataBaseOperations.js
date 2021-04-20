@@ -427,7 +427,7 @@ class CustomerDataBaseOperations {
     }
 
     async getUserSchedule(query){
-        let schedule_query = await this.db_instance.queryCollection({"user_id": query.user_id}, "Schedule");
+        let schedule_query = await this.db_instance.queryCollection({"user_id": query}, "Schedule");
         return schedule_query;
     }
 
@@ -439,7 +439,7 @@ class CustomerDataBaseOperations {
                 "code" : 400
             };
         }
-        let result = await this.db_instance.insertToCollection(data, "schedule");
+        let result = await this.db_instance.insertToCollection(data, "Schedule");
 
         if (result) {
             return {
