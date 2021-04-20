@@ -435,9 +435,12 @@ app.post('/api/schedule/add/multiple', authToken, function(request, response) {
 });
 
 app.post('/api/remove/user/single', authToken, function(request, response) {
-    cdo.removeUser(request.body.user_id[i]).then(function(result){})
+    cdo.removeUser(request.body.user_id[i]).then(function(result){
+        if(!result.success){
+            response.sendStatus(500)
+        }
+    })
 
-    cdo.removeEmployee(request.body.user_id[i]).then(function(result){})
 });
 
 app.post('/api/remove/employee/multiple', authToken, function(request, response) {
