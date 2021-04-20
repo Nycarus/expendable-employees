@@ -267,6 +267,7 @@ export default function AddEmployee() {
                                         name="password"
                                         label="Password"
                                         id="password"
+                                        type="password"
                                         value={state.password}
                                         onChange={handleInputChange}
                                         color="secondary"/>
@@ -278,6 +279,7 @@ export default function AddEmployee() {
                                         name="confirmPassword"
                                         label="Confirm Password"
                                         id="confirmPassword"
+                                        type="password"
                                         value={state.confirmPassword}
                                         onChange={handleInputChange}
                                         color="secondary"/>
