@@ -75,7 +75,7 @@ Employees 1 through 3 are owned/managed by cole@gmail.com and has some pre-fille
   - Events in Schedules
   - Sent/Received mail between users
     
-Employees 4 through 6 are owned/managed by aron@gmail.com and is a blank slate.
+Employees 4 through 6 are owned/managed by aron@gmail.com and are a blank slate.
 
 ## Independent Study Component 
 Presentation on Independent Study Component can be found at https://docs.google.com/presentation/d/1o2Fuk2XBOVB76uwcESpkLm3kqGYXxJSImSdfrZb0qUU
