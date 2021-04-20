@@ -178,7 +178,7 @@ function CustomGridFooter(props) {
                 "Authorization" : "Bearer "+ getUserToken()
             },
             data : {
-                "user_id" : state.rows[Math.floor(Math.random() * state.rows.length)].user_id
+                "user_id" : props.state.state.rows[Math.floor(Math.random() * props.state.state.rows.length)].user_id
             }
         }).then(response => 
         {
@@ -513,7 +513,7 @@ export default function Employees() {
                     Toolbar: GridToolbar,
                     Footer: CustomGridFooter,
                 }}
-                componentsProps={{footer: {selectionModel: {selectionModel}}}}
+                componentsProps={{footer: {selectionModel: {selectionModel}, state: {state}}}}
             />
 
         </Paper>
