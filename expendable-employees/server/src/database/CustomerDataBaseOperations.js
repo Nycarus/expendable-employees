@@ -8,11 +8,12 @@ const saltRounds = 10;
 
 
 function validateUser(data) {
+    console.log(data)
 
     if (data["email"] == undefined) {
         return false;
     }
-    if (!evalidator.validate(data["email"].replaceAll(" ", ""))) {
+    if (!evalidator.validate(data["email"].replace(/ /g, ""))) {
         return false;
     }
 
@@ -80,6 +81,7 @@ class CustomerDataBaseOperations {
 
         let user = await this.db_instance.queryCollection(query, "User");
 
+        console.log(data.company);
         data.company["owner"] = user[0]._id.toString() 
 
         
@@ -271,15 +273,10 @@ class CustomerDataBaseOperations {
         let company_query = await this.db_instance.queryCollection({"owner" : new ObjectID(data.company_id)}, "Company");
 
         // making sure the owner company exists
-        let user_query = await this.db_instance.queryCollection({"_id" : new ObjectID(data.user_id)}, "User");
+        //let user_query = await this.db_instance.queryCollection({"_id" : new ObjectID(data.user_id)}, "User");
 
         // making sure there is not already a branch with these parameters
-        if (branch_query.length > 0) {
-            return {
-                "success": false,
-                "reason": "there is already a branch with that name to that company"
-            };
-        } else if (comp_query.length < 1) {
+        if (company_query.length < 1) {
             return {
                 "success": false,
                 "reason": "the company that this branch would be registerd to doesnt exist"
@@ -301,13 +298,13 @@ class CustomerDataBaseOperations {
 
 
     // checkes the database to see if the specified email is taken
-    async isEmailTaken(query) {
-        let data = await this.db_instance.queryCollection(query, "User");
+    async isEmailNotTaken(query) {
+        let data = await this.db_instance.queryCollection({"email":query}, "User");
 
         if (data.length > 0) {
-            return true;
+            return false;
         } else {
-            return false
+            return true
         }
     
     }
@@ -315,6 +312,7 @@ class CustomerDataBaseOperations {
     // expects data to be what is defined in the User schema -id
     async registerUser(data) {
         var validation = jsonValidator(data,"User");
+        console.log(validation.errors);
         if(!validation.valid){
             return{
                 "success": false,
@@ -322,9 +320,10 @@ class CustomerDataBaseOperations {
             }
         }
 
-        let isTaken = await this.isEmailTaken(data.email);
-        
-        if (!isTaken & validateUser(data)) {
+        let isNotTaken = await this.isEmailNotTaken(data.email);
+
+        if (isNotTaken && validateUser(data)) {
+            console.log("Passes")
             data.password = await this.hashPassword(data.password);
             return this.db_instance.insertToCollection(data, "User").then(function(result) {
                 return {
@@ -341,7 +340,30 @@ class CustomerDataBaseOperations {
     }
 
     async registerEmployee(data){
+        await this.registerUser({
+            firstname : data.firstname,
+            lastname : data.lastname,
+            email: data.email,
+            phone: data.phone,
+            address: data.address,
+            postal_code: data.postal_code,
+            date_of_birth: data.date_of_birth,
+            password: data.password
+        })
+        let new_user = await this.db_instance.queryCollection({"email" : data.email}, "User");
+        console.log(data);
 
+        return this.db_instance.insertToCollection({
+            "user_id" : new_user[0]._id.toString(),
+            "Position" : data.Position,
+            "company_id" : data.company_id,
+            "pay_rate" : data.pay_rate
+        }, "Employee").then(function(result) {
+            return {
+                "success": result
+            };
+        });
+            /*
         if(data.user == undefined){
             return {"success" : false,
                     "reason" : "user entry is left blank"}
@@ -420,7 +442,7 @@ class CustomerDataBaseOperations {
                     "reason": "was unable to insert into company collection"
                 }
             }
-        }
+        }*/
     }
 
     async readEmail(data) {
@@ -503,7 +525,8 @@ class CustomerDataBaseOperations {
     }
 
     async getUserSchedule(query){
-        let schedule_query = await this.db_instance.queryCollection({"user_id": query}, "Schedule");
+        let schedule_query = await this.db_instance.queryCollection({"user_id": query.user_id}, "Schedule");
+        console.log(schedule_query);
         return schedule_query;
     }
 
@@ -515,7 +538,7 @@ class CustomerDataBaseOperations {
                 "code" : 400
             };
         }
-        let result = await this.db_instance.insertToCollection(data, "Schedule");
+        let result = await this.db_instance.insertToCollection(data, "schedule");
 
         if (result) {
             return {
@@ -617,6 +640,7 @@ class CustomerDataBaseOperations {
         }
     */
     async resetPassword(data){
+        console.log(data)
         if(data.password == undefined | data.user_id == null){
             return false;
         }
@@ -679,6 +703,11 @@ class CustomerDataBaseOperations {
             }
         }
     }
+    // expects the user_id
+    async getAdmin(data){
+        let success = this.db_instance.queryCollection(data,"Adminstrators");
+        return success;
+    }
 
     async removeEmployee(data){
         try{
@@ -705,15 +734,14 @@ class CustomerDataBaseOperations {
     }
 
     async editEmployeePay(data){
-        console.log(data);
         try{
-            var user_query = await this.db_instance.queryCollection({"user_id": data.user_id}, "Employee")
+            var user_query = await this.db_instance.queryCollection({"_id" : new ObjectID(data.user_id)}, "User")
 
             let temp = user_query[0];
 
             temp.pay_rate = data.pay_rate;
 
-            var result = await this.db_instance.updateDocument({"user_id": data.user_id}, temp, "Employee");
+            var result = await this.db_instance.updateDocument({"_id": new ObjectID(data.user_id)}, temp, "User");
         }catch(err){
             return {   
                 "success": false,

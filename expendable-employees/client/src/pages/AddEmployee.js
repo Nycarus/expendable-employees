@@ -69,7 +69,7 @@ export default function AddEmployee() {
                     "Authorization" : "Bearer "+ getUserToken()
                 },
                 data : {
-                    user : {
+                    
                         "firstname" : state.firstname,
                         "lastname": state.lastname,
                         "email" : state.email, 
@@ -77,13 +77,10 @@ export default function AddEmployee() {
                         "address" : state.address,
                         "postal_code" : state.postal_code,
                         "date_of_birth" : state.date_of_birth,
-                        "password" : state.password
-                    },
-                    employee : {
+                        "password" : state.password,
                         "pay_rate" : state.pay_rate,
-                        "Position" : state.position
-                    },
-                    "branch" : state.branch
+                        "Position" : state.position,
+                        "branch" : state.branch
                 }
             }
             ).then(response => {
@@ -270,6 +267,7 @@ export default function AddEmployee() {
                                         name="password"
                                         label="Password"
                                         id="password"
+                                        type="password"
                                         value={state.password}
                                         onChange={handleInputChange}
                                         color="secondary"/>
@@ -281,6 +279,7 @@ export default function AddEmployee() {
                                         name="confirmPassword"
                                         label="Confirm Password"
                                         id="confirmPassword"
+                                        type="password"
                                         value={state.confirmPassword}
                                         onChange={handleInputChange}
                                         color="secondary"/>

@@ -85,10 +85,16 @@ app.post("/api/user/update", authToken, function(request,response){
     expects the the json 
     
     payload =  {
-        "user_id" : "User._id",
+        'firstname': 'Cole',
+        "lastname": "Smith",
+        "date_of_birth" : "2020-01-01",
+        "phone": "905-936-1234",
+        "address": "37 main street",
+        "postal_code": "L0G 1W0",
         "Position" : "string",
-        "company_id" : "Company._id",
         "pay_rate" : "float"
+        "email": "cole@gmails.com",
+        "password": "password"
     } 
 
 */
@@ -97,8 +103,18 @@ app.post("/api/register/employee",authToken, function(request,response){
         "user" : request.user_id.user_id,
     };
 
-    console.log(request.body);
+    cdo.getAdmin(admin_query).then(function(result){
+        if(result.length < 1){
+            return response.sendStatus(401);
+        }
 
+        request.body.company_id = result[0].company;
+        cdo.registerEmployee(request.body);        
+
+    });
+})
+
+    /*
     cdo.isAdminForCompany(admin_query).then(function(result){
         if(result){
             cdo.getCompanyUsers(admin_query).then(function(query_result){
@@ -111,9 +127,9 @@ app.post("/api/register/employee",authToken, function(request,response){
         }else{
             response.sendStatus(401);
 
-        } 
+        }
     }); 
-
+   
             
     // check if user email is same as email from token
     // check if email for token is an admin for any company 
@@ -122,8 +138,8 @@ app.post("/api/register/employee",authToken, function(request,response){
 
     // make can admin function 
     // will return if the said admin is an admin over user 
-})
-;
+});
+ */
 /*
 payload =  {
     "user" : "User._id",
@@ -314,12 +330,12 @@ app.post("/api/reset/employee/password",authToken, function(request,response){
 
 
 // expects email in form of http://localhost:3001/api/isEmailTaken?email=userEmail
-app.get('/api/isEmailTaken', function(request, response) {
+app.get('/api/isEmailNotTaken', function(request, response) {
     let query = {
         email : request.query.email
     };
 
-    result = cdo.isEmailTaken(query);
+    result = cdo.isEmailNotTaken(query);
     result.then(function(data){
         response.send({"isTaken" : data});
 
@@ -409,11 +425,12 @@ app.get('/api/schedule/user', authToken, function(request, response) {
 });
 
 app.post('/api/schedule/add/multiple', authToken, function(request, response) {
-    console.log(request.body);
     let temp = {};
-    for ( let i = 0; i < request.body.user_id.length; i ++) {
+    for ( let i = 0; i < request.body.user_id; i ++) {
         temp = {"user_id" : request.body.user_id[i], "startDate" : request.body.startDate, "endDate" : request.body.endDate, "title": request.body.title}
-        cdo.addUserSchedule(temp).then(function(result){})
+        cdo.addUserSchedule(temp).then(function(result){
+            
+        })
     }
 });
 
@@ -424,7 +441,7 @@ app.post('/api/remove/user/single', authToken, function(request, response) {
 });
 
 app.post('/api/remove/employee/multiple', authToken, function(request, response) {
-    for ( let i = 0; i < request.body.user_id.length; i ++) {
+    for ( let i = 0; i < request.body.user_id; i ++) {
         cdo.removeUser(request.body.user_id[i]).then(function(result){})
 
         cdo.removeEmployee(request.body.user_id[i]).then(function(result){})
@@ -432,10 +449,8 @@ app.post('/api/remove/employee/multiple', authToken, function(request, response)
 });
 
 app.post('/api/edit/employee/multiple/pay', authToken, function(request, response) {
-    let temp = {};
-    for ( let i = 0; i < request.body.user_id.length; i ++) {
-        temp = {"user_id" : request.body.user_id[i], "pay_rate": request.body.pay_rate}
-        cdo.editEmployeePay(temp).then(function(result){})
+    for ( let i = 0; i < request.body.user_id; i ++) {
+        cdo.editEmployeePay(request.body.user_id[i]).then(function(result){})
     }
 });
 
