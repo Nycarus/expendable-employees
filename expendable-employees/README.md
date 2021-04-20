@@ -1,4 +1,4 @@
-## Expendable Employees
+# Expendable Employees
 A Managerial Tool webapp for managing your employees.
 The main registration is for Admins, with the Admins later then getting access to a secondary registration for adding their employees to the app.
 
@@ -17,7 +17,11 @@ The main registration is for Admins, with the Admins later then getting access t
 5. Run `npm run server` to start the client server
 
 ## About The Database
-The database being used for this project is a mongodb. It is being hosted on the free tier of [MondoDB Cloud](https://www.mongodb.com/cloud) so the space and speed are both limited. If you wish to view the database in something like MongoDB Compass this url will get you access `mongodb+srv://dbUser:mER6V5dlVljmcy0x@cluster0.wxnsv.mongodb.net/test`. The full schema can be viewed in `schema.json` in the root of this git repo.
+The database being used for this project is a mongodb. It is being hosted on the free tier of [MondoDB Cloud](https://www.mongodb.com/cloud) so the space and speed are both limited.
+
+If you wish to view the database in something like MongoDB Compass this url will get you access `mongodb+srv://dbUser:mER6V5dlVljmcy0x@cluster0.wxnsv.mongodb.net/test`. 
+
+The full schema can be viewed in `schema.json` in the root of this git repo.
 
 ## Features
 - Clean modern frontend design with React.js & Material UI
@@ -34,6 +38,8 @@ The database being used for this project is a mongodb. It is being hosted on the
 - Admins can remove/"fire" Regular Users
 - Admins can edit Regular User's payrate
 - Visual Database
+- Form validation (Incorrect password, too many/little users selected in data table, etc)
+- Permission checking (Admins-only actions)
 - ...and more!
 
 ## Premade Test Accounts
@@ -72,6 +78,12 @@ Employees 4 through 6 are owned/managed by aron@gmail.com
   aron@gmail.com is a blank slate.
 
 ## Independent Study Component 
-Presentation on Independent Study Component can be found at https://docs.google.com/presentation/d/1o2Fuk2XBOVB76uwcESpkLm3kqGYXxJSImSdfrZb0qUU/edit?usp=sharing
+Presentation on Independent Study Component can be found at https://docs.google.com/presentation/d/1o2Fuk2XBOVB76uwcESpkLm3kqGYXxJSImSdfrZb0qUU
 
 ## Screenshots
+Here are some sample screenshots, but there is still much more to the project than just these:
+![Screenshot1](https://i.imgur.com/kZWMPDg.png)
+![Screenshot2](https://i.imgur.com/sk7Ldoe.png)
+![Screenshot3](https://i.imgur.com/gbmYZNz.png)
+![Screenshot4](https://i.imgur.com/PC12NOK.png)
+![Screenshot5](https://i.imgur.com/qCQsz3p.png)
