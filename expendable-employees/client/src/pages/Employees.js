@@ -197,29 +197,31 @@ function CustomGridFooter(props) {
         console.log("Title: " + scheduleState.title);
         console.log("Start Date: " + selectedStartDate.toISOString());
         console.log("End Date: " + selectedEndDate.toISOString());
-        console.log(props.selectionModel.selectionModel);
+        console.log(props.selectionModel.selectionModel[0]);
 
         // TODO Add Schedule: pass form info to backend at props.selectionModel.selectionModel ID's
 
-        axios.post('http://localhost:3001/api/schedule/add', {
-        headers:{
-            "Content-Type": "application/json",
-            "Authorization" : "Bearer "+ getUserToken()
-        },
-        body : {
-            "title" : scheduleState.title,
-            "user_id" : props.selectionModel.selectionModel,
-            "startDate" : selectedStartDate.toISOString(),
-            "endDate" : selectedEndDate.toISOString()
-        }
-    }).then(response => 
-    {
-        if (response.status == 200){
-            return response.data;
-        }
-    }).catch(error => {
-        console.log("Error:", error);
-    })
+        axios({
+            method : "post",
+            url:'http://localhost:3001/api/schedule/add/multiple', 
+            headers:{
+                "Content-Type": "application/json",
+                "Authorization" : "Bearer "+ getUserToken()
+            },
+            data : {
+                "title" : scheduleState.title,
+                "user_id" : props.selectionModel.selectionModel,
+                "startDate" : selectedStartDate.toISOString(),
+                "endDate" : selectedEndDate.toISOString()
+            }
+        }).then(response => 
+        {
+            if (response.status == 200){
+
+            }
+        }).catch(error => {
+            console.log("Error:", error);
+        })
     }
 
     // ----------------------------------------------------------------------------------------------------------------
