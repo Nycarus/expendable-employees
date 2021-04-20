@@ -398,6 +398,16 @@ app.get('/api/schedule/user', authToken, function(request, response) {
     })
 });
 
+app.post('/api/schedule/add/multiple', authToken, function(request, response) {
+    let temp = {};
+    for ( let i = 0; i < request.body.user_id; i ++) {
+        temp = {"user_id" : request.body.user_id[i], "startDate" : request.body.startDate, "endDate" : request.body.endDate, "title": request.body.title}
+        cdo.addUserSchedule(temp).then(function(result){
+            response.send(result);
+        })
+    }
+});
+
 app.set('port', process.env.PORT || 3001);
 app.listen(app.get('port'), function() {
     console.log(`Listening for requests on port ${app.get('port')}.`);

@@ -56,7 +56,6 @@ function shiftDuration(start, end){
 
         let myStart = [parseInt(start.slice(11).slice(0,2)), parseInt( start.slice(11).slice(3))]
         let myEnd = [parseInt(end.slice(11).slice(0,2)), parseInt( end.slice(11).slice(3))]
-        
 
         //console.log(myStart)
         //console.log(myEnd)
