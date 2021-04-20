@@ -339,7 +339,29 @@ class CustomerDataBaseOperations {
     }
 
     async registerEmployee(data){
+        await this.registerUser({
+            firstname : data.firstname,
+            lastname : data.lastname,
+            email: data.email,
+            phone: data.phone,
+            address: data.address,
+            postal_code: data.postal_code,
+            date_of_brith: data.date_of_brith
+        })
+        let new_user = await this.db_instance.queryCollection({"email" : data.email}, "User");
+        // company_id
 
+        return this.db_instance.insertToCollection({
+            "user_id" : new_user._id.toString(),
+            "Position" : data.Position,
+            "company_id" : data.company_id,
+            "pay_rate" : data.pay_rate
+        }, "Employee").then(function(result) {
+            return {
+                "success": result
+            };
+        });
+            /*
         if(data.user == undefined){
             return {"success" : false,
                     "reason" : "user entry is left blank"}
@@ -418,7 +440,7 @@ class CustomerDataBaseOperations {
                     "reason": "was unable to insert into company collection"
                 }
             }
-        }
+        }*/
     }
 
     async readEmail(data) {
@@ -510,7 +532,8 @@ class CustomerDataBaseOperations {
     }
 
     async getUserSchedule(query){
-        let schedule_query = await this.db_instance.queryCollection({"user_id": query}, "Schedule");
+        let schedule_query = await this.db_instance.queryCollection({"user_id": query.user_id}, "Schedule");
+        console.log(schedule_query);
         return schedule_query;
     }
 
@@ -522,7 +545,7 @@ class CustomerDataBaseOperations {
                 "code" : 400
             };
         }
-        let result = await this.db_instance.insertToCollection(data, "Schedule");
+        let result = await this.db_instance.insertToCollection(data, "schedule");
 
         if (result) {
             return {
@@ -687,6 +710,11 @@ class CustomerDataBaseOperations {
             }
         }
     }
+    // expects the user_id
+    async getAdmin(data){
+        let success = this.db_instance.queryCollection(data,"Adminstrators");
+        return success;
+    }
 
     async removeEmployee(data){
         try{
@@ -713,15 +741,14 @@ class CustomerDataBaseOperations {
     }
 
     async editEmployeePay(data){
-        console.log(data);
         try{
-            var user_query = await this.db_instance.queryCollection({"user_id": data.user_id}, "Employee")
+            var user_query = await this.db_instance.queryCollection({"_id" : new ObjectID(data.user_id)}, "User")
 
             let temp = user_query[0];
 
             temp.pay_rate = data.pay_rate;
 
-            var result = await this.db_instance.updateDocument({"user_id": data.user_id}, temp, "Employee");
+            var result = await this.db_instance.updateDocument({"_id": new ObjectID(data.user_id)}, temp, "User");
         }catch(err){
             return {   
                 "success": false,

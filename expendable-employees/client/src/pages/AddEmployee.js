@@ -69,7 +69,7 @@ export default function AddEmployee() {
                     "Authorization" : "Bearer "+ getUserToken()
                 },
                 data : {
-                    user : {
+                    
                         "firstname" : state.firstname,
                         "lastname": state.lastname,
                         "email" : state.email, 
@@ -77,13 +77,10 @@ export default function AddEmployee() {
                         "address" : state.address,
                         "postal_code" : state.postal_code,
                         "date_of_birth" : state.date_of_birth,
-                        "password" : state.password
-                    },
-                    employee : {
+                        "password" : state.password,
                         "pay_rate" : state.pay_rate,
-                        "Position" : state.position
-                    },
-                    "branch" : state.branch
+                        "Position" : state.position,
+                        "branch" : state.branch
                 }
             }
             ).then(response => {
