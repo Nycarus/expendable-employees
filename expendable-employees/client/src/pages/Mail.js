@@ -97,7 +97,7 @@ export default function Mail() {
 
             }else{
 
-                let response = await axios({
+                let response1 = await axios({
                     method : "get",
                     url : "http://localhost:3001/api/email/receive",
                     headers : {
@@ -107,8 +107,18 @@ export default function Mail() {
                 }).catch(error => {
                     console.log(error);
                 });
-                setState({"receivedData" :response.data});
-                return response.data[0];
+                let response2 = await axios({
+                    method : "get",
+                    url : "http://localhost:3001/api/email/sent",
+                    headers : {
+                        "Content-Type": "application/json",
+                        "Authorization" : "Bearer " + token
+                    }
+                }).catch(error => {
+                    console.log(error);
+                });
+                setState({"receivedData" :response1.data});
+                //setState({"sentData" :response2.data});
             }
         }
         getData();
