@@ -1,6 +1,6 @@
 # Expendable Employees
 A Managerial Tool webapp for managing your employees.
-The main registration is for Admins, with the Admins later then getting access to a secondary registration for adding their employees to the app.
+The main registration is for Admins, with the Admins then later getting access to a secondary registration for adding their employees to the app.
 
 > * [Installation & Setting up](https://github.com/CSCI3230U/majorgroupproject-studio-wejustwanttopass/blob/main/expendable-employees/README.md#installation--setting-up)
 > * [About The Database](https://github.com/CSCI3230U/majorgroupproject-studio-wejustwanttopass/blob/main/expendable-employees/README.md#about-the-database)
