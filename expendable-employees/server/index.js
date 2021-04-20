@@ -410,6 +410,12 @@ app.get('/api/schedule/user', authToken, function(request, response) {
     })
 });
 
+app.post('/api/schedule/add', authToken, function(request, response) {
+    cdo.addUserSchedule(request.body).then(function(result){
+        response.send(result);
+    })
+});
+
 app.set('port', process.env.PORT || 3001);
 app.listen(app.get('port'), function() {
     console.log(`Listening for requests on port ${app.get('port')}.`);
