@@ -312,6 +312,7 @@ class CustomerDataBaseOperations {
     // expects data to be what is defined in the User schema -id
     async registerUser(data) {
         var validation = jsonValidator(data,"User");
+        console.log(validation.errors);
         if(!validation.valid){
             return{
                 "success": false,
@@ -346,13 +347,14 @@ class CustomerDataBaseOperations {
             phone: data.phone,
             address: data.address,
             postal_code: data.postal_code,
-            date_of_brith: data.date_of_brith
+            date_of_birth: data.date_of_birth,
+            password: data.password
         })
         let new_user = await this.db_instance.queryCollection({"email" : data.email}, "User");
-        // company_id
+        console.log(data);
 
         return this.db_instance.insertToCollection({
-            "user_id" : new_user._id.toString(),
+            "user_id" : new_user[0]._id.toString(),
             "Position" : data.Position,
             "company_id" : data.company_id,
             "pay_rate" : data.pay_rate

@@ -104,13 +104,11 @@ app.post("/api/register/employee",authToken, function(request,response){
     };
 
     cdo.getAdmin(admin_query).then(function(result){
-        console.log(result);
         if(result.length < 1){
             return response.sendStatus(401);
         }
-        console.log(request.body);
 
-        request.body.company_id = result.company;
+        request.body.company_id = result[0].company;
         cdo.registerEmployee(request.body);        
 
     });
