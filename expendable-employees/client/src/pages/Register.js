@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {makeStyles} from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import {Divider, Paper, Container, TextField, Typography} from "@material-ui/core";
+import {Divider, Paper, Container, TextField, Typography, CircularProgress} from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import axios from "axios";
 import {setUserSession, getUserToken} from "../utils/userSession";
 import {useHistory} from 'react-router-dom';
+import clsx from "clsx";
+import {green} from "@material-ui/core/colors";
 
 const useStyles = makeStyles((theme) => ({
     categoryText: {
@@ -33,6 +35,14 @@ const useStyles = makeStyles((theme) => ({
         direction: "column",
         justify: "flex-start",
         alignItems: "flex-start"
+    },
+    buttonProgress: {
+        color: green[500],
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        marginTop: -12,
+        marginLeft: -12,
     },
 }));
 
@@ -63,32 +73,31 @@ export default function Register() {
         }));
     }
 
-    const handleRegister = (value) => { 
+    const handleRegister = (value) => {
         value.preventDefault();
 
-        if (state.password == state.confirmPassword)
-        {
-            axios.post('http://localhost:3001/api/register/company', 
-            {
-                user : {
-                    "firstname" : state.firstname,
-                    "lastname": state.lastname,
-                    "email" : state.email, 
-                    "phone" : state.phone,
-                    "address" : state.address,
-                    "postal_code" : state.postal_code,
-                    "date_of_birth" : state.date_of_birth,
-                    "password" : state.password
-                },
-                company : {
-                    "name" : state.company
-                },
-                branch : {
-                    "name" : state.branch
+        if (state.password == state.confirmPassword) {
+            axios.post('http://localhost:3001/api/register/company',
+                {
+                    user: {
+                        "firstname": state.firstname,
+                        "lastname": state.lastname,
+                        "email": state.email,
+                        "phone": state.phone,
+                        "address": state.address,
+                        "postal_code": state.postal_code,
+                        "date_of_birth": state.date_of_birth,
+                        "password": state.password
+                    },
+                    company: {
+                        "name": state.company
+                    },
+                    branch: {
+                        "name": state.branch
+                    }
                 }
-            }
             ).then(response => {
-                if (response.status == 200){
+                if (response.status == 200) {
 
                     history.push('/login');
                 }
@@ -98,8 +107,28 @@ export default function Register() {
         }
     }
 
+
+    const [loading, setLoading] = React.useState(false);
+    const timer = React.useRef();
+
+
+    React.useEffect(() => {
+        return () => {
+            clearTimeout(timer.current);
+        };
+    }, []);
+
+    const handleButtonClick = () => {
+        if (!loading) {
+            setLoading(true);
+            timer.current = window.setTimeout(() => {
+                setLoading(false);
+            }, 10000);
+        }
+    };
+
     return (
-        <form onSubmit = {handleRegister}>
+        <form onSubmit={handleRegister}>
             <AppBar style={{marginBottom: "2rem"}} position="static">
                 <Toolbar>
                     <Container>
@@ -126,7 +155,7 @@ export default function Register() {
                         color="secondary"
                         value={state.email}
                         onChange={handleInputChange}
-                        />
+                    />
                     <br/>
                     <TextField
                         fullWidth={true}
@@ -140,7 +169,7 @@ export default function Register() {
                         color="secondary"
                         value={state.password}
                         onChange={handleInputChange}
-                        />
+                    />
                     <br/>
                     <TextField
                         fullWidth={true}
@@ -154,7 +183,7 @@ export default function Register() {
                         color="secondary"
                         value={state.confirmPassword}
                         onChange={handleInputChange}
-                        />
+                    />
                     <Divider className={classes.dividerStyle}/>
                     <Typography className={classes.categoryText} variant="h5">
                         Personal Information
@@ -162,31 +191,31 @@ export default function Register() {
                     <Grid container justify="space-between">
                         <Grid item xs>
                             <TextField
-                            fullWidth={true}
-                            variant="outlined"
-                            margin="dense"
-                            required
-                            name="firstname"
-                            label="First Name"
-                            id="firstname"
-                            color="secondary"
-                            value={state.firstname}
-                            onChange={handleInputChange}
+                                fullWidth={true}
+                                variant="outlined"
+                                margin="dense"
+                                required
+                                name="firstname"
+                                label="First Name"
+                                id="firstname"
+                                color="secondary"
+                                value={state.firstname}
+                                onChange={handleInputChange}
                             />
                         </Grid>
                         <Grid item xs={1}/>
                         <Grid item xs>
                             <TextField
-                            fullWidth={true}
-                            variant="outlined"
-                            margin="dense"
-                            required
-                            name="lastname"
-                            label="Last Name"
-                            id="lastname"
-                            color="secondary"
-                            value={state.lastname}
-                            onChange={handleInputChange}
+                                fullWidth={true}
+                                variant="outlined"
+                                margin="dense"
+                                required
+                                name="lastname"
+                                label="Last Name"
+                                id="lastname"
+                                color="secondary"
+                                value={state.lastname}
+                                onChange={handleInputChange}
                             />
                         </Grid>
                     </Grid>
@@ -225,7 +254,7 @@ export default function Register() {
                                 color="secondary"
                                 value={state.phone}
                                 onChange={handleInputChange}
-                                />
+                            />
                         </Grid>
                         <Grid item xs={1}/>
                         <Grid item xs/>
@@ -241,7 +270,7 @@ export default function Register() {
                         color="secondary"
                         value={state.address}
                         onChange={handleInputChange}
-                        />
+                    />
                     <Grid container justify="space-between">
                         <Grid item xs>
                             <TextField
@@ -255,7 +284,7 @@ export default function Register() {
                                 color="secondary"
                                 value={state.postal_code}
                                 onChange={handleInputChange}
-                                />
+                            />
                         </Grid>
                         <Grid item xs={1}/>
                         <Grid item xs/>
@@ -275,7 +304,7 @@ export default function Register() {
                         color="secondary"
                         value={state.company}
                         onChange={handleInputChange}
-                        />
+                    />
                     <br/>
                     <TextField
                         fullWidth={true}
@@ -288,17 +317,20 @@ export default function Register() {
                         color="secondary"
                         value={state.branch}
                         onChange={handleInputChange}
-                        />
+                    />
                     <br/>
-                    <Button
-                        className={classes.registerButton}
-                        type="submit"
-                        variant="contained"
-                        color="primary"
-                        //component={Link} to="/user"
+                    <Container className={classes.registerButton}>
+                        <Button
+                            type="submit"
+                            variant="contained"
+                            color="primary"
+                            disabled={loading}
+                            onClick={handleButtonClick}
                         >
-                        Register
-                    </Button>
+                            Register
+                        </Button>
+                        {loading && <CircularProgress size={24} className={classes.buttonProgress}/>}
+                    </Container>
                 </Grid>
                 <Grid item xs/>
             </Grid>
