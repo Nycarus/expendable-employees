@@ -80,13 +80,15 @@ export default function Register() {
                     "date_of_birth" : state.date_of_birth,
                     "password" : state.password
                 },
-                "company" : state.company,
-                "branch" : state.branch
+                company : {
+                    "name" : state.company
+                },
+                branch : {
+                    "name" : state.branch
+                }
             }
             ).then(response => {
                 if (response.status == 200){
-
-                    setUserSession(response.data);
 
                     history.push('/login');
                 }
