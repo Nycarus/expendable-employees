@@ -195,8 +195,6 @@ export default function Mail() {
 
     // Handler for marking emails as read:
     const handleMarkAsRead = () => {
-        console.log(checkedCheckboxes);
-
         // TODO Mark As Read: mark all ID's in checkedCheckboxes as read
 
         axios({
@@ -207,7 +205,7 @@ export default function Mail() {
                 "Authorization" : "Bearer "+ getUserToken()
             },
             data : {
-                "user_id" : checkedCheckboxes,
+                "mail_id" : checkedCheckboxes.map((id)=> {return {"mail_id":id}}),
             }
         }).catch(error => {
             console.log("Error:", error);
