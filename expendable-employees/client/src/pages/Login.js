@@ -75,7 +75,7 @@ export default function Login() {
         }).catch(error => {
             //console.log("Error:", error);
             //console.log(error.request.status)
-            let message = error.request.status == 0 ? "The Auth Server Never Sent a Response" :"You Have Ented and Invalid Email Or Password";
+            let message = error.request.status == 0 ? "The Auth Server Never Sent a Response" :"You Have Entered An Invalid Email Or Password";
             
             setState({
                 invalidInput: true,
