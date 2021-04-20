@@ -13,6 +13,7 @@ import {makeStyles, Grid, Paper, Typography, Divider, Avatar } from '@material-u
 import {getUserToken} from "../utils/userSession";
 import {useHistory} from 'react-router-dom';
 import axios from "axios";
+import {Person} from "@material-ui/icons";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -71,7 +72,7 @@ export default function TopbarID() {
                     <Grid item xs>
                         {/* this is where the pfp will be, i don't know how to do images right now  */}
                         {/*<Typography>Placeholder for pfp</Typography>*/}
-                        <Avatar className={classes.avatar}>Placeholder</Avatar>
+                        <Avatar className={classes.avatar}><Person className={classes.avatar}/></Avatar>
                     </Grid>
                     <Grid item xs={10}>
                         {/* user info will be here, maybe a table */}
