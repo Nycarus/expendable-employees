@@ -1,15 +1,9 @@
 import React from 'react';
 import Link from '@material-ui/core/Link';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import { makeStyles, Button, Tab } from '@material-ui/core/';
-import { Container, Grid, Paper } from '@material-ui/core';
-import { Table, TableHead, TableBody, TableCell, TableRow, Typography } from '@material-ui/core';
-
-import {AccountCircle, Inbox, PersonAdd, Storage, Today} from "@material-ui/icons";
+import { makeStyles, Grid, Paper, Table, Divider, TableBody, TableCell, TableRow, Typography } from '@material-ui/core';
+import MailOutlinedIcon from '@material-ui/icons/MailOutlined';
 import {Route, Switch, useRouteMatch, useLocation} from "react-router-dom";
-import Title from './Title';
 import Mail from './../pages/Mail'
 import {Link as myLink} from "react-router-dom";
 
@@ -18,65 +12,7 @@ function preventDefault(event) {
 }
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-        display: 'flex',
-    },
-    toolbar: {
-        paddingRight: 24, // keep right padding when drawer closed
-    },
-    toolbarIcon: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'flex-end',
-        padding: '0 8px',
-        ...theme.mixins.toolbar,
-    },
-    appBar: {
-        zIndex: theme.zIndex.drawer + 1,
-        transition: theme.transitions.create(['width', 'margin'], {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen,
-        }),
-    },
-    menuButton: {
-        marginRight: 36,
-    },
-    menuButtonHidden: {
-        display: 'none',
-    },
-    title: {
-        flexGrow: 1,
-    },
-    drawerPaperClose: {
-        overflowX: 'hidden',
-        transition: theme.transitions.create('width', {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen,
-        }),
-        width: theme.spacing(7),
-        [theme.breakpoints.up('sm')]: {
-            width: theme.spacing(9),
-        },
-    },
-    appBarSpacer: theme.mixins.toolbar,
-    content: {
-        flexGrow: 1,
-        height: '100vh',
-        overflow: 'auto',
-    },
-    container: {
-        paddingTop: theme.spacing(4),
-        paddingBottom: theme.spacing(4),
-    },
-    paper: {
-        padding: theme.spacing(2),
-        display: 'flex',
-        overflow: 'auto',
-        flexDirection: 'column',
-    },
-    fixedHeight: {
-        height: 240,
-    },
+
 }));
 
 function viewEmail(anEmail){
@@ -93,7 +29,19 @@ export default function EmailDashboard() {
     return (
         <React.Fragment>
             <Route path={`${path}/mail`}><Mail/></Route>
-            <Title>Unread Recent Emails</Title>
+
+            <Grid container spacing={2} justify="flex-start" alignItems="center">
+                <Grid item>
+                    <MailOutlinedIcon style={{ fontSize: 30 }}/>
+                </Grid>
+                <Grid item>
+                <Typography variant="h5" align="left" style={{ fontSize: 25}}>
+                    Unread Recent Emails
+                </Typography>
+                </Grid>
+            </Grid>
+            <Divider style={{marginTop:"5px"}}/>
+
             <Table>
                 <TableBody>
                     <TableRow>
@@ -118,6 +66,7 @@ export default function EmailDashboard() {
                     </TableRow>
                 </TableBody>
             </Table>
+            
             <Table>
                 <TableBody>
                     <TableRow>

@@ -14,10 +14,9 @@ I'm going to come back to this later
 
 
 import React from "react";
-import {makeStyles, Table, TableHead, TableBody, TableCell, TableRow, Typography, Grid, IconButton} from '@material-ui/core';
+import {makeStyles, Table, TableHead, TableBody, TableCell, TableRow, Typography, Grid, IconButton, Divider} from '@material-ui/core';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
-import Title from "../components/Title";
 
 const useStyles = makeStyles((theme) => ({
     
@@ -151,7 +150,12 @@ export default function HoursOverview() {
 
     return(
         <React.Fragment>
-            <Title><Typography variant="h4" gutterBottom={true}>Overview of Hours</Typography></Title>
+
+            <Typography variant="h5" style={{ fontSize: 30}}>
+                Overview of Hours
+            </Typography>
+            <Divider style={{marginTop:"10px", marginBottom:"1rem"}}/>
+
             <Grid container justify="space-between" alignItems="center">
                 <Grid item xs={1}>
                     <IconButton onClick={arrowClickLeft}>

@@ -1,19 +1,8 @@
 import React from 'react';
-import Link from '@material-ui/core/Link';
-import {makeStyles, Button, IconButton, Box } from '@material-ui/core/';
-import {Container, Grid, Paper, Divider } from '@material-ui/core';
-import {Table, TableHead, TableBody, TableCell, TableRow, Typography} from '@material-ui/core';
+import {makeStyles, Grid, Paper, Divider, IconButton, Box, Typography} from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import CloseIcon from '@material-ui/icons/Close';
 import AnnouncementOutlinedIcon from '@material-ui/icons/AnnouncementOutlined';
-import Title from './Title';
-
-
-function preventDefault(event) {
-  event.preventDefault();
-}
-
-
 
 const useStyles = makeStyles((theme) => ({
     dividerStyle: {
@@ -77,9 +66,9 @@ export default function Annoucements() {
         <Paper className={classes.paperStyle}>
             <Grid container id='ann1' spacing = {1} justify="space-between">
                 <Grid item xs>
-                    <Typography variant="h6" align="left">Annoucement 1 Title</Typography>
-                    <Typography variant="subtitle1" align="left">Company Branch</Typography>
-                    <Typography variant="subtitle2" align="left">Annoucement Sender</Typography>
+                    <Typography variant="h6" align="left">Harassment at Tech division</Typography>
+                    <Typography variant="subtitle1" align="left">Human Resources of Ouimessalot.Ltd</Typography>
+                    <Typography variant="subtitle2" align="left">Max Management</Typography>
                 </Grid>
                 <Grid item xs={1}>
                     <IconButton onClick={removeAnnoucement('ann1')}>
@@ -92,7 +81,9 @@ export default function Annoucements() {
             </Grid>
             <Divider/>
             <Box>
-                <Typography id='ann1msg' style={{display:'none'}} align="left">Announcement message</Typography>
+                <Typography id='ann1msg' style={{display:'none'}} align="left">
+                    To Jim Pickens in the tech division, please stop harassing your workmate.
+                </Typography>
             </Box>
         </Paper>
 
@@ -100,9 +91,9 @@ export default function Annoucements() {
         <Paper className={classes.paperStyle}>
             <Grid container id='ann2' spacing = {1} justify="space-between">
                 <Grid item xs>
-                    <Typography variant="h6" align="left">Annoucement 2 Title</Typography>
-                    <Typography variant="subtitle1" align="left">Company Branch</Typography>
-                    <Typography variant="subtitle2" align="left">Annoucement Sender</Typography>
+                    <Typography variant="h6" align="left">CEO Salary Increased</Typography>
+                    <Typography variant="subtitle1" align="left">Financial Branch of Ouimessalot.Ltd</Typography>
+                    <Typography variant="subtitle2" align="left">Mike Scam</Typography>
                 </Grid>
                 <Grid item xs={1}>
                     <IconButton onClick={removeAnnoucement('ann2')}>
@@ -115,7 +106,9 @@ export default function Annoucements() {
             </Grid>
             <Divider/>
             <Box>
-                <Typography id='ann2msg' style={{display:'none'}} align="left">Announcement message</Typography>
+                <Typography id='ann2msg' style={{display:'none'}} align="left">
+                    With the increase of our financial income, our CEO income has been raised
+                </Typography>
             </Box>
         </Paper>
 
@@ -123,9 +116,9 @@ export default function Annoucements() {
         <Paper className={classes.paperStyle}>
             <Grid container id='ann3' spacing = {1} justify="space-between">
                 <Grid item xs>
-                    <Typography variant="h6" align="left">Annoucement 2 Title</Typography>
-                    <Typography variant="subtitle1" align="left">Company Branch</Typography>
-                    <Typography variant="subtitle2" align="left">Annoucement Sender</Typography>
+                    <Typography variant="h6" align="left">Massive Lay-off News</Typography>
+                    <Typography variant="subtitle1" align="left">Financial Branch of Ouimessalot.Ltd</Typography>
+                    <Typography variant="subtitle2" align="left">John Leighoff</Typography>
                 </Grid>
                 <Grid item xs={1}>
                     <IconButton onClick={removeAnnoucement('ann3')}>
@@ -138,7 +131,9 @@ export default function Annoucements() {
             </Grid>
             <Divider/>
             <Box>
-                <Typography id='ann3msg' style={{display:'none'}} align="left">Announcement message</Typography>
+                <Typography id='ann3msg' style={{display:'none'}} align="left">
+                    Ya'll getting fired. Please take all your belongings with you
+                </Typography>
             </Box>
         </Paper>
         
