@@ -1,21 +1,57 @@
 ## Expendable Employees
-## Getting Started
 
-### Installation
-This project is divided up into 2 sections. There is a front end react part and there is a backend express part. The express portion is in the server folder and the
-react portion is in the client folder. These are two different node packages and you will need to ```npm install``` in both folders.
+> * [Installation & Setting up](https://github.com/CSCI3230U/majorgroupproject-studio-wejustwanttopass)
+> * [About The Database](https://github.com/CSCI3230U/majorgroupproject-studio-wejustwanttopass)
+> * [Premade Test Accounts](https://github.com/CSCI3230U/majorgroupproject-studio-wejustwanttopass)
+> * [Independent Study Component](https://github.com/CSCI3230U/majorgroupproject-studio-wejustwanttopass)
+> * [Screenshots](https://github.com/CSCI3230U/majorgroupproject-studio-wejustwanttopass)
 
-### Running The Servers
-To start the react server you can use the command ```npm start``` in the client folder after installing the dependcies. To start the express server use the command
-```npm run server``` in the server folder. Please not that the react server required the express server to opearte anywhere beyond the landing page.
+## Installation & Setting up
+1. Clone repo
+2. Open `expendable-employees/client/` as a project and run `npm install` to get all the necessary dependencies
+3. Run `npm start` to start the client server
+4. Open `expendable-employees/server/` as a project and run `npm install` to get all the necessary dependencies
+5. Run `npm run server` to start the client server
 
 ## About The Database
 The database being used for this project is a mongodb. It is being hosted on the free tier of [MondoDB Cloud](https://www.mongodb.com/cloud) so the space and speed are both limited. If you wish to view the database in something like MongoDB Compass this url will get you access `mongodb+srv://dbUser:mER6V5dlVljmcy0x@cluster0.wxnsv.mongodb.net/test`. The full schema can be viewed in `schema.json` in the root of this git repo.
 
-## Some Nice to Knows
-If you wish to use an already created user the credentials for a premade user are      
-- email :`cole@gmails.com`  
-- password : `password`
+## Premade Test Accounts
+  Admins:
+  
+    cole@gmail.com
+      password
+      
+    aron@gmail.com
+      password
+  Regulars:
+  
+    employee1@gmail.com
+      password 
+      
+    employee2@gmail.com
+      password  
+      
+    employee3@gmail.com
+      password  
+      
+    employee4@gmail.com
+      password 
+      
+    employee5@gmail.com
+      password 
+      
+    employee6@gmail.com
+      password 
+      
+Employees 1 through 3 are owned/managed by cole@gmail.com and has some pre-filled info including:
+  - Events in Schedules
+  - Sent/Received mail between users
+    
+Employees 4 through 6 are owned/managed by aron@gmail.com
+  aron@gmail.com is a blank slate.
 
 ## Independent Study Component 
 Presentation on Independent Study Component can be found at https://docs.google.com/presentation/d/1o2Fuk2XBOVB76uwcESpkLm3kqGYXxJSImSdfrZb0qUU/edit?usp=sharing
+
+## Screenshots
