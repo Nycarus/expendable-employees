@@ -117,6 +117,7 @@ export default function Mail() {
                 }).catch(error => {
                     console.log(error);
                 });
+                console.log("data",response2.data);
                 setState({"receivedData" :response1.data,"sentData" :response2.data});
                 //setState({"sentData" :response2.data});
             }
@@ -245,9 +246,11 @@ export default function Mail() {
         let temp = state.recipient.split(" ");
         let users = []
         for (let i = 0; i < temp.length; i++){
-            users.push({"email": temp[i]});
+            users.push(temp[i]);
         }
-
+        console.log( {message: state.message,
+            title: state.title,
+            receivers: users})
         axios({
             method : "post",
             url : "http://localhost:3001/api/email/send",
@@ -256,11 +259,9 @@ export default function Mail() {
                 "Authorization" : "Bearer " + getUserToken()
             },
             data : {
-                email: {
-                    message: state.message,
-                    title: state.title
-                },
-                recipients: users
+                message: state.message,
+                title: state.title,
+                receivers: users
             }
         }).then(response => {
             if (response.status == 200){
@@ -326,7 +327,7 @@ export default function Mail() {
                                     }
                                 </DialogTitle>
                                 <DialogContent dividers>
-                                    <form onSubmit = {handleCompose}>
+                                    <form onSubmit = {handleCompose} id="myForm">
                                     <TextField
                                         margin="normal"
                                         fullWidth
@@ -368,6 +369,7 @@ export default function Mail() {
                                         onClick={handleComposeDialog}
                                         color="secondary"
                                         type="submit"
+                                        form="myForm"
                                     >
                                         Send
                                     </Button>
@@ -492,7 +494,7 @@ export default function Mail() {
                                                             primary={
                                                                 <Typography color={handleTitleColor(value.is_read)}>
                                                                     <Box fontWeight={handleTitleWeight(value.is_read)}>
-                                                                        {value.title}
+                                                                        {new Date(value.time_sent).toString() + "\t" + (value.title ? value.title : "")}
                                                                     </Box>
                                                                 </Typography>
                                                             }

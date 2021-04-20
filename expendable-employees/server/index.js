@@ -206,7 +206,6 @@ app.get("/api/admin/user",authToken, function(request,response){
 app.post("/api/email/send",authToken, function(request,response){
     request.body.sender = request.user_id.user_id;
 
- 
     cdo.sendEmail(request.body).then(function(result){
         if(result.success){
             response.send(result);
@@ -219,8 +218,8 @@ app.post("/api/email/send",authToken, function(request,response){
 
 app.get("/api/email/sent",authToken, function(request,response){
     request.body.user_id = request.user_id.user_id;
-    
-    cdo.sentEmails(request.body.user_id).then(function(results){
+
+    cdo.sentEmails(request.body).then(function(results){
         response.send(results);
     });   
 });
