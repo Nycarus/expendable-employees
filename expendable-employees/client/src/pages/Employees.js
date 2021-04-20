@@ -147,11 +147,47 @@ function CustomGridFooter(props) {
     const handleFireSelected = () => {
         console.log(props.selectionModel.selectionModel)
         // TODO Fire Selected: remove props.selectionModel.selectionModel ID's from database
+        axios({
+            method : "post",
+            url:'http://localhost:3001/api/remove/user/multiple', 
+            headers:{
+                "Content-Type": "application/json",
+                "Authorization" : "Bearer "+ getUserToken()
+            },
+            data : {
+                "user_id" : props.selectionModel.selectionModel,
+            }
+        }).then(response => 
+        {
+            if (response.status == 200){
+
+            }
+        }).catch(error => {
+            console.log("Error:", error);
+        })
     }
 
     // Fire Random Button Click Handler
     const handleFireRandom = () => {
         // TODO Fire Random: pick a random id and delete from database
+        axios({
+            method : "post",
+            url:'http://localhost:3001/api/schedule/add/multiple', 
+            headers:{
+                "Content-Type": "application/json",
+                "Authorization" : "Bearer "+ getUserToken()
+            },
+            data : {
+                "user_id" : state.rows[Math.floor(Math.random() * state.rows.length)].user_id
+            }
+        }).then(response => 
+        {
+            if (response.status == 200){
+
+            }
+        }).catch(error => {
+            console.log("Error:", error);
+        })
     }
 
     // ----------------------------------------------------------------------------------------------------------------
@@ -172,6 +208,25 @@ function CustomGridFooter(props) {
         value.preventDefault();
 
         // TODO Edit Employee: pass form info to backend at props.selectionModel.selectionModel ID's
+        axios({
+            method : "post",
+            url:'http://localhost:3001/api/edit/employee/multiple/pay', 
+            headers:{
+                "Content-Type": "application/json",
+                "Authorization" : "Bearer "+ getUserToken()
+            },
+            data : {
+                "user_id" : props.selectionModel.selectionModel,
+                "pay_rate" : editState.payrate
+            }
+        }).then(response => 
+        {
+            if (response.status == 200){
+
+            }
+        }).catch(error => {
+            console.log("Error:", error);
+        })
 
     }
 
@@ -412,6 +467,7 @@ export default function Employees() {
     const [selectionModel, setSelectionModel] = React.useState([])
 
     let token = getUserToken();
+    
     const [state, setState] = useState({
         "rows" : []
     });

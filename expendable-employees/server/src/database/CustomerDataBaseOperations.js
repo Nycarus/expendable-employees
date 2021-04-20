@@ -631,6 +631,83 @@ class CustomerDataBaseOperations {
         };
     }
 
+    async removeUser(data){
+        try{
+            var result = await this.db_instance.dropDocument({"_id": new ObjectID(data.user_id)}, "User");
+
+        }catch(err){
+            return {   
+                "success": false,
+                "reason": "id provided is invalid format"
+            };
+        }
+
+        if(!result){
+            return {   
+                "success": false,
+                "reason": "user being updated does not exist"
+            };
+        }
+        else {
+            return {
+                "success": true
+            }
+        }
+    }
+
+    async removeEmployee(data){
+        try{
+            var result = await this.db_instance.dropDocument({"_id": new ObjectID(data.user_id)}, "User");
+
+        }catch(err){
+            return {   
+                "success": false,
+                "reason": "id provided is invalid format"
+            };
+        }
+
+        if(!result){
+            return {   
+                "success": false,
+                "reason": "user being updated does not exist"
+            };
+        }
+        else {
+            return {
+                "success": true
+            }
+        }
+    }
+
+    async editEmployeePay(data){
+        try{
+            var user_query = await this.db_instance.queryCollection({"_id" : new ObjectID(data.user_id)}, "User")
+
+            let temp = user_query[0];
+
+            temp.pay_rate = data.pay_rate;
+
+            var result = await this.db_instance.updateDocument({"_id": new ObjectID(data.user_id)}, temp, "User");
+        }catch(err){
+            return {   
+                "success": false,
+                "reason": "id provided is invalid format"
+            };
+        }
+
+        if(!result){
+            return {   
+                "success": false,
+                "reason": "user being updated does not exist"
+            };
+        }
+        else {
+            return {
+                "success": true
+            }
+        }
+    }
+
     /*
      payload = {
         "firstname" : "firstname",
