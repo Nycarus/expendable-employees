@@ -198,6 +198,20 @@ export default function Mail() {
         console.log(checkedCheckboxes);
 
         // TODO Mark As Read: mark all ID's in checkedCheckboxes as read
+
+        axios({
+            method : "post",
+            url:'http://localhost:3001/api/email/mark_read', 
+            headers:{
+                "Content-Type": "application/json",
+                "Authorization" : "Bearer "+ getUserToken()
+            },
+            data : {
+                "user_id" : checkedCheckboxes,
+            }
+        }).catch(error => {
+            console.log("Error:", error);
+        })
     }
 
     // Handler for email title text colour
