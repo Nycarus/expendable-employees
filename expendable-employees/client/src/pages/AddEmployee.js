@@ -4,6 +4,7 @@ import Grid from "@material-ui/core/Grid";
 import {Link} from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
 import axios from "axios";
+import {getUserToken} from "../utils/userSession";
 
 const useStyles = makeStyles((theme) => ({
     appBarSpacer: theme.mixins.toolbar,
@@ -60,23 +61,30 @@ export default function AddEmployee() {
 
         if (state.password == state.confirmPassword)
         {
-            axios.post('http://localhost:3001/api/register/employee', 
-            {
-                user : {
-                    "firstname" : state.firstname,
-                    "lastname": state.lastname,
-                    "email" : state.email, 
-                    "phone" : state.phone,
-                    "address" : state.address,
-                    "postal_code" : state.postal_code,
-                    "date_of_birth" : state.date_of_birth,
-                    "password" : state.password
+            axios({
+                method: "post",
+                url: 'http://localhost:3001/api/register/employee',
+                headers:{
+                    "Content-Type": "application/json",
+                    "Authorization" : "Bearer "+ getUserToken()
                 },
-                employee : {
-                    "pay_rate" : state.pay_rate,
-                    "position" : state.position
-                },
-                "branch" : state.branch
+                data : {
+                    user : {
+                        "firstname" : state.firstname,
+                        "lastname": state.lastname,
+                        "email" : state.email, 
+                        "phone" : state.phone,
+                        "address" : state.address,
+                        "postal_code" : state.postal_code,
+                        "date_of_birth" : state.date_of_birth,
+                        "password" : state.password
+                    },
+                    employee : {
+                        "pay_rate" : state.pay_rate,
+                        "Position" : state.position
+                    },
+                    "branch" : state.branch
+                }
             }
             ).then(response => {
                 if (response.status == 200){

@@ -93,32 +93,35 @@ app.post("/api/user/update", authToken, function(request,response){
 
 */
 app.post("/api/register/employee",authToken, function(request,response){
-        let admin_query = {
-            "user" : request.user_id.user_id,
-            "company" : request.body.company_id
-        };
+    let admin_query = {
+        "user" : request.user_id.user_id,
+    };
 
-        cdo.isAdminForCompany(admin_query).then(function(result){
-            if(result){
-                cdo.getCompanyUsers(admin_query).then(function(query_result){
-                    request.body.employee.company_id = query_result.company_id;
+    console.log(request.body);
 
-                    cdo.registerEmployee(request.body).then(function(insert_result){
-                        response.send(insert_result);
-                    });
-                })
-            }else{
-                response.sendStatus(401);
+    cdo.isAdminForCompany(admin_query).then(function(result){
+        if(result){
+            cdo.getCompanyUsers(admin_query).then(function(query_result){
+                request.body.employee.company_id = query_result.company_id;
 
-            } 
-        });        
-        // check if user email is same as email from token
-        // check if email for token is an admin for any company 
-        // requested user is apart of 
+                cdo.registerEmployee(request.body).then(function(insert_result){
+                    response.send(insert_result);
+                });
+            })
+        }else{
+            response.sendStatus(401);
+
+        } 
+    }); 
+
+            
+    // check if user email is same as email from token
+    // check if email for token is an admin for any company 
+    // requested user is apart of 
 
 
-        // make can admin function 
-        // will return if the said admin is an admin over user 
+    // make can admin function 
+    // will return if the said admin is an admin over user 
 })
 ;
 /*
