@@ -117,7 +117,7 @@ export default function Mail() {
                 }).catch(error => {
                     console.log(error);
                 });
-                console.log("data",response2.data);
+                //console.log("data",response2.data);
                 setState({"receivedData" :response1.data,"sentData" :response2.data});
                 //setState({"sentData" :response2.data});
             }
@@ -433,6 +433,11 @@ export default function Mail() {
                         <List disablePadding>
                             {
                                 state.receivedData.map((value) => {
+                                    console.log(value.receivers);
+                                    const array = value.receivers;
+                                    const getIndex = (element) => element["user_id"] == getUser();
+                                    const indexID = array.findIndex(getIndex);
+
                                     return (
                                         <div>
                                             <Grid
@@ -464,8 +469,8 @@ export default function Mail() {
                                                     >
                                                         <ListItemText
                                                             primary={
-                                                                <Typography color={handleTitleColor(value.receivers[getIndexOfUserId(value.receivers)]["is-read"])}>
-                                                                    <Box fontWeight={handleTitleWeight(value.receivers[getIndexOfUserId(value.receivers)]["is-read"])}>
+                                                                <Typography color={handleTitleColor(value.receivers[indexID]["is-read"])}>
+                                                                    <Box fontWeight={handleTitleWeight(value.receivers[indexID]["is-read"])}>
                                                                         {new Date(value.time_sent).toString() + "\t" + (value.title ? value.title : "")}
                                                                     </Box>
                                                                 </Typography>
@@ -516,8 +521,8 @@ export default function Mail() {
                                                     >
                                                         <ListItemText
                                                             primary={
-                                                                <Typography color={handleTitleColor(value.receivers[getIndexOfUserId(value.receivers)]["is-read"])}>
-                                                                    <Box fontWeight={handleTitleWeight(value.receivers[getIndexOfUserId(value.receivers)]["is-read"])}>
+                                                                <Typography color={handleTitleColor(true)}>
+                                                                    <Box fontWeight={handleTitleWeight(true)}>
                                                                         {new Date(value.time_sent).toString() + "\t" + (value.title ? value.title : "")}
                                                                     </Box>
                                                                 </Typography>
