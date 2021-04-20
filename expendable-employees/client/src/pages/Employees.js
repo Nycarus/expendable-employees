@@ -207,7 +207,6 @@ function CustomGridFooter(props) {
     const handleEdit = (value) => {
         value.preventDefault();
 
-        // TODO Edit Employee: pass form info to backend at props.selectionModel.selectionModel ID's
         axios({
             method : "post",
             url:'http://localhost:3001/api/edit/employee/multiple/pay', 
@@ -218,11 +217,6 @@ function CustomGridFooter(props) {
             data : {
                 "user_id" : props.selectionModel.selectionModel,
                 "pay_rate" : editState.payrate
-            }
-        }).then(response => 
-        {
-            if (response.status == 200){
-
             }
         }).catch(error => {
             console.log("Error:", error);
@@ -253,8 +247,6 @@ function CustomGridFooter(props) {
         console.log("Start Date: " + selectedStartDate.toISOString());
         console.log("End Date: " + selectedEndDate.toISOString());
         console.log(props.selectionModel.selectionModel[0]);
-
-        // TODO Add Schedule: pass form info to backend at props.selectionModel.selectionModel ID's
 
         axios({
             method : "post",
@@ -348,6 +340,7 @@ function CustomGridFooter(props) {
                                 label="Payrate"
                                 name="payrate"
                                 color="secondary"
+                                type="number"
                                 fullWidth
                                 value={editState.payrate}
                                 onChange={handleEditInputChange}

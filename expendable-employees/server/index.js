@@ -424,8 +424,10 @@ app.post('/api/remove/employee/multiple', authToken, function(request, response)
 });
 
 app.post('/api/edit/employee/multiple/pay', authToken, function(request, response) {
+    let temp = {};
     for ( let i = 0; i < request.body.user_id.length; i ++) {
-        cdo.editEmployeePay(request.body.user_id[i]).then(function(result){})
+        temp = {"user_id" : request.body.user_id[i], "pay_rate": request.body.pay_rate}
+        cdo.editEmployeePay(temp).then(function(result){})
     }
 });
 

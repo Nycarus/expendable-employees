@@ -682,14 +682,15 @@ class CustomerDataBaseOperations {
     }
 
     async editEmployeePay(data){
+        console.log(data);
         try{
-            var user_query = await this.db_instance.queryCollection({"_id" : new ObjectID(data.user_id)}, "User")
+            var user_query = await this.db_instance.queryCollection({"user_id": data.user_id}, "Employee")
 
             let temp = user_query[0];
 
             temp.pay_rate = data.pay_rate;
 
-            var result = await this.db_instance.updateDocument({"_id": new ObjectID(data.user_id)}, temp, "User");
+            var result = await this.db_instance.updateDocument({"user_id": data.user_id}, temp, "Employee");
         }catch(err){
             return {   
                 "success": false,
