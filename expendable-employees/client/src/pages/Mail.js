@@ -207,7 +207,7 @@ export default function Mail() {
                 "Authorization" : "Bearer "+ getUserToken()
             },
             data : {
-                "user_id" : props.selectionModel.selectionModel,
+                "user_id" : checkedCheckboxes,
             }
         }).catch(error => {
             console.log("Error:", error);
