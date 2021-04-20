@@ -463,16 +463,16 @@ class CustomerDataBaseOperations {
     }
 
     async sentEmails(query){
-        console.log("sent:");
+        //console.log("sent:");
         let company_query = await this.db_instance.queryCollection({"sender" : query.user_id}, "Email");
-        console.log(company_query);
+        //console.log(company_query);
         return company_query;
     }
 
     async receiveEmails(query){
-        console.log("receive:");
+        //console.log("receive:");
         let company_query = await this.db_instance.queryCollection({"user_id" : query.user_id}, "Email");
-        console.log(company_query);
+        //console.log(company_query);
         return company_query;
     }
 
@@ -480,6 +480,28 @@ class CustomerDataBaseOperations {
         let schedule_query = await this.db_instance.queryCollection({"user_id": query.user_id}, "Schedule");
         console.log(schedule_query);
         return schedule_query;
+    }
+
+    async addUserSchedule(data){
+        var validation = jsonValidator(data,"Schedule");
+        if (!validation){
+            return {
+                "success" : false,
+                "code" : 400
+            };
+        }
+        let result = await this.db_instance.insertToCollection(data, "schedule");
+
+        if (result) {
+            return {
+                "success": true
+            }
+        } else {
+            return {
+                "success": false,
+                "reason": "was unable to insert into company collection"
+            }
+        }
     }
 
     /*
