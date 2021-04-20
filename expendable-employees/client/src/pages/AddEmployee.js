@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Paper, Divider, Typography, TextField, Button } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
-import {Link} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
 import axios from "axios";
 import {getUserToken} from "../utils/userSession";
@@ -32,6 +32,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function AddEmployee() {
+    const history = useHistory();
+
     const classes = useStyles();
 
     const [state, setState] = useState({
@@ -82,15 +84,12 @@ export default function AddEmployee() {
                         "Position" : state.position,
                         "branch" : state.branch
                 }
-            }
-            ).then(response => {
-                if (response.status == 200){
-
-                }
             }).catch(error => {
                 console.log("Error:", error);
             })
         }
+
+        history.push('/user');
     }
 
     return (
@@ -98,6 +97,7 @@ export default function AddEmployee() {
             <main className={classes.content}>
                 <div className={classes.appBarSpacer} />
 
+                <form id="addEmployeeForm" onSubmit = {handleRegisterEmployee}>
                 <Grid container spacing={1} justify="space-evenly">
                     <Grid item xs>
                         <Paper className={classes.paperStyle}>
@@ -197,8 +197,7 @@ export default function AddEmployee() {
                                     type="submit"
                                     variant="contained"
                                     color="primary"
-                                    component={Link} to="#"
-                                    onClick={handleRegisterEmployee}>
+                                    form="addEmployeeForm">
                                     Add Employee
                                 </Button>
                             </Grid>
@@ -286,11 +285,10 @@ export default function AddEmployee() {
                                 </Paper>
                             </Grid>
                         </Grid>
-                        
+
                     </Grid>
                 </Grid>
-                
-                
+                </form>
             </main>
         </div>
     );
