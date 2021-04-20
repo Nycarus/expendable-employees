@@ -216,6 +216,20 @@ app.post("/api/email/send",authToken, function(request,response){
     })
 });
 
+app.post("/api/email/mark_read"), authToken, function(request, response){
+    for (let i = 0; i < request.body.user_id.length; i++ )
+    {
+        cdo.readEmail(request.body.user_id[i]).then(function(result){
+            if(result.success){
+                response.send(result);
+            }else{
+                
+                response.sendStatus(result.code);
+            }
+        })
+    }
+}
+
 app.get("/api/email/sent",authToken, function(request,response){
     request.body.user_id = request.user_id.user_id;
 
