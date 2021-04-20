@@ -459,6 +459,13 @@ app.post('/api/remove/employee/multiple', authToken, function(request, response)
     }
 });
 
+app.post('/api/isAdmin/', authToken, function(request, response) {
+    cdo.getAdmin({"user" : request.user_id.user_id }).then(function(result){
+        response.send({"stats" : result > 0 });
+    });
+
+});
+
 app.post('/api/edit/employee/multiple/pay', authToken, function(request, response) {
     for ( let i = 0; i < request.body.user_id; i ++) {
         cdo.editEmployeePay(request.body.user_id[i]).then(function(result){})
