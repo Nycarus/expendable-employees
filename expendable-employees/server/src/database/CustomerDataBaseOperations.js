@@ -8,7 +8,6 @@ const saltRounds = 10;
 
 
 function validateUser(data) {
-    console.log(data)
 
     if (data["email"] == undefined) {
         return false;
@@ -69,19 +68,17 @@ class CustomerDataBaseOperations {
             "reason" : "branch entry left blank"}
         }
 
-
         let success = await this.registerUser(data.user);
+        
         if (!success.success) {
             return success;
         }
-
         let query = {
-            email: data.user.email
+            "email": data.user.email
         };
 
         let user = await this.db_instance.queryCollection(query, "User");
 
-        console.log(data.company);
         data.company["owner"] = user[0]._id.toString() 
 
         
@@ -96,7 +93,6 @@ class CustomerDataBaseOperations {
 
 
         let company = await this.db_instance.queryCollection(data.company, "Company");
-
         data.branch["company_id"] = company[0]._id.toString()
         
         success = await this.registerBranch(data.branch);
@@ -114,6 +110,7 @@ class CustomerDataBaseOperations {
         }
 
         success = await this.registerAdmin(admin);
+        console.log(success);
 
 
         if (!success.success) {
@@ -124,6 +121,12 @@ class CustomerDataBaseOperations {
             return success;
 
         }
+        success = await this.db_instance.insertToCollection({
+            Position : "Owner",
+            company_id : company[0]._id.toString(),
+            user_id: user[0]._id.toString(),
+            pay_rate: 0
+        }, "Employee");
 
 
         return success;
@@ -270,30 +273,22 @@ class CustomerDataBaseOperations {
             }
         }
 
-        let company_query = await this.db_instance.queryCollection({"owner" : new ObjectID(data.company_id)}, "Company");
-
         // making sure the owner company exists
         //let user_query = await this.db_instance.queryCollection({"_id" : new ObjectID(data.user_id)}, "User");
 
-        // making sure there is not already a branch with these parameters
-        if (company_query.length < 1) {
+    
+        let result = await this.db_instance.insertToCollection(data, "Branch");
+        if (result) {
+            return {
+                "success": true
+            }
+        } else {
             return {
                 "success": false,
-                "reason": "the company that this branch would be registerd to doesnt exist"
-            };
-        } else {
-            let result = await this.db_instance.insertToCollection(data, "Branch");
-            if (result) {
-                return {
-                    "success": true
-                }
-            } else {
-                return {
-                    "success": false,
-                    "reason": "was unable to insert into branch collection "
-                }
+                "reason": "was unable to insert into branch collection "
             }
         }
+    
     }
 
 
@@ -312,7 +307,6 @@ class CustomerDataBaseOperations {
     // expects data to be what is defined in the User schema -id
     async registerUser(data) {
         var validation = jsonValidator(data,"User");
-        console.log(validation.errors);
         if(!validation.valid){
             return{
                 "success": false,
@@ -323,13 +317,11 @@ class CustomerDataBaseOperations {
         let isNotTaken = await this.isEmailNotTaken(data.email);
 
         if (isNotTaken && validateUser(data)) {
-            console.log("Passes")
+                        
             data.password = await this.hashPassword(data.password);
-            return this.db_instance.insertToCollection(data, "User").then(function(result) {
-                return {
-                    "success": result
-                };
-            });
+            await this.db_instance.insertToCollection(data, "User");
+            return  {"success" : true}
+            
         } else {
             return {
                 "success": false,
@@ -351,7 +343,6 @@ class CustomerDataBaseOperations {
             password: data.password
         })
         let new_user = await this.db_instance.queryCollection({"email" : data.email}, "User");
-        console.log(data);
 
         return this.db_instance.insertToCollection({
             "user_id" : new_user[0]._id.toString(),
@@ -363,86 +354,8 @@ class CustomerDataBaseOperations {
                 "success": result
             };
         });
-            /*
-        if(data.user == undefined){
-            return {"success" : false,
-                    "reason" : "user entry is left blank"}
-        }
-
-        if(data.employee.company_id == undefined) {
-            return {"success" : false,
-            "reason" : "you do not belong to a company"}
-        }
-
-        if(data.branch == undefined) {
-            return {"success" : false,
-            "reason" : "branch entry left blank"}
-        }
-
-        if(data.employee.position == undefined) {
-            return {"success" : false,
-            "reason" : "position entry left blank"}
-        }
-
-        if(data.employee.pay_rate == undefined) {
-            return {"success" : false,
-            "reason" : "position entry left blank"}
-        }
-
-        let success = await this.registerUser(data.user);
-        if (!success.success) {
-            return success;
-        }
-
-        // Query User Infomration For User ID
-        let query = {
-            email: data.user.email
-        };
-        let user = await this.db_instance.queryCollection(query, "User");
-
-        data.employee.user_id = user[0]._id.toString();
-
-
-        // Query Company Branch For Branch ID
-        query = {
-            company_id: data.employee.company_id,
-            name : data.employee.branch
-        };
-        let branch = await this.db_instance.queryCollection(query, "Branch");
-
-        data.employee.branch_id = branch[0]._id.toString();
-
-
-        var validation = jsonValidator(data.employee,"Employee");
-        if(!validation.valid){
-            return{
-                "success": false,
-                "reason" : validation.errors
-            }
-        }
-
-        let company_query = await this.db_instance.queryCollection(data.employee.company_id, "Company");
-
-
-        if (company_query.length < 1) {
-            return {
-                "success": false,
-                "reason": "that company doesnt exist"
-            };
-        }
-        else {
-            let result = await this.db_instance.insertToCollection(data.employee, "Employee");
-            if (result) {
-                return {
-                    "success": true
-                }
-            } else {
-                return {
-                    "success": false,
-                    "reason": "was unable to insert into company collection"
-                }
-            }
-        }*/
+            
+       
     }
 
     async readEmailMultiple(data) {
@@ -486,7 +399,6 @@ class CustomerDataBaseOperations {
         }
         
         message.receivers = re_format;
-        //console.log(JSON.stringify(message, null, 4));
         let result = await this.db_instance.insertToCollection(message, "Email");
         
         if(!result){
@@ -502,16 +414,12 @@ class CustomerDataBaseOperations {
     }
 
     async sentEmails(query){
-        //console.log("sent:");
-        //console.log({"sender" : query.user_id});
         let company_query = await this.db_instance.queryCollection({"sender" : query.user_id}, "Email");
-        //console.log(company_query);
         return company_query;
     }
 
     async receiveEmails(query){
         let company_query = await this.db_instance.queryCollection({"receivers" : {$elemMatch: {"user_id" : query}}}, "Email");
-        console.log(company_query);
         return company_query;
     }
 
@@ -522,7 +430,6 @@ class CustomerDataBaseOperations {
 
     async getUserSchedule(query){
         let schedule_query = await this.db_instance.queryCollection({"user_id": query.user_id}, "Schedule");
-        console.log(schedule_query);
         return schedule_query;
     }
 
@@ -636,7 +543,6 @@ class CustomerDataBaseOperations {
         }
     */
     async resetPassword(data){
-        console.log(data)
         if(data.password == undefined | data.user_id == null){
             return false;
         }

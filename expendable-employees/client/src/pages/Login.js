@@ -7,10 +7,19 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import {makeStyles} from '@material-ui/core/styles';
 import {Link} from "react-router-dom";
-import {Divider, Link as MuiLink} from '@material-ui/core';
+import {
+    DialogActions,
+    DialogContent,
+    DialogContentText,
+    DialogTitle,
+    Divider, IconButton,
+    Link as MuiLink
+} from '@material-ui/core';
 import axios from "axios";
 import {setUserSession, getUserToken} from "../utils/userSession";
 import {useHistory} from 'react-router-dom';
+import {Dialog} from "material-ui";
+import CloseIcon from "@material-ui/icons/Close";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -138,14 +147,9 @@ export default function Login() {
                     </form>
                     <Grid container direction="column" justify="center">
                         <Grid item>
-                            <MuiLink className={classes.linkText} href="#" variant="body2" color="textPrimary">
-                                Forgot password?
-                            </MuiLink>
-                        </Grid>
-                        <Grid item>
                             <Typography variant="body2" display="block">
                                 Don't have an account?‏‏‎ ‎
-                                <MuiLink className={classes.linkText} href="#" variant="body2" color="textPrimary">
+                                <MuiLink className={classes.linkText} href="/register" variant="body2" color="textPrimary">
                                     {"Sign Up"}
                                 </MuiLink>
                             </Typography>
