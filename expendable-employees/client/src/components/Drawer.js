@@ -4,13 +4,15 @@ Custom Drawer for overall user view
 
  */
 
-import React from "react";
+import React, {useState, useEffect} from "react";
 import {Drawer as MUIDrawer, List, Divider} from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import {mainListItems, secondaryListItems, tertiaryListItems} from "./listitems";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import IconButton from "@material-ui/core/IconButton";
 import clsx from "clsx";
+import axios from "axios";
+import { getUserToken } from "../utils/userSession";
 
 const drawerWidth = 240;
 
@@ -44,16 +46,39 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
+
+
 const Drawer = props => {
     const classes = useStyles();
 
+    const [state, setState] = useState({
+        isAdmin: false
+    })
+
+    useEffect(() => {
+        async function checkAdmin() {
+            axios({
+                method: "get",
+                url: 'http://localhost:3001/api/isAdmin/',
+                headers : {
+                    "Content-Type": "application/json",
+                    "Authorization" : "Bearer " + getUserToken()
+                }
+            }).then((result) => {
+                setState({"isAdmin": result.data.status});
+            }).catch(error => {
+                console.log(error);
+            });
+        }
+        checkAdmin();
+    },[]);
 
     return (
         /*
             MUIDrawer - Material UI's Drawer
                 Gets onclick events from parent (UserLanding.js)
                     Closes or Opens depending on user's mouse events
-         */
+        */
         <MUIDrawer
             variant="permanent"
             open={props.open}
@@ -73,8 +98,9 @@ const Drawer = props => {
             { /* Displays sidebar items as specified in 'listitems.js' */ }
             <Divider />
             <List>{mainListItems}</List>
-            <Divider />
-            <List>{secondaryListItems}</List>
+
+            {state.isAdmin ? <Divider /> : null}
+            {state.isAdmin ? <List>{secondaryListItems}</List> : null }
             <Divider />
             <List>{tertiaryListItems}</List>
         </MUIDrawer>

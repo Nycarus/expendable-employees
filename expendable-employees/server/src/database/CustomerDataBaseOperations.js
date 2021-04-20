@@ -605,7 +605,7 @@ class CustomerDataBaseOperations {
     }
     // expects the user_id
     async getAdmin(data){
-        let success = this.db_instance.queryCollection(data,"Adminstrators");
+        let success = await this.db_instance.queryCollection(data,"Adminstrators");
         return success;
     }
 

@@ -459,9 +459,9 @@ app.post('/api/remove/employee/multiple', authToken, function(request, response)
     }
 });
 
-app.post('/api/isAdmin/', authToken, function(request, response) {
+app.get('/api/isAdmin/', authToken, function(request, response) {
     cdo.getAdmin({"user" : request.user_id.user_id }).then(function(result){
-        response.send({"stats" : result > 0 });
+        response.send({"status" : result.length > 0 });
     });
 
 });

@@ -51,12 +51,6 @@ export const mainListItems = (
             <ListItemText primary="Mail" />
         </ListItem>
 
-    </div>
-);
-
-export const secondaryListItems = (
-    <div>
-
         <ListItem button component={Link} to="/user/employees">
             <ListItemIcon>
                 <Storage />
@@ -64,6 +58,11 @@ export const secondaryListItems = (
             <ListItemText primary="Employees" />
         </ListItem>
 
+    </div>
+);
+
+export const secondaryListItems = (
+    <div>
         <ListItem button component={Link} to="/user/addemployee">
             <ListItemIcon>
                 <PersonAdd />
