@@ -88,8 +88,8 @@ export default function EditInfo() {
                email : state.email,
                phone: state.phone,
                address : state.address,
-               postal_code : state.postal_code,
-               date_of_birth: state.date_of_birth
+               postalcode : state.postalcode,
+               dateofbirth: state.dateofbirth
            }
         }).then(function(response){
             window.location.reload();
@@ -152,7 +152,7 @@ export default function EditInfo() {
                                     label="Date of Birth"
                                     id="dateofbirth"
                                     type="date"
-                                    value = {state.date_of_birth}
+                                    value = {state.dateofbirth}
                                     color="secondary"
                                     InputLabelProps={{
                                         shrink: true,
@@ -198,13 +198,13 @@ export default function EditInfo() {
                                     fullWidth={true}
                                     variant="outlined"
                                     margin="dense"
-                                    value={state.postal_code}
                                     required
                                     name="postalcode"
                                     label="Postal Code"
                                     id="postalcode"
+                                    value={state.postalcode}
                                     onChange={handleInputChange}
-                                    InputLabelProps={{ shrink: true }} 
+                                    InputLabelProps={{ shrink: true }}
                                     color="secondary"/>
                             </Grid>
                             <Grid item xs={1}/>
