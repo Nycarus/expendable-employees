@@ -307,7 +307,7 @@ app.post("/api/reset/employee/password",authToken, function(request,response){
 
 // expects email in form of http://localhost:3001/api/isEmailTaken?email=userEmail
 app.get('/api/isEmailTaken', function(request, response) {
-    query = {
+    let query = {
         email : request.query.email
     };
 
