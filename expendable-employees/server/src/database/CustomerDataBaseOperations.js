@@ -427,7 +427,7 @@ class CustomerDataBaseOperations {
     async sendEmail(message){
     
         var validation = jsonValidator(message,"Email");
-
+        console.log(validation);
         if(!validation.valid){
             return {
                 "success" : false,
@@ -446,8 +446,8 @@ class CustomerDataBaseOperations {
         }
         
         message.receivers = re_format;
-        console.log(JSON.stringify(message, null, 4));
-        
+        //console.log(JSON.stringify(message, null, 4));
+        console.log(message);
         let result = await this.db_instance.insertToCollection(message, "Email");
         
         if(!result){
@@ -474,6 +474,11 @@ class CustomerDataBaseOperations {
         let company_query = await this.db_instance.queryCollection({"user_id" : query.user_id}, "Email");
         console.log(company_query);
         return company_query;
+    }
+
+    async queryUser(query){
+        let user_query = await this.db_instance.queryCollection(query, "User");
+        return user_query;
     }
 
     async getUserSchedule(query){
