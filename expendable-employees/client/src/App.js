@@ -7,7 +7,6 @@ import Logout from "./pages/Logout";
 import {ThemeProvider, createMuiTheme} from '@material-ui/core/styles'
 import CssBaseline from "@material-ui/core/CssBaseline";
 import UserLanding from "./pages/UserLanding";
-import Dashboard from "./pages/Dashboard";
 import {ProtectedRoute} from "./utils/ProtectedRoute";
 import {NonUserRoute} from "./utils/NonUserRoute";
 

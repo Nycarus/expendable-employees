@@ -182,7 +182,7 @@ export default function Mail() {
                 Set all checkboxes (in both tabs) to False
         */
         if (event.target.checked) {
-            if (tab == 0) {
+            if (tab === 0) {
                 setCheckedCheckboxes(state.receivedData && state.receivedData.map(x => x._id));
             } else {
                 setCheckedCheckboxes(state.receivedData && state.sentData.map(x => x._id));
@@ -276,7 +276,7 @@ export default function Mail() {
                 receivers: users
             }
         }).then(response => {
-            if (response.status == 200){
+            if (response.status === 200){
                 let data = response.data;
                 for (let i = 0; i < data.length; i++) {
                     data[i].is_read = false;
@@ -286,18 +286,6 @@ export default function Mail() {
         }).catch(error => {
             console.log(error);
         });
-    }
-
-    const getIndexOfUserId = (val) => {
-
-        let tempVal = getUser();
-        
-        for (let i = 0; i < val.length; i++){
-            if(val[i]["user_id"] == tempVal){
-                return i;
-            }
-        }
-        return null;
     }
 
     // ----------------------------------------------------------------------------------------------------------------
@@ -435,7 +423,7 @@ export default function Mail() {
                                 state.receivedData.map((value) => {
                                     console.log(value.receivers);
                                     const array = value.receivers;
-                                    const getIndex = (element) => element["user_id"] == getUser();
+                                    const getIndex = (element) => element["user_id"] === getUser();
                                     const indexID = array.findIndex(getIndex);
 
                                     return (

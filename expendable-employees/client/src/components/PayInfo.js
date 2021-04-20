@@ -1,12 +1,5 @@
 import React from "react";
-import rd3 from 'react-d3-library';
 import {Divider, Grid, Paper, Typography, makeStyles } from '@material-ui/core';
-
-const RD3Component = rd3.Component;
-
-function preventDefault(event) {
-    event.preventDefault();
-}
 
 const useStyles = makeStyles((theme) => ({
     paperInfo: {

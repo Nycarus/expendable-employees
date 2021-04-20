@@ -5,11 +5,6 @@ import {TextField, Typography} from "@material-ui/core";
 import {getUserToken} from "../utils/userSession";
 import axios from "axios";
 
-
-function preventDefault(event) {
-    event.preventDefault();
-}
-
 const useStyles = makeStyles((theme) => ({
     categoryText: {
         marginBottom: theme.spacing(4),
@@ -40,13 +35,9 @@ function checkPassword(){
 
     let lengthRequirement = document.getElementById('lengthReq')
     let req1 = false;
-    let notSameRequirement = document.getElementById('notSameReq')
-    let req2 = false;
     let confirmationRequirement = document.getElementById('confirmReq')
     let req3 = false;
-    let oldPassRequirement = document.getElementById('oldPassReq')
-    let req4 = true;
-    
+
     let acceptable = document.getElementById('allGood')
 
     if(newPassword.length < 8){

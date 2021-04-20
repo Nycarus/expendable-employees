@@ -90,7 +90,7 @@ export default function Homepage() {
                 <Toolbar>
                     <Grid container direction="row" justify="space-between" alignItems="center">
                         <Grid item>
-                            <img src="assets/logo_full.png" height="50px"/>
+                            <img src="assets/logo_full.png" height="50px" alt="logo"/>
                         </Grid>
                         <Grid item>
                             <Grid container direction="row" justify="flex-end">
@@ -138,14 +138,14 @@ export default function Homepage() {
                             Donec nec lacus at purus mollis lobortis. Sed in ligula non massa consequat tristique.
                         </Typography>
                     </Grid>
-                    <Grid item className={classes.firstImage} item xs={5}/>
+                    <Grid item className={classes.firstImage} xs={5}/>
                 </Grid>
             </Paper>
 
             {/* Second content */}
             <Paper className={classes.showcaseCards} elevation={3}>
                 <Grid container spacing={10} direction="row">
-                    <Grid item className={classes.secondImage} item xs={5}/>
+                    <Grid item className={classes.secondImage} xs={5}/>
                     <Grid item xs={7}>
                         <Typography variant="h4" color="inherit" gutterBottom={true}>
                             Integer Fermentum Ipsum Lorem
@@ -179,7 +179,7 @@ export default function Homepage() {
                             scelerisque. Curabitur condimentum eros aliquet, elementum ante in, pulvinar velit.
                         </Typography>
                     </Grid>
-                    <Grid item className={classes.thirdImage} item xs={5}/>
+                    <Grid className={classes.thirdImage} item xs={5}/>
                 </Grid>
             </Paper>
 
@@ -188,7 +188,7 @@ export default function Homepage() {
                 <Grid container direction="row" justify="space-between" alignItems="flex-start">
                     <Grid item>
                         <Grid container direction="column" justify="flex-start" alignItems="flex-start">
-                            <img src="assets/logo_full.png" height="50px"/>
+                            <img src="assets/logo_full.png" height="50px" alt="logo"/>
                             <Typography variant="overline" color="inherit" align="left">
                                 Made by (2021) We Just Want to Pass Studio Ltd.
                             </Typography>

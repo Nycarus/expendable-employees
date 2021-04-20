@@ -16,12 +16,8 @@ import EditInfo from "./EditInfo";
 import PayInfo from "./PayInfo";
 import ChangePass from "./ChangePass";
 import {getUserToken} from "../utils/userSession";
-import axios from "axios";
 
 
-function preventDefault(event) {
-    event.preventDefault();
-}
 
 const useStyles = makeStyles((theme) => ({
     paperStyle: {
@@ -46,7 +42,6 @@ const schedulerData = [
     {startDate: '2021-04-22T08:00', endDate: '2021-04-22T20:00', title: 'Shift'}, // 7
 ];
 
-var currDay = 4;
 
 var maxDailyMoney = 15;
 

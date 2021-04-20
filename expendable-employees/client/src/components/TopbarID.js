@@ -61,7 +61,7 @@ export default function TopbarID() {
             }            
     }
     getData();
-    },[token]);
+    },[history, token]);
 
     //console.log(data)
 

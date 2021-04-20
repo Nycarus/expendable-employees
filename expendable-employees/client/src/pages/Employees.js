@@ -1,16 +1,11 @@
 import React, {useState, useEffect} from 'react';
 import {
-    DataGrid,
-    GridColumnsToolbarButton,
-    GridFilterToolbarButton,
-    GridDensitySelector,
-    GridToolbarExport,
-    GridToolbarContainer, GridToolbar, GridFooter
+    DataGrid,GridToolbar, GridFooter
 } from '@material-ui/data-grid';
 import {makeStyles} from '@material-ui/core/styles';
 import {
     Button,
-    createMuiTheme, Dialog, DialogActions,
+    Dialog, DialogActions,
     DialogContent,
     DialogTitle,
     Grid,
@@ -24,7 +19,6 @@ import CloseIcon from "@material-ui/icons/Close";
 import {MuiPickersUtilsProvider, DateTimePicker} from "@material-ui/pickers";
 import MomentUtils from '@date-io/moment';
 import axios from "axios";
-import {setUserSession} from "../utils/userSession";
 import {getUserToken} from "../utils/userSession";
 
 const columns = [
@@ -136,7 +130,7 @@ function CustomGridFooter(props) {
 
     // Edit Employee Button Click Handler
     const handleEditEmployee = () => {
-        if (props.selectionModel.selectionModel.length == 1) {
+        if (props.selectionModel.selectionModel.length === 1) {
             handleEditEmployeeDialog();
         } else {
             handleErrorDialog();
@@ -157,11 +151,6 @@ function CustomGridFooter(props) {
             data : {
                 "user_id" : props.selectionModel.selectionModel,
             }
-        }).then(response => 
-        {
-            if (response.status == 200){
-
-            }
         }).catch(error => {
             console.log("Error:", error);
         })
@@ -179,11 +168,6 @@ function CustomGridFooter(props) {
             },
             data : {
                 "user_id" : props.state.state.rows[Math.floor(Math.random() * props.state.state.rows.length)].user_id
-            }
-        }).then(response => 
-        {
-            if (response.status == 200){
-
             }
         }).catch(error => {
             console.log("Error:", error);
@@ -468,7 +452,7 @@ export default function Employees() {
                 
             }else{
 
-                let response = await axios({
+                await axios({
                     method : "get",
                     url : "http://localhost:3001/api/company/users",
                     headers : {

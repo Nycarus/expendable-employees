@@ -6,20 +6,13 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import {makeStyles} from '@material-ui/core/styles';
-import {Link} from "react-router-dom";
 import {
-    DialogActions,
-    DialogContent,
-    DialogContentText,
-    DialogTitle,
-    Divider, IconButton,
+    Divider,
     Link as MuiLink
 } from '@material-ui/core';
 import axios from "axios";
-import {setUserSession, getUserToken} from "../utils/userSession";
+import {setUserSession} from "../utils/userSession";
 import {useHistory} from 'react-router-dom';
-import {Dialog} from "material-ui";
-import CloseIcon from "@material-ui/icons/Close";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -75,7 +68,7 @@ export default function Login() {
             "password" : state.password
         }
         ).then(response => {
-            if (response.status == 200){
+            if (response.status === 200){
 
                 setUserSession(response.data);
 
@@ -84,7 +77,7 @@ export default function Login() {
         }).catch(error => {
             //console.log("Error:", error);
             //console.log(error.request.status)
-            let message = error.request.status == 0 ? "The Auth Server Never Sent a Response" :"You Have Entered An Invalid Email Or Password";
+            let message = error.request.status === 0 ? "The Auth Server Never Sent a Response" :"You Have Entered An Invalid Email Or Password";
             
             setState({
                 invalidInput: true,
@@ -103,7 +96,7 @@ export default function Login() {
             <Grid item xs={false} sm={4} md={9} className={classes.image}/>
             <Grid item xs={12} sm={8} md={3} component={Paper} elevation={6} square>
                 <div className={classes.paper}>
-                    <img src="assets/logo_full.png" height="70px"/>
+                    <img src="assets/logo_full.png" height="70px" alt="logo"/>
                     <Divider className={classes.dividerStyle}/>
                     <Typography component="h1" variant="h5">Sign in</Typography>
                     <form onSubmit = {handleLogin}>

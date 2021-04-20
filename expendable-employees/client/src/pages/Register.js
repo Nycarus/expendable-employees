@@ -6,9 +6,7 @@ import {Divider, Paper, Container, TextField, Typography, CircularProgress} from
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import axios from "axios";
-import {setUserSession, getUserToken} from "../utils/userSession";
 import {useHistory} from 'react-router-dom';
-import clsx from "clsx";
 import {green} from "@material-ui/core/colors";
 
 const useStyles = makeStyles((theme) => ({
@@ -76,7 +74,7 @@ export default function Register() {
     const handleRegister = (value) => {
         value.preventDefault();
 
-        if (state.password == state.confirmPassword) {
+        if (state.password === state.confirmPassword) {
             axios.post('http://localhost:3001/api/register/company',
                 {
                     user: {
@@ -97,7 +95,7 @@ export default function Register() {
                     }
                 }
             ).then(response => {
-                if (response.status == 200) {
+                if (response.status === 200) {
 
                     history.push('/login');
                 }
@@ -132,7 +130,7 @@ export default function Register() {
             <AppBar style={{marginBottom: "2rem"}} position="static">
                 <Toolbar>
                     <Container>
-                        <img src="assets/logo_full.png" height="50px"/>
+                        <img src="assets/logo_full.png" height="50px" alt="logo"/>
                     </Container>
                 </Toolbar>
             </AppBar>
@@ -340,7 +338,7 @@ export default function Register() {
                 <Grid container direction="row" justify="space-between" alignItems="flex-start">
                     <Grid item>
                         <Grid container direction="column" justify="flex-start" alignItems="flex-start">
-                            <img src="assets/logo_full.png" height="50px"/>
+                            <img src="assets/logo_full.png" height="50px" alt="logo"/>
                             <Typography variant="overline" color="inherit" align="left">
                                 Made by (2021) We Just Want to Pass Studio Ltd.
                             </Typography>

@@ -1,15 +1,10 @@
 import React from 'react';
-import Link from '@material-ui/core/Link';
-import ListItem from '@material-ui/core/ListItem';
-import { makeStyles, Grid, Paper, Table, Divider, TableBody, TableCell, TableRow, Typography, Link as MuiLink } from '@material-ui/core';
+import { makeStyles, Grid, Paper, Divider, Typography, Link as MuiLink } from '@material-ui/core';
 import MailOutlinedIcon from '@material-ui/icons/MailOutlined';
-import {Route, Switch, useRouteMatch, useLocation} from "react-router-dom";
+import {Route, useRouteMatch} from "react-router-dom";
 import Mail from './../pages/Mail'
 import {Link as myLink} from "react-router-dom";
 
-function preventDefault(event) {
-    event.preventDefault();
-}
 
 const useStyles = makeStyles((theme) => ({
     paperStyle: {
@@ -24,15 +19,6 @@ const useStyles = makeStyles((theme) => ({
         paddingBottom: theme.spacing(1)
     },
 }));
-
-function viewEmail(anEmail){
-    return function(){
-        console.log(anEmail)
-        /*
-        
-        */
-    }
-}
 export default function EmailDashboard() {
     const classes = useStyles();
     const { path } = useRouteMatch();

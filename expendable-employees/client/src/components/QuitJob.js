@@ -1,8 +1,5 @@
 import React from "react";
-import {makeStyles, Button, Grid, Typography, Paper } from '@material-ui/core/';
-import { Redirect } from 'react-router';
-import ListItem from '@material-ui/core/ListItem';
-import {useHistory} from 'react-router-dom';
+import {makeStyles, Button, Typography, Paper } from '@material-ui/core/';
 import {Link as myLink} from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
@@ -13,13 +10,6 @@ const useStyles = makeStyles((theme) => ({
         paddingBottom: theme.spacing(4)
     }
 }));
-
-
-function jobQuit(){
-    return function(){
-        console.log('test')
-    }
-}
 
 export default function QuitJob() {
     const classes = useStyles();

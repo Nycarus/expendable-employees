@@ -14,13 +14,10 @@ I'm going to come back to this later
 
 
 import React from "react";
-import {makeStyles, Table, TableHead, TableBody, TableCell, TableRow, Typography, Grid, IconButton, Divider} from '@material-ui/core';
+import { Table, TableHead, TableBody, TableCell, TableRow, Typography, Grid, IconButton, Divider} from '@material-ui/core';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 
-const useStyles = makeStyles((theme) => ({
-    
-}));
 //Hardcoded test data
 const schedulerData = [
     {startDate: '2021-04-12T08:00', endDate: '2021-04-12T12:00', title: 'Shift'}, // 0
@@ -90,10 +87,7 @@ function setHoursTableValues(){
                 document.getElementById('dataHours'+dataCats[i]+j).innerText = info;
             } else if(i === 3){
                 //this'll probably give an error
-                let end = dayInfo.endDate.slice(11);
-                let start = dayInfo.startDate.slice(11);
-                //eh, NaN 
-                let dur = end - start
+                //eh, NaN
                 document.getElementById('dataHours'+dataCats[i]+j).innerText = dayIndex;
             }
             dayOffset += 1;

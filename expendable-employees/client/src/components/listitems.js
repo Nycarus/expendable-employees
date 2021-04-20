@@ -3,7 +3,6 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import DashboardIcon from '@material-ui/icons/Dashboard';
-import BarChartIcon from '@material-ui/icons/BarChart';
 import ExitToApp from '@material-ui/icons/ExitToApp';
 import {AccountCircle, Inbox, PersonAdd, Storage, Today} from "@material-ui/icons";
 import {Link} from "react-router-dom";
