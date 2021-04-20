@@ -302,7 +302,7 @@ class CustomerDataBaseOperations {
 
     // checkes the database to see if the specified email is taken
     async isEmailTaken(query) {
-        let data = await this.db_instance.queryCollection(query, "User");
+        let data = await this.db_instance.queryCollection({"email": query}, "User");
 
         if (data.length > 0) {
             return true;
@@ -325,6 +325,7 @@ class CustomerDataBaseOperations {
         let isTaken = await this.isEmailTaken(data.email);
         
         if (!isTaken & validateUser(data)) {
+            console.log("here");
             data.password = await this.hashPassword(data.password);
             return this.db_instance.insertToCollection(data, "User").then(function(result) {
                 return {
