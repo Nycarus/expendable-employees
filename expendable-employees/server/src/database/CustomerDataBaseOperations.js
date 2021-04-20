@@ -8,11 +8,12 @@ const saltRounds = 10;
 
 
 function validateUser(data) {
+    console.log(data)
 
     if (data["email"] == undefined) {
         return false;
     }
-    if (!evalidator.validate(data["email"].replaceAll(" ", ""))) {
+    if (!evalidator.validate(data["email"].replace(/ /g, ""))) {
         return false;
     }
 
@@ -80,6 +81,7 @@ class CustomerDataBaseOperations {
 
         let user = await this.db_instance.queryCollection(query, "User");
 
+        console.log(data.company);
         data.company["owner"] = user[0]._id.toString() 
 
         
@@ -271,15 +273,10 @@ class CustomerDataBaseOperations {
         let company_query = await this.db_instance.queryCollection({"owner" : new ObjectID(data.company_id)}, "Company");
 
         // making sure the owner company exists
-        let user_query = await this.db_instance.queryCollection({"_id" : new ObjectID(data.user_id)}, "User");
+        //let user_query = await this.db_instance.queryCollection({"_id" : new ObjectID(data.user_id)}, "User");
 
         // making sure there is not already a branch with these parameters
-        if (branch_query.length > 0) {
-            return {
-                "success": false,
-                "reason": "there is already a branch with that name to that company"
-            };
-        } else if (comp_query.length < 1) {
+        if (company_query.length < 1) {
             return {
                 "success": false,
                 "reason": "the company that this branch would be registerd to doesnt exist"
@@ -301,13 +298,13 @@ class CustomerDataBaseOperations {
 
 
     // checkes the database to see if the specified email is taken
-    async isEmailTaken(query) {
-        let data = await this.db_instance.queryCollection(query, "User");
+    async isEmailNotTaken(query) {
+        let data = await this.db_instance.queryCollection({"email":query}, "User");
 
         if (data.length > 0) {
-            return true;
+            return false;
         } else {
-            return false
+            return true
         }
     
     }
@@ -322,9 +319,10 @@ class CustomerDataBaseOperations {
             }
         }
 
-        let isTaken = await this.isEmailTaken(data.email);
-        
-        if (!isTaken & validateUser(data)) {
+        let isNotTaken = await this.isEmailNotTaken(data.email);
+
+        if (isNotTaken && validateUser(data)) {
+            console.log("Passes")
             data.password = await this.hashPassword(data.password);
             return this.db_instance.insertToCollection(data, "User").then(function(result) {
                 return {
@@ -594,6 +592,7 @@ class CustomerDataBaseOperations {
         }
     */
     async resetPassword(data){
+        console.log(data)
         if(data.password == undefined | data.user_id == null){
             return false;
         }

@@ -306,12 +306,12 @@ app.post("/api/reset/employee/password",authToken, function(request,response){
 
 
 // expects email in form of http://localhost:3001/api/isEmailTaken?email=userEmail
-app.get('/api/isEmailTaken', function(request, response) {
+app.get('/api/isEmailNotTaken', function(request, response) {
     let query = {
         email : request.query.email
     };
 
-    result = cdo.isEmailTaken(query);
+    result = cdo.isEmailNotTaken(query);
     result.then(function(data){
         response.send({"isTaken" : data});
 

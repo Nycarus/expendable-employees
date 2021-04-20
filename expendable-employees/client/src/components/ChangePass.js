@@ -36,7 +36,6 @@ const useStyles = makeStyles((theme) => ({
 function checkPassword(){
 
     let newPassword = document.getElementById('newPass').value
-    let oldPassword = document.getElementById('oldPass').value
     let confPassword = document.getElementById('confPass').value
 
     let lengthRequirement = document.getElementById('lengthReq')
@@ -56,15 +55,6 @@ function checkPassword(){
     } else {
         lengthRequirement.style.display = 'none'
         req1 = true;
-    }
-
-    if(newPassword === oldPassword){
-        notSameRequirement.style.display='block'
-        req2 = false;
-    } else {
-        
-        notSameRequirement.style.display='none'
-        req2 = true;
     }
 
     if(newPassword !== confPassword){
@@ -88,7 +78,7 @@ function checkPassword(){
     */
 
 
-    if(req1 && req2 && req3 && req4){
+    if(req1 && req3){
         console.log("password good");
         let token = getUserToken();
         if(token != null){
@@ -129,17 +119,6 @@ export default function ChangePass() {
                             variant="outlined"
                             margin="dense"
                             required
-                            name="oldPass"
-                            label="Old Password"
-                            id="oldPass"
-                            type="password"
-                            color="secondary"/>
-                        <br/>
-                        <TextField
-                            fullWidth={true}
-                            variant="outlined"
-                            margin="dense"
-                            required
                             name="newPass"
                             label="New Password"
                             id="newPass"
@@ -167,7 +146,7 @@ export default function ChangePass() {
                             variant="contained"
                             color="primary"
                             onClick={checkPassword}>
-                            Register
+                            Submit
                         </Button>
 
                         <br />
