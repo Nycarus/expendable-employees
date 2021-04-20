@@ -363,7 +363,7 @@ class CustomerDataBaseOperations {
             let query_result = await this.db_instance.queryCollection({"_id" : new ObjectID(data.mail_id[i].mail_id)}, "Email");
 
             console.log(query_result);
-
+            console.log(query_result[0]);
             for (let i = 0 ; i <  query_result[0].receivers.length;i++){
                 console.log(query_result[0].receivers[i].user_id);
                 console.log(query_result[0].receivers[i].user_id == data.user_id);
@@ -371,10 +371,8 @@ class CustomerDataBaseOperations {
                     query_result[0].receivers[i]["is-read"] = true;
                 }
             }
-
-            if (query_result > 0){
-                await this.db_instance.updateDocument({"_id" : new ObjectID(data.mail_id[i].mail_id)}, query_result[0], "Email");
-            }
+            
+            await this.db_instance.updateDocument({"_id" : new ObjectID(data.mail_id[i].mail_id)}, query_result[0], "Email");
         }
     }
 
