@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import DoneIcon from '@material-ui/icons/Done';
 import {makeStyles} from '@material-ui/core/styles';
 import {
@@ -79,61 +79,40 @@ function TabPanel(props) {
     );
 }
 
-const getReceivedMessages = () => {
-    axios({
-        method : "get",
-        url : "http://localhost:3001/api/email/receive",
-        headers : {
-            "Content-Type": "application/json",
-            "Authorization" : "Bearer " + getUserToken()
-        }
-    }).then(response => {
-        if (response.status == 200){
-            let data = response.data;
-            for (let i = 0; i < data.length; i++) {
-                data[i].is_read = false;
-            }
-            return data;
-        }
-    }).catch(error => {
-        console.log(error);
-    });
-}
-
-const getSentMessages = () => {
-    axios({
-        method : "get",
-        url : "http://localhost:3001/api/email/sent",
-        headers : {
-            "Content-Type": "application/json",
-            "Authorization" : "Bearer " + getUserToken()
-        }
-    }).then(response => {
-        if (response.status == 200){
-            let data = response.data;
-            for (let i = 0; i < data.length; i++) {
-                data[i].is_read = false;
-            }
-            return data;
-        }
-    }).catch(error => {
-        console.log(error);
-    });
-}
-
-
 export default function Mail() {
 
+    let token = getUserToken();
     const [state, setState] = useState({
-        sentData: [],
-        receivedData: [],
-        recipient: "",
-        title: "",
-        message: ""
-    })
+        "sentData": [],
+        "receivedData": [],
+        "recipient": "",
+        "title": "",
+        "message": ""
+    });
 
-    state.receivedData = getReceivedMessages()
-    state.sentData = getSentMessages()
+    useEffect(() => {
+
+        async function getData(){
+            if (token == null){
+
+            }else{
+
+                let response = await axios({
+                    method : "get",
+                    url : "http://localhost:3001/api/email/receive",
+                    headers : {
+                        "Content-Type": "application/json",
+                        "Authorization" : "Bearer " + token
+                    }
+                }).catch(error => {
+                    console.log(error);
+                });
+                setState({"receivedData" :response.data});
+                return response.data[0];
+            }
+        }
+        getData();
+    },[token]);
 
     const classes = useStyles();
     const {path} = useRouteMatch();
@@ -417,7 +396,7 @@ export default function Mail() {
                     <TabPanel value={tab} index={0}>
                         <List disablePadding>
                             {
-                                state.receivedData && state.receivedData.map((value) => {
+                                state.receivedData.map((value) => {
                                     return (
                                         <div>
                                             <Grid
@@ -451,7 +430,7 @@ export default function Mail() {
                                                             primary={
                                                                 <Typography color={handleTitleColor(value.is_read)}>
                                                                     <Box fontWeight={handleTitleWeight(value.is_read)}>
-                                                                        {value.title}
+                                                                        {new Date(value.time_sent).toString() + "\t" + (value.title ? value.title : "")}
                                                                     </Box>
                                                                 </Typography>
                                                             }
@@ -469,7 +448,7 @@ export default function Mail() {
                     <TabPanel value={tab} index={1}>
                         <List disablePadding>
                             {
-                                state.sentData && state.sentData.map((value) => {
+                                state.receivedData.map((value) => {
                                     return (
                                         <div>
                                             <Grid

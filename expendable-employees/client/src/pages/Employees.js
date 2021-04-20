@@ -419,8 +419,6 @@ export default function Employees() {
     getData();
     },[token]);
 
-
-
     return (
         <Paper className={classes.paper}>
             <DataGrid
