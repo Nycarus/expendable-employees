@@ -269,11 +269,6 @@ function CustomGridFooter(props) {
                 "startDate" : selectedStartDate.toISOString(),
                 "endDate" : selectedEndDate.toISOString()
             }
-        }).then(response => 
-        {
-            if (response.status == 200){
-
-            }
         }).catch(error => {
             console.log("Error:", error);
         })

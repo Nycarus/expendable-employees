@@ -402,12 +402,11 @@ app.get('/api/schedule/user', authToken, function(request, response) {
 });
 
 app.post('/api/schedule/add/multiple', authToken, function(request, response) {
+    console.log(request.body);
     let temp = {};
-    for ( let i = 0; i < request.body.user_id; i ++) {
+    for ( let i = 0; i < request.body.user_id.length; i ++) {
         temp = {"user_id" : request.body.user_id[i], "startDate" : request.body.startDate, "endDate" : request.body.endDate, "title": request.body.title}
-        cdo.addUserSchedule(temp).then(function(result){
-            
-        })
+        cdo.addUserSchedule(temp).then(function(result){})
     }
 });
 
@@ -418,7 +417,7 @@ app.post('/api/remove/user/single', authToken, function(request, response) {
 });
 
 app.post('/api/remove/employee/multiple', authToken, function(request, response) {
-    for ( let i = 0; i < request.body.user_id; i ++) {
+    for ( let i = 0; i < request.body.user_id.length; i ++) {
         cdo.removeUser(request.body.user_id[i]).then(function(result){})
 
         cdo.removeEmployee(request.body.user_id[i]).then(function(result){})
@@ -426,7 +425,7 @@ app.post('/api/remove/employee/multiple', authToken, function(request, response)
 });
 
 app.post('/api/edit/employee/multiple/pay', authToken, function(request, response) {
-    for ( let i = 0; i < request.body.user_id; i ++) {
+    for ( let i = 0; i < request.body.user_id.length; i ++) {
         cdo.editEmployeePay(request.body.user_id[i]).then(function(result){})
     }
 });

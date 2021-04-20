@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {fade, makeStyles} from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import {ViewState} from '@devexpress/dx-react-scheduler';
@@ -28,23 +28,6 @@ const schedulerData = [
     {startDate: '2021-04-22T08:00', endDate: '2021-04-22T20:00', title: 'Shift'},
 ];
 */
-
-const getScheduleData = () => {
-    console.log("check")
-    axios.get('http://localhost:3001/api/schedule/user', {
-        headers:{
-            "Content-Type": "application/json",
-            "Authorization" : "Bearer "+ getUserToken()
-        }
-    }).then(response => 
-    {
-        if (response.status == 200){
-            return response.data;
-        }
-    }).catch(error => {
-        console.log("Error:", error);
-    })
-}
 
 const useStyles = makeStyles((theme) => ({
     //Current day colour styling:
@@ -86,16 +69,48 @@ const DayScaleCell = (props) => {
 };
 
 export default function Schedule() {
-    let schedulerData = getScheduleData();
 
     const currentDate = new Date();
-    const classes = useStyles();
+
+    let token = getUserToken();
+
+    const [state, setState] = useState({
+        "schedulerData": []
+    });
+
+
+    useEffect(() => {
+
+        async function getData() {
+            if (token == null) {
+
+            } else {
+
+                axios({
+                    method: "get",
+                    url: "http://localhost:3001/api/schedule/user",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": "Bearer " + token
+                    }
+                }).then((response) => {
+                    console.log(response.data);
+                    setState({"schedulerData": response.data});
+                    return response.data[0];
+                }).catch(error => {
+                    console.log(error);
+                });
+            }
+        }
+
+        getData();
+    }, [token]);
 
     return (
         <Box>
             <Paper>
                 <Scheduler
-                    data={schedulerData}
+                    data={state.schedulerData}
                     height='auto'
                 >
                     <ViewState
@@ -111,7 +126,7 @@ export default function Schedule() {
                     <DateNavigator/>
                     <TodayButton/>
                     <Appointments/>
-                    <AppointmentTooltip />
+                    <AppointmentTooltip/>
                 </Scheduler>
             </Paper>
         </Box>
