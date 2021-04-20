@@ -469,7 +469,7 @@ class CustomerDataBaseOperations {
     }
 
     async receiveEmails(query){
-        let company_query = await this.db_instance.queryCollection({"receivers" : [{"user_id" : query}]}, "Email");
+        let company_query = await this.db_instance.queryCollection({"receivers" : {$elemMatch: {"user_id" : query}}}, "Email");
         console.log(company_query);
         return company_query;
     }
