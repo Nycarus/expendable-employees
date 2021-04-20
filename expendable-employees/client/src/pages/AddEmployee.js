@@ -8,8 +8,8 @@ import axios from "axios";
 const useStyles = makeStyles((theme) => ({
     appBarSpacer: theme.mixins.toolbar,
     content: {
-        marginLeft: theme.spacing(5),
-        marginRight: theme.spacing(5),
+        marginLeft: theme.spacing(4),
+        marginRight: theme.spacing(4),
         overflowX: 'hidden',
         overflowY: 'hidden',
         marginBottom: theme.spacing(5)
@@ -186,97 +186,103 @@ export default function AddEmployee() {
                                 <Grid item xs/>
                             </Grid>
                         </Paper>
+                            <Grid container justify="flex-start">
+                                <Button
+                                    className={classes.addButton}
+                                    type="submit"
+                                    variant="contained"
+                                    color="primary"
+                                    component={Link} to="#"
+                                    onClick={handleRegisterEmployee}>
+                                    Add Employee
+                                </Button>
+                            </Grid>
                     </Grid>
                     <Grid item xs>
-                        <Paper className={classes.paperStyle}>
-                            <Typography variant="h5" gutterBottom={true}>Job Information</Typography>
-                            <TextField
-                                fullWidth={true}
-                                variant="outlined"
-                                margin="dense"
-                                required
-                                name="branch"
-                                label="Branch Name"
-                                id="branch"
-                                value={state.branch}
-                                onChange={handleInputChange}
-                                color="secondary"/>
-                            <br/>
-                            <TextField
-                                fullWidth={true}
-                                variant="outlined"
-                                margin="dense"
-                                required
-                                name="position"
-                                label="Position"
-                                id="position"
-                                value={state.position}
-                                onChange={handleInputChange}
-                                color="secondary"/>
-                            <br/>
-                            <TextField
-                                fullWidth={true}
-                                variant="outlined"
-                                margin="dense"
-                                required
-                                name="pay_rate"
-                                label="Pay Rate"
-                                id="pay_rate"
-                                value={state.pay_rate}
-                                onChange={handleInputChange}
-                                color="secondary"/>
-                        </Paper>
-                    </Grid>
-                    <Grid item xs>
-                        <Paper className={classes.paperStyle}>
-                            <Typography variant="h5" gutterBottom={true}>Employee Credentials</Typography>
-                            <TextField
-                                fullWidth={true}
-                                variant="outlined"
-                                margin="dense"
-                                required
-                                name="email"
-                                label="Email"
-                                id="email"
-                                value={state.email}
-                                onChange={handleInputChange}
-                                color="secondary"/>
-                            <TextField
-                                fullWidth={true}
-                                variant="outlined"
-                                margin="dense"
-                                required
-                                name="password"
-                                label="Password"
-                                id="password"
-                                value={state.password}
-                                onChange={handleInputChange}
-                                color="secondary"/>
-                            <TextField
-                                fullWidth={true}
-                                variant="outlined"
-                                margin="dense"
-                                required
-                                name="confirmPassword"
-                                label="Confirm Password"
-                                id="confirmPassword"
-                                value={state.confirmPassword}
-                                onChange={handleInputChange}
-                                color="secondary"/>
-                        </Paper>
+                        <Grid container spacing={1} direction="column">
+                            <Grid item>
+                                <Paper className={classes.paperStyle}>
+                                    <Typography variant="h5" gutterBottom={true}>Job Information</Typography>
+                                    <TextField
+                                        fullWidth={true}
+                                        variant="outlined"
+                                        margin="dense"
+                                        required
+                                        name="branch"
+                                        label="Branch Name"
+                                        id="branch"
+                                        value={state.branch}
+                                        onChange={handleInputChange}
+                                        color="secondary"/>
+                                    <br/>
+                                    <TextField
+                                        fullWidth={true}
+                                        variant="outlined"
+                                        margin="dense"
+                                        required
+                                        name="position"
+                                        label="Position"
+                                        id="position"
+                                        value={state.position}
+                                        onChange={handleInputChange}
+                                        color="secondary"/>
+                                    <br/>
+                                    <TextField
+                                        fullWidth={true}
+                                        variant="outlined"
+                                        margin="dense"
+                                        required
+                                        name="pay_rate"
+                                        label="Pay Rate"
+                                        id="pay_rate"
+                                        value={state.pay_rate}
+                                        onChange={handleInputChange}
+                                        color="secondary"/>
+                                </Paper>
+                            </Grid>
+                            <Grid item>
+                                <Paper className={classes.paperStyle}>
+                                    <Typography variant="h5" gutterBottom={true}>Employee Credentials</Typography>
+                                    <TextField
+                                        fullWidth={true}
+                                        variant="outlined"
+                                        margin="dense"
+                                        required
+                                        name="email"
+                                        label="Email"
+                                        id="email"
+                                        value={state.email}
+                                        onChange={handleInputChange}
+                                        color="secondary"/>
+                                    <TextField
+                                        fullWidth={true}
+                                        variant="outlined"
+                                        margin="dense"
+                                        required
+                                        name="password"
+                                        label="Password"
+                                        id="password"
+                                        value={state.password}
+                                        onChange={handleInputChange}
+                                        color="secondary"/>
+                                    <TextField
+                                        fullWidth={true}
+                                        variant="outlined"
+                                        margin="dense"
+                                        required
+                                        name="confirmPassword"
+                                        label="Confirm Password"
+                                        id="confirmPassword"
+                                        value={state.confirmPassword}
+                                        onChange={handleInputChange}
+                                        color="secondary"/>
+                                </Paper>
+                            </Grid>
+                        </Grid>
+                        
                     </Grid>
                 </Grid>
-                <Grid container justify="flex-start">
-                    <Button
-                        className={classes.addButton}
-                        type="submit"
-                        variant="contained"
-                        color="primary"
-                        component={Link} to="#"
-                        onClick={handleRegisterEmployee}>
-                        Add Employee
-                    </Button>
-                </Grid>
+                
                 
             </main>
         </div>
