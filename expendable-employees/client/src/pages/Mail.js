@@ -117,7 +117,7 @@ export default function Mail() {
                 }).catch(error => {
                     console.log(error);
                 });
-                setState({"receivedData" :response1.data});
+                setState({"receivedData" :response1.data,"sentData" :response2.data});
                 //setState({"sentData" :response2.data});
             }
         }
@@ -458,7 +458,7 @@ export default function Mail() {
                     <TabPanel value={tab} index={1}>
                         <List disablePadding>
                             {
-                                state.receivedData.map((value) => {
+                                state.sentData.map((value) => {
                                     return (
                                         <div>
                                             <Grid
