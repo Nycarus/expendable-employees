@@ -38,8 +38,9 @@ The full schema can be viewed in `schema.json` in the root of this git repo.
 - Admins can remove/"fire" Regular Users
 - Admins can edit Regular User's payrate
 - Visual Database
-- Form validation (Incorrect password, too many/little users selected in data table, etc)
+- Form validation (Incorrect password, too many/little users selected in data table, bad connection, etc)
 - Permission checking (Admins-only actions)
+- Schema enforcement
 - ...and more!
 
 ## Premade Test Accounts
